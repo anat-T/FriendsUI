@@ -33,9 +33,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const sections = [
-    { title: i18next.t('profile.requests'), src: requests },
-    { title: i18next.t('profile.myGroups'), src: myGroups },
-    { title: i18next.t('profile.groupManager'), src: groupManager },
+    { title: i18next.t('profile.requests'), src: requests, route: '/myRequests' },
+    { title: i18next.t('profile.myGroups'), src: myGroups, route: '/myGroups' },
+    { title: i18next.t('profile.groupManager'), src: groupManager, route: '/groupManager' },
 ];
 
 export default function Profile() {
@@ -49,7 +49,7 @@ export default function Profile() {
             <Grid container className={classes.grid} spacing={10}>
                 {sections.map((section) => (
                     <Grid item>
-                        <SectionButton title={section.title} src={section.src} />
+                        <SectionButton title={section.title} src={section.src} route={section.route} />
                     </Grid>
                 ))}
             </Grid>

@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, makeStyles, Theme, Typography } from '@material-ui/core';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) => ({
     button: {
@@ -28,14 +29,21 @@ const useStyles = makeStyles((theme: Theme) => ({
 type SectionButtonProps = {
     title: string;
     src: string;
+    route: string;
 };
 
-export default function SectionButton({ title, src }: SectionButtonProps) {
+export default function SectionButton({ title, src, route }: SectionButtonProps) {
     const classes = useStyles();
     return (
+        // <Button className={classes.button}>
+        //     <Typography className={classes.typography}>{title}</Typography>
+        //     <img src={src} alt="" className={classes.img} />
+        // </Button>
         <Button className={classes.button}>
             <Typography className={classes.typography}>{title}</Typography>
-            <img src={src} alt="" className={classes.img} />
+            <Link to={route}>
+                <img src={src} alt="" className={classes.img} />
+            </Link>
         </Button>
     );
 }

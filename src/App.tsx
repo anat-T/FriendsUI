@@ -108,6 +108,15 @@ const App = () => {
                     <Route path="/profile">
                         <Profile />
                     </Route>
+                    <Route path="/myRequests">
+                        <Profile />
+                    </Route>
+                    <Route path="/myGroups">
+                        <Profile />
+                    </Route>
+                    <Route path="/groupManager">
+                        <Profile />
+                    </Route>
                     <Route path="/">
                         <Main />
                     </Route>
