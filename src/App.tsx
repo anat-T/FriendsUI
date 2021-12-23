@@ -21,6 +21,7 @@ import CreateGroup from './pages/CreateGroup/CreateGroup';
 import SearchGroup from './pages/SearchGroup/SearchGroup';
 import Requests from './pages/Requests/Requests';
 import Profile from './pages/Profile/Profile';
+import MyRequests from './pages/MyRequests/MyRequests';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const useStyles = makeStyles((theme: Theme) =>
@@ -109,7 +110,7 @@ const App = () => {
                         <Profile />
                     </Route>
                     <Route path="/myRequests">
-                        <Profile />
+                        <MyRequests />
                     </Route>
                     <Route path="/myGroups">
                         <Profile />

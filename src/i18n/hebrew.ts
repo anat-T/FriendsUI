@@ -32,4 +32,10 @@ export default {
         groupManager: 'קבוצות בניהולי',
         title: 'פרופיל אישי',
     },
+    requests: {
+        title: 'בקשות לטיפולי',
+        groupManagement: 'ניהול קבוצה',
+        groupCreation: 'יצירת קבוצה',
+        groupJoin: 'הצטרפות לקבוצה',
+    },
 };
