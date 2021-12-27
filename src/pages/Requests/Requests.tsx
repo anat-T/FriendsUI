@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const sections = [
     { title: i18next.t('requests.groupCreation'), src: groupCreation, route: '/groupCreation' },
-    { title: i18next.t('requests.groupJoin'), src: groupJoin, route: '/joinGroup' },
+    { title: i18next.t('requests.groupJoin'), src: groupJoin, route: '/joinGroupRequests' },
     { title: i18next.t('requests.groupManagement'), src: groupManagement, route: '/manageGroup' },
 ];
 

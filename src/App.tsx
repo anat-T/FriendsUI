@@ -21,7 +21,8 @@ import CreateGroup from './pages/CreateGroup/CreateGroup';
 import SearchGroup from './pages/SearchGroup/SearchGroup';
 import Requests from './pages/Requests/Requests';
 import Profile from './pages/Profile/Profile';
-import MyRequests from './pages/MyRequests/MyRequests';
+import MyRequestsTable from './pages/Tables/MyRequestsTable/MyRequestsTable';
+import JoinGroupTable from './pages/Tables/JoinGroupTable/JoinGroupTable';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const useStyles = makeStyles((theme: Theme) =>
@@ -110,7 +111,10 @@ const App = () => {
                         <Profile />
                     </Route>
                     <Route path="/myRequests">
-                        <MyRequests />
+                        <MyRequestsTable />
+                    </Route>
+                    <Route path="/joinGroupRequests">
+                        <JoinGroupTable />
                     </Route>
                     <Route path="/myGroups">
                         <Profile />
