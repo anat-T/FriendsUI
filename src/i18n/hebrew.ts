@@ -38,4 +38,12 @@ export default {
         groupCreation: 'יצירת קבוצה',
         groupJoin: 'הצטרפות לקבוצה',
     },
+    Groups: {
+        security: 'קבוצת אבטחה',
+        mail: 'תפוצת דואל',
+    },
+    GroupBox: {
+        manager: 'מנהל:',
+        numberOfParticipents: 'מס משתתפים:',
+    },
 };

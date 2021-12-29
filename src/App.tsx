@@ -18,7 +18,6 @@ import { ConfigContext, PreferencesContext, UserContext } from './index';
 import ToolBar from './components/ToolBar/ToolBar';
 import friendslogo from './images/friends-logo.png';
 import CreateGroup from './pages/CreateGroup/CreateGroup';
-import SearchGroup from './pages/SearchGroup/SearchGroup';
 import Requests from './pages/Requests/Requests';
 import Profile from './pages/Profile/Profile';
 import MyRequestsTable from './pages/Tables/MyRequestsTable/MyRequestsTable';
