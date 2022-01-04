@@ -2,7 +2,8 @@ version: "3.3"
 
 services:
   friends-frontend:
-      image: friends.azurecr.io/friends-frontend:latest
+      build: .
+      image: friends-frontend
       ports:
       - "80:80"
       depends_on: 
@@ -18,8 +19,6 @@ services:
     # depends_on:
     #   - authentication-service
     #   - nats
-    ports:
-      - "8080:8080"
     networks:
       - internal
       - default
