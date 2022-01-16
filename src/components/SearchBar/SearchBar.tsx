@@ -2,7 +2,7 @@
 /* eslint-disable no-shadow */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box, Grid, IconButton, makeStyles, TextField, Theme, Typography } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-unresolved
 import SearchIcon from '@material-ui/icons/Search';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -10,6 +10,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import LockIcon from '@material-ui/icons/Lock';
 import i18next from 'i18next';
 import debounce from '../../utils/debounce';
+import * as groupsApi from '../../utils/api-routes/group';
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -93,19 +94,36 @@ type groupType = {
 export default function SearchBar() {
     const [searchValue, setSearchValue] = useState('');
     const [selectedGroups, setSelectedGroups] = useState([] as groupType[]);
+    // const [groups, setGroups] = useState([] as any);
+    const [groupPrefix, setGroupPrefix] = useState('');
+    const [showResults, setShowResults] = useState(false);
 
     const inputChange = (event: any, newInputValue: React.SetStateAction<string>) => {
         setSearchValue(newInputValue);
         // getProducts(newInputValue);
     };
 
-    const getGroups = (searchVal: any) => {};
+    const setPrefix = (event: any, newValue: any) => {
+        setGroupPrefix(newValue);
+    };
 
     const classes = useStyles();
     const [groups, setGroups] = useState([
         { name: '/מפקדת אסם / ענף חטיפים מדור משולחים / שיתוף סמצ', numberOfParticipents: '14', manager: 'רמד מלוחים', type: 'security' },
         { name: '/מפקדת אסם / ענף חטיפים מדור מתוקים / שיתוף מתוקים כחול', numberOfParticipents: '10', manager: 'רמד מתוקים', type: 'mail' },
     ]);
+
+    // useEffect(() => {
+    //     async function getGroups() {
+    //         const newGroups = await groupsApi.searchGroups(groupPrefix);
+    //         setGroups(newGroups);
+    //     }
+    //     getGroups();
+    // }, [groupPrefix]);
+
+    useEffect(() => {
+        setShowResults(searchValue !== '');
+    }, [searchValue]);
 
     return (
         <div className={classes.div}>
@@ -116,7 +134,7 @@ export default function SearchBar() {
                         options={groups}
                         getOptionLabel={(option: any) => option.name}
                         filterOptions={(x) => x}
-                        //   onChange={chooseProduct}
+                        onChange={setPrefix}
                         onInputChange={debounce(inputChange, 450)}
                         renderInput={(params) => (
                             <TextField
@@ -141,70 +159,72 @@ export default function SearchBar() {
                     />
                 </Box>
                 <Box flex={1} />
-                <IconButton className={classes.icon} onClick={getGroups}>
+                <IconButton className={classes.icon}>
                     <SearchIcon fontSize="large" style={{ color: 'white' }} />
                 </IconButton>
             </Box>
-            <Grid>
-                <Grid className={classes.grid}>
-                    <MailIcon className={classes.gridIcon} />
-                    <Typography className={classes.typography}>{i18next.t('Groups.mail')}</Typography>
-                </Grid>
-                <Grid className={classes.groupsBoxesGrid}>
-                    {selectedGroups.map(
-                        (group) =>
-                            group.type === 'mail' && (
-                                <Grid container key={group.name} className={classes.groupBox}>
-                                    <MailIcon className={classes.boxIcon} />
-                                    <Typography className={classes.groupNameBox}>{group.name}</Typography>
-                                    <Grid item>
-                                        <Box display="flex" className={classes.detailsBox}>
-                                            <Typography className={classes.detailsTypography}>{i18next.t('GroupBox.manager')}</Typography>
-                                            <Typography className={classes.detailsTypography}>{group.manager}</Typography>
-                                        </Box>
+            {showResults && (
+                <Grid>
+                    <Grid className={classes.grid}>
+                        <MailIcon className={classes.gridIcon} />
+                        <Typography className={classes.typography}>{i18next.t('Groups.mail')}</Typography>
+                    </Grid>
+                    <Grid className={classes.groupsBoxesGrid}>
+                        {selectedGroups.map(
+                            (group) =>
+                                group.type === 'mail' && (
+                                    <Grid container key={group.name} className={classes.groupBox}>
+                                        <MailIcon className={classes.boxIcon} />
+                                        <Typography className={classes.groupNameBox}>{group.name}</Typography>
+                                        <Grid item>
+                                            <Box display="flex" className={classes.detailsBox}>
+                                                <Typography className={classes.detailsTypography}>{i18next.t('GroupBox.manager')}</Typography>
+                                                <Typography className={classes.detailsTypography}>{group.manager}</Typography>
+                                            </Box>
+                                        </Grid>
+                                        <Grid item>
+                                            <Box display="flex" className={classes.detailsBox}>
+                                                <Typography className={classes.detailsTypography}>
+                                                    {i18next.t('GroupBox.numberOfParticipents')}
+                                                </Typography>
+                                                <Typography className={classes.detailsTypography}>{group.numberOfParticipents}</Typography>
+                                            </Box>
+                                        </Grid>
                                     </Grid>
-                                    <Grid item>
-                                        <Box display="flex" className={classes.detailsBox}>
-                                            <Typography className={classes.detailsTypography}>
-                                                {i18next.t('GroupBox.numberOfParticipents')}
-                                            </Typography>
-                                            <Typography className={classes.detailsTypography}>{group.numberOfParticipents}</Typography>
-                                        </Box>
+                                ),
+                        )}
+                    </Grid>
+                    <Grid className={classes.grid}>
+                        <LockIcon className={classes.gridIcon} />
+                        <Typography className={classes.typography}>{i18next.t('Groups.security')}</Typography>
+                    </Grid>
+                    <Grid className={classes.groupsBoxesGrid}>
+                        {selectedGroups.map(
+                            (group) =>
+                                group.type === 'security' && (
+                                    <Grid container key={group.name} className={classes.groupBox}>
+                                        <LockIcon className={classes.boxIcon} />
+                                        <Typography className={classes.groupNameBox}>{group.name}</Typography>
+                                        <Grid item>
+                                            <Box display="flex" className={classes.detailsBox}>
+                                                <Typography className={classes.detailsTypography}>{i18next.t('GroupBox.manager')}</Typography>
+                                                <Typography className={classes.detailsTypography}>{group.manager}</Typography>
+                                            </Box>
+                                        </Grid>
+                                        <Grid item>
+                                            <Box display="flex" className={classes.detailsBox}>
+                                                <Typography className={classes.detailsTypography}>
+                                                    {i18next.t('GroupBox.numberOfParticipents')}
+                                                </Typography>
+                                                <Typography className={classes.detailsTypography}>{group.numberOfParticipents}</Typography>
+                                            </Box>
+                                        </Grid>
                                     </Grid>
-                                </Grid>
-                            ),
-                    )}
+                                ),
+                        )}
+                    </Grid>
                 </Grid>
-                <Grid className={classes.grid}>
-                    <LockIcon className={classes.gridIcon} />
-                    <Typography className={classes.typography}>{i18next.t('Groups.security')}</Typography>
-                </Grid>
-                <Grid className={classes.groupsBoxesGrid}>
-                    {selectedGroups.map(
-                        (group) =>
-                            group.type === 'security' && (
-                                <Grid container key={group.name} className={classes.groupBox}>
-                                    <LockIcon className={classes.boxIcon} />
-                                    <Typography className={classes.groupNameBox}>{group.name}</Typography>
-                                    <Grid item>
-                                        <Box display="flex" className={classes.detailsBox}>
-                                            <Typography className={classes.detailsTypography}>{i18next.t('GroupBox.manager')}</Typography>
-                                            <Typography className={classes.detailsTypography}>{group.manager}</Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item>
-                                        <Box display="flex" className={classes.detailsBox}>
-                                            <Typography className={classes.detailsTypography}>
-                                                {i18next.t('GroupBox.numberOfParticipents')}
-                                            </Typography>
-                                            <Typography className={classes.detailsTypography}>{group.numberOfParticipents}</Typography>
-                                        </Box>
-                                    </Grid>
-                                </Grid>
-                            ),
-                    )}
-                </Grid>
-            </Grid>
+            )}
         </div>
     );
 }
