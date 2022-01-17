@@ -30,7 +30,7 @@ export class AuthService {
 
     static logout = () => {
         cookies.remove(environment.accessTokenName);
-        window.location.replace(`${environment.api.login}?RelayState=${window.location.href}`);
+        window.location.replace(environment.api.login);
     };
 
     static parseUserToken = (token: string) => {

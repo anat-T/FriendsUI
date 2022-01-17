@@ -1,6 +1,6 @@
 export const environment = {
     api: {
-        login: '/api/auth/login',
+        login: '/auth/login',
     },
     accessTokenName: 'jt-token',
     refreshTokenName: 'jt-token',
