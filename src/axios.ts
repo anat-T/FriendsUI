@@ -1,6 +1,8 @@
 import axiosInstance from 'axios';
 import faker from 'faker';
 import MockAdapter from 'axios-mock-adapter';
+import { getCookie } from './utils';
+import { environment } from './globals';
 
 const axios = axiosInstance.create({
     withCredentials: true,
@@ -32,5 +34,20 @@ mock.onGet('/api/config').reply(() => [
         contactByChatLink: 'http://chat.com',
     },
 ]);
+
+axios.interceptors.request.use(
+    async (config) => {
+        const accessToken = getCookie(environment.accessTokenName);
+        if (accessToken) {
+            // eslint-disable-next-line no-param-reassign
+            config.headers.authorization = accessToken;
+        }
+
+        return config;
+    },
+    (error) => {
+        Promise.reject(error);
+    },
+);
 
 export default axios;
