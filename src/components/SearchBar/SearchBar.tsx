@@ -94,7 +94,7 @@ type groupType = {
 export default function SearchBar() {
     const [searchValue, setSearchValue] = useState('');
     const [selectedGroups, setSelectedGroups] = useState([] as groupType[]);
-    // const [groups, setGroups] = useState([] as any);
+    const [groups, setGroups] = useState([] as any);
     const [groupPrefix, setGroupPrefix] = useState('');
     const [showResults, setShowResults] = useState(false);
 
@@ -108,18 +108,18 @@ export default function SearchBar() {
     };
 
     const classes = useStyles();
-    const [groups, setGroups] = useState([
-        { name: '/מפקדת אסם / ענף חטיפים מדור משולחים / שיתוף סמצ', numberOfParticipents: '14', manager: 'רמד מלוחים', type: 'security' },
-        { name: '/מפקדת אסם / ענף חטיפים מדור מתוקים / שיתוף מתוקים כחול', numberOfParticipents: '10', manager: 'רמד מתוקים', type: 'mail' },
-    ]);
+    // const [groups, setGroups] = useState([
+    //     { name: '/מפקדת אסם / ענף חטיפים מדור משולחים / שיתוף סמצ', numberOfParticipents: '14', manager: 'רמד מלוחים', type: 'security' },
+    //     { name: '/מפקדת אסם / ענף חטיפים מדור מתוקים / שיתוף מתוקים כחול', numberOfParticipents: '10', manager: 'רמד מתוקים', type: 'mail' },
+    // ]);
 
-    // useEffect(() => {
-    //     async function getGroups() {
-    //         const newGroups = await groupsApi.searchGroups(groupPrefix);
-    //         setGroups(newGroups);
-    //     }
-    //     getGroups();
-    // }, [groupPrefix]);
+    useEffect(() => {
+        async function getGroups() {
+            const newGroups = await groupsApi.searchGroups(groupPrefix);
+            setGroups(newGroups);
+        }
+        getGroups();
+    }, [groupPrefix]);
 
     useEffect(() => {
         setShowResults(searchValue !== '');
