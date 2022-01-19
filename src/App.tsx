@@ -22,6 +22,7 @@ import Requests from './pages/Requests/Requests';
 import Profile from './pages/Profile/Profile';
 import MyRequestsTable from './pages/Tables/MyRequestsTable/MyRequestsTable';
 import JoinGroupTable from './pages/Tables/JoinGroupTable/JoinGroupTable';
+import { AuthService } from './services/authService';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const useStyles = makeStyles((theme: Theme) =>
@@ -54,7 +55,7 @@ const App = () => {
     const { enqueueSnackbar } = useSnackbar();
 
     const initUser = async () => {
-        const { result: user } = await trycatch(() => UserService.getUser());
+        const user = AuthService.getUser();
         if (user) {
             updateUserContext(user);
             setIsLoading(false);

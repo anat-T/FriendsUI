@@ -20,7 +20,7 @@ module.exports = {
         'import/extensions': 'off',
         'no-unused-vars': 'off',
         'no-console': 'warn',
-        'linebreak-style': ['error', 'unix'],
+        // 'linebreak-style': ['error', 'unix'],
         'no-empty': 'warn',
         'no-use-before-define': 'off',
         '@typescript-eslint/no-use-before-define': ['error'],
