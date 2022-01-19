@@ -1,7 +1,7 @@
 import axiosInstance from 'axios';
 import faker from 'faker';
 import MockAdapter from 'axios-mock-adapter';
-import { getCookie } from './utils';
+import cookies from 'js-cookie';
 import { environment } from './globals';
 
 const axios = axiosInstance.create({
@@ -37,7 +37,7 @@ mock.onGet('/api/config').reply(() => [
 
 axios.interceptors.request.use(
     async (config) => {
-        const accessToken = getCookie(environment.accessTokenName);
+        const accessToken = cookies.get(environment.accessTokenName);
         if (accessToken) {
             // eslint-disable-next-line no-param-reassign
             config.headers.authorization = accessToken;
