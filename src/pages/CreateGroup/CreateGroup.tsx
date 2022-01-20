@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import i18next from 'i18next';
 import {
     Grid,
@@ -23,6 +23,11 @@ import InputBase from '@material-ui/core/InputBase';
 import { styled, StylesProvider, jssPreset } from '@material-ui/styles';
 import rtl from 'jss-rtl';
 import { create } from 'jss';
+// import { searchUsersByName } from '../../utils/api-routes/user';
+// import { createGroupRequest } from '../../utils/api-routes/create';
+import { UserContext } from '../..';
+import { useEffect } from 'react';
+import { getUserByKartoffelId } from '../../utils/api-routes/user';
 
 const useStyles = makeStyles((theme: Theme) => ({
     header: {
@@ -145,20 +150,52 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-const fields = [
-    { title: 'שם תצוגה', text: 'הכנס/י שם לקבוצה שלך' },
-    { title: 'הוספת משתתפים', text: 'חפש/י אנשים להוספה לקבוצה' },
-    { title: 'גורם מאשר', text: 'חפש/י גורם מאשר ליצירת קבוצה' },
-];
-
 export default function CreateGroup() {
     const classes = useStyles();
 
     const [state, setState] = useState('security');
     const [classify, setClassify] = useState('');
+    const [displayName, setDisplayName] = useState('');
+    const [users, setUsers] = useState([] as any);
+    const [approver, setApprover] = useState({});
+    const [hierarchy, setHierarchy] = useState('');
+
+    const { state: currentUser } = useContext(UserContext);
+    console.log(currentUser);
+
+    useEffect(async () => {
+        const user = await getUserByKartoffelId(currentUser?.id);
+        setHierarchy(user.hierarchy);
+    }, []);
+
+    const handleDisplayNameChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+        setDisplayName(event.target.value);
+    };
+
+    const handleUsersChange = async (event: { target: { value: React.SetStateAction<string> } }) => {
+        // const user = await searchUsersByName(event.target.value);
+        const user = {};
+        if (user) {
+            setUsers([...users, user]);
+        }
+    };
+
+    const handleApproverChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+        setApprover(event.target.value);
+    };
+
+    const fields = [
+        { title: 'שם תצוגה', text: 'הכנס/י שם לקבוצה שלך', func: handleDisplayNameChange },
+        { title: 'הוספת משתתפים', text: 'חפש/י אנשים להוספה לקבוצה', func: handleUsersChange },
+        { title: 'גורם מאשר', text: 'חפש/י גורם מאשר ליצירת קבוצה', func: handleUsersChange },
+    ];
 
     const handleChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         setState(event.target.value);
+    };
+
+    const handleGroupSubmit = async () => {
+        // await createGroupRequest(approver.id, "", user.);
     };
 
     // const handleChangeSelect = (newValue: unknown) => {
@@ -174,7 +211,7 @@ export default function CreateGroup() {
             <Grid container className={classes.grid} direction="column">
                 <Grid className={classes.gridRow}>
                     <Typography className={classes.subTypography}>ההיררכיה שלי</Typography>
-                    <TextField className={classes.textField} InputProps={{ disableUnderline: true }} label="" />
+                    <TextField disabled className={classes.textField} InputProps={{ disableUnderline: true }} label="" value="aaaa" />
                 </Grid>
                 <Grid className={classes.buttons}>
                     <RadioGroup className={classes.group} value={state} onChange={handleChange}>
@@ -202,7 +239,7 @@ export default function CreateGroup() {
                 {fields.map((field) => (
                     <Grid className={classes.gridRow}>
                         <Typography className={classes.subTypography}>{field.title}</Typography>
-                        <TextField className={classes.textField} InputProps={{ disableUnderline: true }} label={field.text} />
+                        <TextField className={classes.textField} InputProps={{ disableUnderline: true }} label={field.text} onChange={field.func} />
                     </Grid>
                 ))}
                 <Grid>
@@ -216,7 +253,9 @@ export default function CreateGroup() {
                     </div>
                 </Grid>
                 <Grid>
-                    <Button className={classes.sendButton}>{i18next.t('createGroup.send')}</Button>
+                    <Button className={classes.sendButton} onClick={handleGroupSubmit}>
+                        {i18next.t('createGroup.send')}
+                    </Button>
                 </Grid>
             </Grid>
         </>
