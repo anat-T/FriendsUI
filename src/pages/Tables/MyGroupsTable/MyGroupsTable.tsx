@@ -41,5 +41,5 @@ export default function JoinGroupTable() {
     }, []);
 
     const classes = useStyles();
-    return <DataTable rows={rows} headers={headers} type="approveAndDecline" title="הצטרפות לקבוצה" />;
+    return <DataTable rows={rows} headers={headers} type="approveAndDecline" title="קבוצות בניהולי" />;
 }
