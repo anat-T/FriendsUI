@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from 'react';
+import React from 'react';
 import i18next from 'i18next';
 import {
     Grid,
@@ -18,11 +18,14 @@ import {
     Button,
 } from '@material-ui/core';
 import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
-import { Style } from '@material-ui/icons';
 import InputBase from '@material-ui/core/InputBase';
 import { styled, StylesProvider, jssPreset } from '@material-ui/styles';
 import rtl from 'jss-rtl';
 import { create } from 'jss';
+import { Autocomplete } from '@material-ui/lab';
+import useCreateGroup from './hooks/useCreateGroup';
+import useSearch from './hooks/useSearch';
+import debounce from '../../utils/debounce';
 
 const useStyles = makeStyles((theme: Theme) => ({
     header: {
@@ -146,24 +149,15 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
 }));
 
 const fields = [
-    { title: 'שם תצוגה', text: 'הכנס/י שם לקבוצה שלך' },
-    { title: 'הוספת משתתפים', text: 'חפש/י אנשים להוספה לקבוצה' },
-    { title: 'גורם מאשר', text: 'חפש/י גורם מאשר ליצירת קבוצה' },
+    { title: 'גורם מאשר', text: 'חפש/י גורם מאשר', setterName: 'setOwner', searchSetterName: 'onOwnerChange' },
+    { title: 'הוספת משתתפים', text: 'חפש/י אנשים להוספה לקבוצה', setterName: 'setMembers', searchSetterName: 'onUserChange', multiple: true },
 ];
 
 export default function CreateGroup() {
     const classes = useStyles();
 
-    const [state, setState] = useState('security');
-    const [classify, setClassify] = useState('');
-
-    const handleChange = (event: { target: { value: React.SetStateAction<string> } }) => {
-        setState(event.target.value);
-    };
-
-    // const handleChangeSelect = (newValue: unknown) => {
-    //     setClassify(newValue);
-    // };
+    const { handleSend, setters, values } = useCreateGroup();
+    const { usersOptions, ownersOptions, ...searchSetters } = useSearch();
 
     return (
         <>
@@ -174,10 +168,16 @@ export default function CreateGroup() {
             <Grid container className={classes.grid} direction="column">
                 <Grid className={classes.gridRow}>
                     <Typography className={classes.subTypography}>ההיררכיה שלי</Typography>
-                    <TextField className={classes.textField} InputProps={{ disableUnderline: true }} label="" />
+                    <TextField
+                        className={classes.textField}
+                        value={values.hierarchy}
+                        onChange={(e) => setters.setHierarchy(e.target.value)}
+                        InputProps={{ disableUnderline: true }}
+                        label=""
+                    />
                 </Grid>
                 <Grid className={classes.buttons}>
-                    <RadioGroup className={classes.group} value={state} onChange={handleChange}>
+                    <RadioGroup className={classes.group} value={values.type} onChange={(e) => setters.setType(e.target.value)}>
                         <FormControlLabel value="mail" control={<Radio color="default" />} label="קבוצת אבטחה" labelPlacement="start" />
                         <FormControlLabel value="security" control={<Radio color="default" />} label="תפוצת דואל" labelPlacement="start" />
                     </RadioGroup>
@@ -185,7 +185,12 @@ export default function CreateGroup() {
                         <FormControl variant="outlined" className={classes.formControl}>
                             <InputLabel>סיווג</InputLabel>
                             {/* <Select value={classify} onChange={(event) => handleChangeSelect(event.target.value)} label="סיווג"> */}
-                            <Select value={classify} label="סיווג" input={<BootstrapInput />}>
+                            <Select
+                                value={values.classification}
+                                onChange={(e) => setters.setClassification(e.target.value as any)}
+                                label="סיווג"
+                                input={<BootstrapInput />}
+                            >
                                 <option className={classes.option} value="safe">
                                     מנהלי
                                 </option>
@@ -199,10 +204,50 @@ export default function CreateGroup() {
                         </FormControl>
                     </StylesProvider>
                 </Grid>
+                <Grid className={classes.gridRow}>
+                    <Typography className={classes.subTypography}>שם תצוגה</Typography>
+                    <TextField
+                        className={classes.textField}
+                        value={values.displayName}
+                        onChange={(e) => setters.setDisplayName(e.target.value)}
+                        InputProps={{ disableUnderline: true }}
+                        label="הכנס/י שם לקבוצה שלך"
+                    />
+                </Grid>
                 {fields.map((field) => (
                     <Grid className={classes.gridRow}>
                         <Typography className={classes.subTypography}>{field.title}</Typography>
-                        <TextField className={classes.textField} InputProps={{ disableUnderline: true }} label={field.text} />
+                        <Autocomplete
+                            className={classes.textField}
+                            getOptionLabel={(option: any) => option.name}
+                            multiple={field.multiple ?? false}
+                            onInputChange={(_, value) => debounce(searchSetters[field.searchSetterName as keyof typeof searchSetters](value), 450)}
+                            onChange={(_, value) =>
+                                setters[field.setterName as keyof typeof setters](
+                                    (Array.isArray(value) ? value.map((selected) => selected.value) : value?.value!) as any,
+                                )
+                            }
+                            options={field.searchSetterName === 'onOwnerChange' ? ownersOptions : usersOptions}
+                            renderInput={(params) => (
+                                <TextField
+                                    variant="standard"
+                                    // eslint-disable-next-line react/jsx-props-no-spreading
+                                    {...params}
+                                    placeholder={field.text}
+                                    InputProps={{
+                                        ...params.InputProps,
+                                        autoComplete: 'new-password',
+                                        disableUnderline: true,
+                                    }}
+                                />
+                            )}
+                            renderOption={(option) => (
+                                <Box style={{ width: '100%', overflowX: 'hidden' }} display="flex" justifyContent="space-between" alignItems="center">
+                                    <Box flex={1}>{option.name}</Box>
+                                    <Box />
+                                </Box>
+                            )}
+                        />
                     </Grid>
                 ))}
                 <Grid>
@@ -216,7 +261,9 @@ export default function CreateGroup() {
                     </div>
                 </Grid>
                 <Grid>
-                    <Button className={classes.sendButton}>{i18next.t('createGroup.send')}</Button>
+                    <Button onClick={handleSend} className={classes.sendButton}>
+                        {i18next.t('createGroup.send')}
+                    </Button>
                 </Grid>
             </Grid>
         </>
