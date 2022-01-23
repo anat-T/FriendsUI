@@ -1,10 +1,10 @@
 import { IUserContext } from './user.interface';
 
 /* eslint-disable prettier/prettier */
-const initialState = undefined;
+const initialState = null;
 
 export enum UserActions {
-    SET_USER,
+    SET_USER = 'SET_USER',
 }
 
 const UserReducer = (state = initialState, action: { type: UserActions; payload: IUserContext }) => {

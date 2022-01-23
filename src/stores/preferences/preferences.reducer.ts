@@ -8,7 +8,7 @@ const initialState: IPreferencesContext =  {
 };
 
 export enum PreferencesActions {
-    SET_PALETTE_TYPE,
+    SET_PALETTE_TYPE = 'SET_PALETTE_TYPE',
 }
 
 const PreferencesReducer = (state = initialState, action: { type: PreferencesActions; payload: PaletteType }) => {

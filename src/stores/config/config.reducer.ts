@@ -1,24 +1,19 @@
+import { IConfigContext } from '..';
+
 /* eslint-disable prettier/prettier */
 const initialState = {};
 
 export enum ConfigActions {
-    SET_CONTACT_BY_MAIL_LINK,
-    SET_CONTACT_BY_CHAT_LINK,
+    SET_CONFIG = 'SET_CONFIG',
 }
 
-const ConfigReducer = (state = initialState, action: { type: ConfigActions; payload: string }) => {
+const ConfigReducer = (state = initialState, action: { type: ConfigActions; payload: IConfigContext }) => {
     switch (action.type) {
-    case ConfigActions.SET_CONTACT_BY_MAIL_LINK:
+    case ConfigActions.SET_CONFIG:
         return {
             ...state,
-            contactByMailLink: action.payload,
+            ...action.payload,
         };
-    case ConfigActions.SET_CONTACT_BY_CHAT_LINK:
-        return {
-            ...state,
-            contactByChatLink: action.payload,
-        };
-
     default:
         return state;
     }
