@@ -30,6 +30,7 @@ export class AuthService {
 
     static logout = () => {
         cookies.remove(environment.accessTokenName);
+        // eslint-disable-next-line no-undef
         window.location.replace(environment.api.login);
     };
 
