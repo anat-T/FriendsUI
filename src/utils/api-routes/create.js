@@ -1,8 +1,7 @@
-/* eslint-disable import/no-unresolved */
 import Axios from 'axios';
-import store from 'store'; // redux
-import { baseURL } from '../../config';
-import { formatCreateRequests } from '../../utils/create';
+import store from '@/store';
+import { baseURL } from '@/config';
+import { formatCreateRequests } from '@/utils/create';
 import { getUserByKartoffelId, getUserByDomainUser } from './user';
 /**
  * createGroupRequest for creating group
@@ -15,16 +14,7 @@ import { getUserByKartoffelId, getUserByDomainUser } from './user';
  * @param {string[]} members - group members
  * @param {string} owner - group owner
  *  * */
-export async function createGroupRequest(
-    approverId: string,
-    groupName: string,
-    hierarchy: string,
-    type: string,
-    displayName: string,
-    classification: string,
-    members: string[],
-    owner: string,
-) {
+export async function createGroupRequest({ approverId, groupName, hierarchy, type, displayName, classification, members, owner }) {
     try {
         const createRequest = {
             approver: approverId || store.state.auth.user.id,
@@ -42,10 +32,9 @@ export async function createGroupRequest(
         const res = await Axios.post(`${baseURL}/api/create/request`, createRequest);
         return res.data;
     } catch (error) {
-        // store.dispatch('onError', error);
-        // throw new Error(error);
+        store.dispatch('onError', error);
+        throw new Error(error);
     }
-    return null;
 }
 
 /**
@@ -63,9 +52,8 @@ export async function getGroupRequestByCreator() {
         );
         return requestsFormatted;
     } catch (error) {
-        // store.dispatch('onError', error);
+        store.dispatch('onError', error);
     }
-    return null;
 }
 
 /**
@@ -83,35 +71,32 @@ export async function getGroupRequestByApprover() {
         );
         return requestsFormatted;
     } catch (error) {
-        // store.dispatch('onError', error);
+        store.dispatch('onError', error);
     }
-    return null;
 }
 
 /**
  * denyGroupRequest - deny group create request
  * @param {string} createReqId - create request id
  * */
-export async function denyGroupRequest(createReqId: string) {
+export async function denyGroupRequest(createReqId) {
     try {
         const res = await Axios.put(`${baseURL}/api/create/request/deny/${createReqId}`);
         return res.data;
     } catch (error) {
-        // store.dispatch('onError', error);
+        store.dispatch('onError', error);
     }
-    return null;
 }
 
 /**
  * approveGroupRequest - approve group create request
  * @param {string} createReqId - create request id
  * */
-export async function approveGroupRequest(createReqId: string) {
+export async function approveGroupRequest(createReqId) {
     try {
         const res = await Axios.put(`${baseURL}/api/create/request/approve/${createReqId}`);
         return res.data;
     } catch (error) {
-        // store.dispatch('onError', error);
+        store.dispatch('onError', error);
     }
-    return null;
 }

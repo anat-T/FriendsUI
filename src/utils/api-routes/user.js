@@ -47,7 +47,7 @@ export async function searchUsersByName(name) {
         });
         const users = res.data
             ? res.data.filter((user) => {
-                return user.id !== store.state.auth.user.id;
+                  return user.id !== store.state.auth.user.id;
               })
             : [];
 
@@ -95,7 +95,7 @@ export async function searchApproverByName(groupType, name) {
         const users = res.data
             ? res.data.filter((user) => {
                   return user.id !== store.state.auth.user.id;
-            })
+              })
             : [];
         return Promise.all(users.map((user) => formatKartoffelUser(user)));
     } catch (error) {
