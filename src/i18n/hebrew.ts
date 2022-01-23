@@ -40,7 +40,7 @@ export default {
     },
     Groups: {
         security: 'קבוצת אבטחה',
-        mail: 'תפוצת דואל',
+        mail: 'תפוצות דואר',
     },
     GroupBox: {
         manager: 'מנהל:',
