@@ -16,9 +16,11 @@ services:
     environment:
       SERVICES: api
       PORT: 8080
-    # depends_on:
-    #   - authentication-service
-    #   - nats
+    ports:
+      - 8080:8080
+    depends_on:
+      - authentication-service
+      - nats
     networks:
       - internal
       - default
@@ -29,8 +31,8 @@ services:
     env_file: docker-compose.env
     environment:
       SERVICES: user
-    # depends_on: 
-    #   - nats
+    depends_on: 
+      - nats
     networks: 
       - internal
       - default
@@ -41,8 +43,8 @@ services:
     environment:
       AD_SERVICE_DNS: EXAMPLE
       SERVICES: ad
-    # depends_on: 
-    #   -  nats
+    depends_on: 
+      -  nats
     networks:
       - internal
       - default
@@ -52,9 +54,9 @@ services:
     env_file: docker-compose.env
     environment:
       SERVICES: groupId
-    # depends_on:
-    #   - mongo
-    #   -  nats
+    depends_on:
+      - mongo
+      -  nats
     networks:
       - internal
       - default
@@ -64,9 +66,9 @@ services:
     env_file: docker-compose.env
     environment:
       SERVICES: create
-    # depends_on:
-    #   - mongo
-    #   - nats
+    depends_on:
+      - mongo
+      - nats
     networks:
       - internal
       - default
@@ -76,9 +78,9 @@ services:
     env_file: docker-compose.env
     environment:
       SERVICES: join
-    # depends_on:
-    #   - mongo
-    #   - nats
+    depends_on:
+      - mongo
+      - nats
     networks:
       - internal
       - default
@@ -88,9 +90,9 @@ services:
     env_file: docker-compose.env
     environment:
       SERVICES: owner
-    # depends_on:
-    #   - outgoing-proxy-service
-    #   - nats
+    depends_on:
+      - outgoing-proxy-service
+      - nats
     networks:
       - internal
       - default
@@ -100,9 +102,9 @@ services:
     env_file: docker-compose.env
     environment:
       SERVICES: mail-builder
-    # depends_on:
-    #   - mailer-service
-    #   - nats
+    depends_on:
+      - mailer-service
+      - nats
     networks:
       - internal
       - default

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { makeStyles, Theme } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import DataTable from '../../../components/DataTable/DataTable';
-import * as joinApi from '../../../utils/api-routes/join.js';
+import * as ownerApi from '../../../utils/api-routes/owner.js';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
@@ -29,19 +29,19 @@ const rows = [
 
 const headers = ['תאריך ', 'חברים', 'סיווג', 'סוג קבוצה', 'שם מבקש', 'קבוצה', ''];
 
-export default function MyRequestsTable() {
+export default function GroupManageRequestsTable() {
     const classes = useStyles();
 
     // const [rows, setRows] = useState([] as any);
 
-    // const getRequests = async () => {
-    //     const newRequests = joinApi.getJoinRequestByCreator();
-    //     setRows(newRequests);
+    // const getGroups = async () => {
+    //     const newGroups = ownerApi.getOwnerRequestByCreator();
+    //     setRows(newGroups);
     // };
 
     // useEffect(() => {
-    //     getRequests();
+    //     getGroups();
     // }, []);
 
-    return <DataTable rows={rows} headers={headers} type="status" title="בקשות שהגשתי" />;
+    return <DataTable rows={rows} headers={headers} type="approveAndDecline" title="ניהןל קבוצה" />;
 }

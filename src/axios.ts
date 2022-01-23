@@ -40,7 +40,7 @@ axios.interceptors.request.use(
         const accessToken = cookies.get(environment.accessTokenName);
         if (accessToken) {
             // eslint-disable-next-line no-param-reassign
-            config.headers.authorization = accessToken;
+            config.headers.authorization = `Bearer ${accessToken}`;
         }
 
         return config;

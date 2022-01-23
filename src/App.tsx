@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { CircularProgress, ThemeProvider, CssBaseline, Theme } from '@material-ui/core';
 import i18next from 'i18next';
@@ -26,6 +26,10 @@ import { AuthService } from './services/authService';
 import { UserActions } from './stores/user/user.reducer';
 import { ConfigActions } from './stores/config/config.reducer';
 import { IStoreContext } from './stores/root-reducer';
+import MyGroupsTable from './pages/Tables/MyGroupsTable/MyGroupsTable';
+import GroupManagerTable from './pages/Tables/GroupManagerTable/GroupManagerTable';
+import GroupManageRequestsTable from './pages/Tables/GroupManageRequestsTable/GroupManageRequestsTable';
+import CreateGroupRequestsTable from './pages/Tables/CreateGroupRequests/CreateGroupRequestsTable';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const useStyles = makeStyles((theme: Theme) =>
@@ -123,10 +127,16 @@ const App = () => {
                         <JoinGroupTable />
                     </Route>
                     <Route path="/myGroups">
-                        <Profile />
+                        <MyGroupsTable />
                     </Route>
                     <Route path="/groupManager">
-                        <Profile />
+                        <GroupManagerTable />
+                    </Route>
+                    <Route path="/manageGroup">
+                        <GroupManageRequestsTable />
+                    </Route>
+                    <Route path="/groupCreation">
+                        <CreateGroupRequestsTable />
                     </Route>
                     <Route path="/">
                         <Main />

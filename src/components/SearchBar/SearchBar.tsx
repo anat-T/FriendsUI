@@ -42,9 +42,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     boxIcon: {
         color: '#92E1D6',
-        marginLeft: '10px',
-        fontSize: '38px',
+        marginRight: '38%',
+        fontSize: '50px',
         opacity: '0.6',
+        paddingTop: '3%',
     },
     div: {
         width: '100%',
@@ -58,6 +59,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         paddingTop: '5%',
         display: 'flex',
         paddingRight: '20%',
+        paddingBottom: '2%',
     },
     groupBox: {
         width: '300px',
@@ -70,17 +72,24 @@ const useStyles = makeStyles((theme: Theme) => ({
         width: '60%',
         marginRight: 'auto',
         marginLeft: 'auto',
+        display: 'flex',
     },
     groupNameBox: {
         color: '#707070',
         fontSize: '22px',
+        paddingRight: '1%',
+        fontWeight: 600,
+        textAlign: 'center',
+        height: '95px',
     },
     detailsBox: {
         paddingTop: '2%',
+        paddingRight: '5%',
     },
     detailsTypography: {
         color: '#707070',
         fontSize: '18px',
+        paddingRight: '1%',
     },
 }));
 
@@ -108,10 +117,16 @@ export default function SearchBar() {
     };
 
     const classes = useStyles();
+
     const [groups, setGroups] = useState([
-        { name: '/מפקדת אסם / ענף חטיפים מדור משולחים / שיתוף סמצ', numberOfParticipents: '14', manager: 'רמד מלוחים', type: 'security' },
-        { name: '/מפקדת אסם / ענף חטיפים מדור מתוקים / שיתוף מתוקים כחול', numberOfParticipents: '10', manager: 'רמד מתוקים', type: 'mail' },
+        { name: 'מפקדת אסם / ענף חטיפים מדור/  משולחים / שיתוף סמצ', numberOfParticipents: '14', manager: 'רמד מלוחים', type: 'mail' },
+        { name: 'מפקדת אסם / ענף חטיפים / מדור מתוקים / שיתוף מתוקים כחול', numberOfParticipents: '10', manager: 'רמד מתוקים', type: 'mail' },
     ]);
+
+    const onClickSearch = () => {
+        setSelectedGroups(groups);
+        setShowResults(true);
+    };
 
     // useEffect(() => {
     //     async function getGroups() {
@@ -122,7 +137,7 @@ export default function SearchBar() {
     // }, [groupPrefix]);
 
     useEffect(() => {
-        setShowResults(searchValue !== '');
+        if (searchValue === '') setShowResults(false);
     }, [searchValue]);
 
     return (
@@ -159,7 +174,7 @@ export default function SearchBar() {
                     />
                 </Box>
                 <Box flex={1} />
-                <IconButton className={classes.icon}>
+                <IconButton className={classes.icon} onClick={onClickSearch}>
                     <SearchIcon fontSize="large" style={{ color: 'white' }} />
                 </IconButton>
             </Box>
@@ -169,11 +184,11 @@ export default function SearchBar() {
                         <MailIcon className={classes.gridIcon} />
                         <Typography className={classes.typography}>{i18next.t('Groups.mail')}</Typography>
                     </Grid>
-                    <Grid className={classes.groupsBoxesGrid}>
+                    <Grid container className={classes.groupsBoxesGrid}>
                         {selectedGroups.map(
                             (group) =>
                                 group.type === 'mail' && (
-                                    <Grid container key={group.name} className={classes.groupBox}>
+                                    <Grid item key={group.name} className={classes.groupBox}>
                                         <MailIcon className={classes.boxIcon} />
                                         <Typography className={classes.groupNameBox}>{group.name}</Typography>
                                         <Grid item>
@@ -194,35 +209,39 @@ export default function SearchBar() {
                                 ),
                         )}
                     </Grid>
-                    <Grid className={classes.grid}>
-                        <LockIcon className={classes.gridIcon} />
-                        <Typography className={classes.typography}>{i18next.t('Groups.security')}</Typography>
-                    </Grid>
-                    <Grid className={classes.groupsBoxesGrid}>
-                        {selectedGroups.map(
-                            (group) =>
-                                group.type === 'security' && (
-                                    <Grid container key={group.name} className={classes.groupBox}>
-                                        <LockIcon className={classes.boxIcon} />
-                                        <Typography className={classes.groupNameBox}>{group.name}</Typography>
-                                        <Grid item>
-                                            <Box display="flex" className={classes.detailsBox}>
-                                                <Typography className={classes.detailsTypography}>{i18next.t('GroupBox.manager')}</Typography>
-                                                <Typography className={classes.detailsTypography}>{group.manager}</Typography>
-                                            </Box>
+                    {false && (
+                        <Grid className={classes.grid}>
+                            <LockIcon className={classes.gridIcon} />
+                            <Typography className={classes.typography}>{i18next.t('Groups.security')}</Typography>
+                        </Grid>
+                    )}
+                    {false && (
+                        <Grid className={classes.groupsBoxesGrid}>
+                            {selectedGroups.map(
+                                (group) =>
+                                    group.type === 'security' && (
+                                        <Grid container key={group.name} className={classes.groupBox}>
+                                            <LockIcon className={classes.boxIcon} />
+                                            <Typography className={classes.groupNameBox}>{group.name}</Typography>
+                                            <Grid item>
+                                                <Box display="flex" className={classes.detailsBox}>
+                                                    <Typography className={classes.detailsTypography}>{i18next.t('GroupBox.manager')}</Typography>
+                                                    <Typography className={classes.detailsTypography}>{group.manager}</Typography>
+                                                </Box>
+                                            </Grid>
+                                            <Grid item>
+                                                <Box display="flex" className={classes.detailsBox}>
+                                                    <Typography className={classes.detailsTypography}>
+                                                        {i18next.t('GroupBox.numberOfParticipents')}
+                                                    </Typography>
+                                                    <Typography className={classes.detailsTypography}>{group.numberOfParticipents}</Typography>
+                                                </Box>
+                                            </Grid>
                                         </Grid>
-                                        <Grid item>
-                                            <Box display="flex" className={classes.detailsBox}>
-                                                <Typography className={classes.detailsTypography}>
-                                                    {i18next.t('GroupBox.numberOfParticipents')}
-                                                </Typography>
-                                                <Typography className={classes.detailsTypography}>{group.numberOfParticipents}</Typography>
-                                            </Box>
-                                        </Grid>
-                                    </Grid>
-                                ),
-                        )}
-                    </Grid>
+                                    ),
+                            )}
+                        </Grid>
+                    )}
                 </Grid>
             )}
         </div>

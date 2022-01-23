@@ -1,4 +1,4 @@
-import { baseURL } from "@/config";
+import { baseURL } from '@/config';
 
 export async function isAlive() {
     try {

@@ -13,6 +13,7 @@ import Paper from '@material-ui/core/Paper';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
+import * as joinApi from '../../utils/api-routes/join.js';
 
 const useStyles = makeStyles((theme: Theme) => ({
     table: {
@@ -77,6 +78,14 @@ const getColor = (status: string) => {
 export default function DataTable({ rows, headers, type, title }: DataTableProps) {
     const classes = useStyles();
 
+    const onClickApprove = () => {
+        // joinApi.approveJoinRequest();
+    };
+
+    const onClickDecline = () => {
+        // joinApi.denyJoinRequest();
+    };
+
     return (
         <>
             <Typography className={classes.title}>{title}</Typography>
@@ -100,10 +109,10 @@ export default function DataTable({ rows, headers, type, title }: DataTableProps
                                         </TableCell>
                                     ) : type === 'approveAndDecline' ? (
                                         <TableCell component="th" scope="row" classes={{ root: classes.tableCell }}>
-                                            <IconButton className={classes.approveButton}>
+                                            <IconButton className={classes.approveButton} onClick={onClickApprove}>
                                                 <CheckIcon className={classes.icon} />
                                             </IconButton>
-                                            <IconButton className={classes.declineButton}>
+                                            <IconButton className={classes.declineButton} onClick={onClickDecline}>
                                                 <ClearIcon />
                                             </IconButton>
                                         </TableCell>
