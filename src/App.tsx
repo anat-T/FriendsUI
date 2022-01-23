@@ -25,6 +25,8 @@ import JoinGroupTable from './pages/Tables/JoinGroupTable/JoinGroupTable';
 import { AuthService } from './services/authService';
 import MyGroupsTable from './pages/Tables/MyGroupsTable/MyGroupsTable';
 import GroupManagerTable from './pages/Tables/GroupManagerTable/GroupManagerTable';
+import GroupManageRequestsTable from './pages/Tables/GroupManageRequestsTable/GroupManageRequestsTable';
+import CreateGroupRequestsTable from './pages/Tables/CreateGroupRequests/CreateGroupRequestsTable';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const useStyles = makeStyles((theme: Theme) =>
@@ -123,6 +125,12 @@ const App = () => {
                     </Route>
                     <Route path="/groupManager">
                         <GroupManagerTable />
+                    </Route>
+                    <Route path="/manageGroup">
+                        <GroupManageRequestsTable />
+                    </Route>
+                    <Route path="/groupCreation">
+                        <CreateGroupRequestsTable />
                     </Route>
                     <Route path="/">
                         <Main />
