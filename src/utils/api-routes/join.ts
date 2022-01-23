@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import store from '@/store';
+import store from './store'; // redux
 import { baseURL } from '../../config';
 import { formatJoinRequests } from '@/utils/join';
 import { getUserByKartoffelId, getUserByDomainUser } from './user';

@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import Axios from 'axios';
-import store from 'store';
+import store from 'store'; // redux
 import { baseURL } from '../../config';
 import { formatCreateRequests } from '../../utils/create';
 import { getUserByKartoffelId, getUserByDomainUser } from './user';
