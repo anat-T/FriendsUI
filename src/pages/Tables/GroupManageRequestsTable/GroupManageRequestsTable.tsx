@@ -14,7 +14,7 @@ const rows = [
         groupType: 'תפוצת מייל',
         nameOfRequester: 'hirrarchy',
         group: '/מפקדת אסם/ענף חטיפים',
-        status: 'waiting',
+        type: 'groupJoin',
     },
     {
         date: '09.12.2020',
@@ -23,7 +23,7 @@ const rows = [
         groupType: 'קבוצת אבטחה',
         nameOfRequester: 'hirrarchy',
         group: '/מפקדת אסם/ענף חטיפים',
-        status: 'approved',
+        type: 'groupJoin',
     },
 ];
 
@@ -43,5 +43,5 @@ export default function GroupManageRequestsTable() {
     //     getGroups();
     // }, []);
 
-    return <DataTable rows={rows} headers={headers} type="approveAndDecline" title="ניהןל קבוצה" />;
+    return <DataTable rows={rows} headers={headers} type="approveAndDecline" title="ניהול קבוצה" />;
 }
