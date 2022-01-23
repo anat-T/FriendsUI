@@ -16,6 +16,8 @@ module.exports = {
     rules: {
         quotes: ['error', 'single'],
         indent: ['error', 4],
+        'no-shadow': 'off',
+        '@typescript-eslint/no-shadow': ['error'],
         'import/prefer-default-export': 'off',
         'import/extensions': 'off',
         'no-unused-vars': 'off',

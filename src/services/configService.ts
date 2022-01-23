@@ -1,5 +1,5 @@
 import axios from '../axios';
-import { IConfigContext } from '../stores/index';
+import { IConfigContext } from '../stores/config/config.interface';
 import { trycatch } from '../utils/trycatch';
 
 export class ConfigService {
