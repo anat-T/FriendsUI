@@ -1,6 +1,6 @@
 import Axios from 'axios';
-import store from './store'; // redux
-import { baseURL } from '../../config';
+import store from '@/store';
+import { baseURL } from '@/config';
 import { formatJoinRequests } from '@/utils/join';
 import { getUserByKartoffelId, getUserByDomainUser } from './user';
 import { getGroupById } from './group';
@@ -21,9 +21,9 @@ export async function createJoinRequest(groupId, approverId, joinReason) {
     const group = await getGroupById(groupId);
 
     let groupType = '';
-    if (group.type === 'Security Group') {
+    if (group.type == 'Security Group') {
         groupType = 'security';
-    } else if (group.type === 'Distribution Groups') {
+    } else if (group.type == 'Distribution Groups') {
         groupType = 'distribution';
     }
 
