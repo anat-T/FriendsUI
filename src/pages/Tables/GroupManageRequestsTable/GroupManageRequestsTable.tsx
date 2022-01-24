@@ -2,7 +2,7 @@
 import { makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import DataTable from '../../../components/DataTable/DataTable';
-import * as ownerApi from '../../../utils/api-routes/owner.js';
+import * as ownerApi from '../../../utils/api-routes/owner';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
@@ -12,9 +12,9 @@ const rows = [
         friends: '14',
         classify: 'סמצ',
         groupType: 'תפוצת מייל',
-        nameOfRequester: 'hirrarchy',
+        owner: 'מפקדת אסם / ענף חטיפים / מדור מלוחים',
+        groupName: 'קבוצה שלי',
         group: '/מפקדת אסם/ענף חטיפים',
-        status: 'waiting',
     },
     {
         date: '09.12.2020',
@@ -27,7 +27,7 @@ const rows = [
     },
 ];
 
-const headers = ['תאריך ', 'חברים', 'סיווג', 'סוג קבוצה', 'שם מבקש', 'קבוצה', ''];
+const headers = ['תאריך ', 'חברים', 'סיווג', 'סוג קבוצה', 'שם מבקש', 'שם קבוצה', 'קבוצה', ''];
 
 export default function GroupManageRequestsTable() {
     const classes = useStyles();
@@ -43,5 +43,5 @@ export default function GroupManageRequestsTable() {
     //     getGroups();
     // }, []);
 
-    return <DataTable rows={rows} headers={headers} type="approveAndDecline" title="ניהןל קבוצה" />;
+    return <DataTable rows={rows} headers={headers} type="approveAndDecline" title="ניהול קבוצה" />;
 }

@@ -2,7 +2,7 @@
 import { makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import DataTable from '../../../components/DataTable/DataTable';
-import * as ownerApi from '../../../utils/api-routes/owner.js';
+import * as ownerApi from '../../../utils/api-routes/owner';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
@@ -14,7 +14,6 @@ const rows = [
         groupType: 'תפוצת מייל',
         nameOfRequester: 'hirrarchy',
         group: '/מפקדת אסם/ענף חטיפים',
-        status: 'waiting',
     },
     {
         date: '09.12.2020',
@@ -23,7 +22,6 @@ const rows = [
         groupType: 'קבוצת אבטחה',
         nameOfRequester: 'hirrarchy',
         group: '/מפקדת אסם/ענף חטיפים',
-        status: 'approved',
     },
 ];
 

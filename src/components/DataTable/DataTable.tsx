@@ -13,7 +13,7 @@ import Paper from '@material-ui/core/Paper';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
-import * as joinApi from '../../utils/api-routes/join.js';
+import * as joinApi from '../../utils/api-routes/join';
 
 const useStyles = makeStyles((theme: Theme) => ({
     table: {
@@ -78,12 +78,15 @@ const getColor = (status: string) => {
 export default function DataTable({ rows, headers, type, title }: DataTableProps) {
     const classes = useStyles();
 
-    const onClickApprove = () => {
-        // joinApi.approveJoinRequest();
+    const onClickApprove = (index: number) => {
+        console.log(index);
+
+        // joinApi.approveJoinRequest(rows[index].id);
     };
 
-    const onClickDecline = () => {
-        // joinApi.denyJoinRequest();
+    const onClickDecline = (index: number) => {
+        console.log(index);
+        // joinApi.denyJoinRequest(rows[index].id);
     };
 
     return (
@@ -102,17 +105,17 @@ export default function DataTable({ rows, headers, type, title }: DataTableProps
                     <TableBody>
                         {rows.map((row) => (
                             <TableRow>
-                                {Object.values(row).map((cell) =>
+                                {Object.values(row).map((cell, index) =>
                                     regularCell(cell) ? (
                                         <TableCell component="th" scope="row" classes={{ root: classes.tableCell }}>
                                             {cell}
                                         </TableCell>
                                     ) : type === 'approveAndDecline' ? (
                                         <TableCell component="th" scope="row" classes={{ root: classes.tableCell }}>
-                                            <IconButton className={classes.approveButton} onClick={onClickApprove}>
+                                            <IconButton className={classes.approveButton} onClick={() => onClickApprove(index)}>
                                                 <CheckIcon className={classes.icon} />
                                             </IconButton>
-                                            <IconButton className={classes.declineButton} onClick={onClickDecline}>
+                                            <IconButton className={classes.declineButton} onClick={() => onClickDecline(index)}>
                                                 <ClearIcon />
                                             </IconButton>
                                         </TableCell>

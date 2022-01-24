@@ -2,32 +2,28 @@
 import { makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import DataTable from '../../../components/DataTable/DataTable';
-import * as ownerApi from '../../../utils/api-routes/owner.js';
+import * as ownerApi from '../../../utils/api-routes/owner';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
 const rows = [
     {
-        date: '02.03.2021',
         friends: '14',
         classify: 'סמצ',
         groupType: 'תפוצת מייל',
-        nameOfRequester: 'hirrarchy',
+        groupName: 'Meluhim@services.idf',
         group: '/מפקדת אסם/ענף חטיפים',
-        status: 'waiting',
     },
     {
-        date: '09.12.2020',
-        friends: '10',
+        friends: '14',
         classify: 'סמצ',
-        groupType: 'קבוצת אבטחה',
-        nameOfRequester: 'hirrarchy',
+        groupType: 'תפוצת מייל',
+        groupName: 'Meluhim@services.idf',
         group: '/מפקדת אסם/ענף חטיפים',
-        status: 'approved',
     },
 ];
 
-const headers = ['תאריך ', 'חברים', 'סיווג', 'סוג קבוצה', 'שם מבקש', 'קבוצה', ''];
+const headers = ['מספר משתתפים', 'סיווג', 'סוג', 'שם קבוצה', 'קבוצה', ''];
 
 export default function GroupManagerTable() {
     const classes = useStyles();

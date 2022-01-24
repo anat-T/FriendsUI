@@ -8,26 +8,22 @@ const useStyles = makeStyles((theme: Theme) => ({}));
 
 const rows = [
     {
-        date: '02.03.2021',
-        friends: '14',
         classify: 'סמצ',
         groupType: 'תפוצת מייל',
-        nameOfRequester: 'hirrarchy',
+        owner: 'רמד מלוחים',
+        groupName: 'הקבוצה שלי',
         group: '/מפקדת אסם/ענף חטיפים',
-        status: 'waiting',
     },
     {
-        date: '09.12.2020',
-        friends: '10',
         classify: 'סמצ',
-        groupType: 'קבוצת אבטחה',
-        nameOfRequester: 'hirrarchy',
+        groupType: 'תפוצת מייל',
+        owner: 'רמד מלוחים',
+        groupName: 'הקבוצה שלי',
         group: '/מפקדת אסם/ענף חטיפים',
-        status: 'approved',
     },
 ];
 
-const headers = ['תאריך ', 'חברים', 'סיווג', 'סוג קבוצה', 'שם מבקש', 'קבוצה', ''];
+const headers = ['סיווג', 'סוג קבוצה', 'מנהל', 'שם קבוצה', 'קבוצה', ''];
 
 export default function MyGroupsTable() {
     const classes = useStyles();

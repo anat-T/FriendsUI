@@ -2,19 +2,18 @@
 import { makeStyles, Theme } from '@material-ui/core';
 import React from 'react';
 import DataTable from '../../../components/DataTable/DataTable';
-import * as joinApi from '../../../utils/api-routes/join.js';
+import * as joinApi from '../../../utils/api-routes/join';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
 const rows = [
     {
         date: '02.03.2021',
-        friends: '14',
-        classify: 'סמצ',
+        status: 'waiting',
+        type: 'mail',
         groupType: 'תפוצת מייל',
-        nameOfRequester: 'hirrarchy',
+        approver: 'hirrarchy',
         group: '/מפקדת אסם/ענף חטיפים',
-        type: 'groupJoin',
     },
     {
         date: '09.12.2020',
@@ -23,11 +22,11 @@ const rows = [
         groupType: 'קבוצת אבטחה',
         nameOfRequester: 'hirrarchy',
         group: '/מפקדת אסם/ענף חטיפים',
-        type: 'groupJoin',
+        status: 'approved',
     },
 ];
 
-const headers = ['תאריך ', 'חברים', 'סיווג', 'סוג קבוצה', 'שם מבקש', 'קבוצה', ''];
+const headers = ['תאריך בקשה', 'סטטוס', 'סוג בקשה', 'סוג קבוצה', 'גורם מאשר', 'שם תצוגה', ''];
 
 export default function JoinGroupTable() {
     const classes = useStyles();
