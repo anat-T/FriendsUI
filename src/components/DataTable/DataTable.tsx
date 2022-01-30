@@ -14,6 +14,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
 import * as joinApi from '../../utils/api-routes/join';
+import { JoinRequest } from '../../interfaces/JoinRequest';
 
 const useStyles = makeStyles((theme: Theme) => ({
     table: {
@@ -79,13 +80,13 @@ export default function DataTable({ rows, headers, type, title }: DataTableProps
     const classes = useStyles();
 
     const onClickApprove = (index: number) => {
-        console.log(index);
+        console.log(rows[index] as JoinRequest);
 
         // joinApi.approveJoinRequest(rows[index].id);
     };
 
     const onClickDecline = (index: number) => {
-        console.log(index);
+        console.log(rows[index] as JoinRequest);
         // joinApi.denyJoinRequest(rows[index].id);
     };
 
@@ -103,9 +104,9 @@ export default function DataTable({ rows, headers, type, title }: DataTableProps
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
+                        {rows.map((row, index) => (
                             <TableRow>
-                                {Object.values(row).map((cell, index) =>
+                                {Object.values(row).map((cell) =>
                                     regularCell(cell) ? (
                                         <TableCell component="th" scope="row" classes={{ root: classes.tableCell }}>
                                             {cell}

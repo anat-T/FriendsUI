@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import DataTable from '../../../components/DataTable/DataTable';
-import * as ownerApi from '../../../utils/api-routes/owner';
+import DataTable from '../../../../components/DataTable/DataTable';
+import * as ownerApi from '../../../../utils/api-routes/owner';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
@@ -12,8 +12,7 @@ const rows = [
         friends: '14',
         classify: 'סמצ',
         groupType: 'תפוצת מייל',
-        owner: 'מפקדת אסם / ענף חטיפים / מדור מלוחים',
-        groupName: 'קבוצה שלי',
+        nameOfRequester: 'hirrarchy',
         group: '/מפקדת אסם/ענף חטיפים',
     },
     {
@@ -23,13 +22,12 @@ const rows = [
         groupType: 'קבוצת אבטחה',
         nameOfRequester: 'hirrarchy',
         group: '/מפקדת אסם/ענף חטיפים',
-        status: 'approved',
     },
 ];
 
-const headers = ['תאריך ', 'חברים', 'סיווג', 'סוג קבוצה', 'שם מבקש', 'שם קבוצה', 'קבוצה', ''];
+const headers = ['תאריך ', 'חברים', 'סיווג', 'סוג קבוצה', 'שם מבקש', 'קבוצה', ''];
 
-export default function GroupManageRequestsTable() {
+export default function CreateGroupRequestsTable() {
     const classes = useStyles();
 
     // const [rows, setRows] = useState([] as any);
@@ -43,5 +41,5 @@ export default function GroupManageRequestsTable() {
     //     getGroups();
     // }, []);
 
-    return <DataTable rows={rows} headers={headers} type="approveAndDecline" title="ניהול קבוצה" />;
+    return <DataTable rows={rows} headers={headers} type="approveAndDecline" title="יצירת קבוצה" />;
 }
