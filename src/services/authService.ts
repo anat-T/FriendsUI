@@ -2,7 +2,7 @@ import jwtDecode from 'jwt-decode';
 import cookies from 'js-cookie';
 import axiosInstance from 'axios';
 import { environment } from '../globals';
-import { IUserContext } from '../stores/index';
+import { IUserContext } from '../stores/user/user.interface';
 
 export class AuthService {
     static authAxios = axiosInstance.create({
