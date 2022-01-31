@@ -1,4 +1,6 @@
-import { baseURL } from '@/config';
+/* eslint-disable no-undef */
+// eslint-disable-next-line import/no-unresolved
+import { baseURL } from '../../config';
 
 export async function isAlive() {
     try {

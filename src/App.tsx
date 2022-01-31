@@ -20,16 +20,16 @@ import friendslogo from './images/friends-logo.png';
 import CreateGroup from './pages/CreateGroup/CreateGroup';
 import Requests from './pages/Requests/Requests';
 import Profile from './pages/Profile/Profile';
-import MyRequestsTable from './pages/Tables/MyRequestsTable/MyRequestsTable';
-import JoinGroupTable from './pages/Tables/JoinGroupTable/JoinGroupTable';
+import MyRequestsTable from './pages/Tables/Profile/MyRequestsTable/MyRequestsTable';
+import JoinGroupTable from './pages/Tables/Requests/JoinGroupTable/JoinGroupTable';
 import { AuthService } from './services/authService';
 import { UserActions } from './stores/user/user.reducer';
 import { ConfigActions } from './stores/config/config.reducer';
 import { IStoreContext } from './stores/root-reducer';
-import MyGroupsTable from './pages/Tables/MyGroupsTable/MyGroupsTable';
-import GroupManagerTable from './pages/Tables/GroupManagerTable/GroupManagerTable';
-import GroupManageRequestsTable from './pages/Tables/GroupManageRequestsTable/GroupManageRequestsTable';
-import CreateGroupRequestsTable from './pages/Tables/CreateGroupRequests/CreateGroupRequestsTable';
+import MyGroupsTable from './pages/Tables/Profile/MyGroupsTable/MyGroupsTable';
+import GroupManagerTable from './pages/Tables/Profile/GroupManagerTable/GroupManagerTable';
+import GroupManageRequestsTable from './pages/Tables/Requests/GroupManageRequestsTable/GroupManageRequestsTable';
+import CreateGroupRequestsTable from './pages/Tables/Requests/CreateGroupRequests/CreateGroupRequestsTable';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const useStyles = makeStyles((theme: Theme) =>

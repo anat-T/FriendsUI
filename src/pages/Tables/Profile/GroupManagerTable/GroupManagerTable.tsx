@@ -1,41 +1,37 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import DataTable from '../../../components/DataTable/DataTable';
-import * as groupsApi from '../../../utils/api-routes/group';
+import DataTable from '../../../../components/DataTable/DataTable';
+import * as ownerApi from '../../../../utils/api-routes/owner';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
 const rows = [
     {
-        date: '02.03.2021',
         friends: '14',
         classify: 'סמצ',
         groupType: 'תפוצת מייל',
-        nameOfRequester: 'hirrarchy',
+        groupName: 'Meluhim@services.idf',
         group: '/מפקדת אסם/ענף חטיפים',
-        status: 'waiting',
     },
     {
-        date: '09.12.2020',
-        friends: '10',
+        friends: '14',
         classify: 'סמצ',
-        groupType: 'קבוצת אבטחה',
-        nameOfRequester: 'hirrarchy',
+        groupType: 'תפוצת מייל',
+        groupName: 'Meluhim@services.idf',
         group: '/מפקדת אסם/ענף חטיפים',
-        status: 'approved',
     },
 ];
 
-const headers = ['תאריך ', 'חברים', 'סיווג', 'סוג קבוצה', 'שם מבקש', 'קבוצה', ''];
+const headers = ['מספר משתתפים', 'סיווג', 'סוג', 'שם קבוצה', 'קבוצה', ''];
 
-export default function MyGroupsTable() {
+export default function GroupManagerTable() {
     const classes = useStyles();
 
     // const [rows, setRows] = useState([] as any);
 
     // const getGroups = async () => {
-    //     const newGroups = groupsApi.getUserGroups();
+    //     const newGroups = ownerApi.getOwnerRequestByCreator();
     //     setRows(newGroups);
     // };
 
@@ -43,5 +39,5 @@ export default function MyGroupsTable() {
     //     getGroups();
     // }, []);
 
-    return <DataTable rows={rows} headers={headers} type="status" title="הקבוצות שלי" />;
+    return <DataTable rows={rows} headers={headers} type="status" title="קבוצות בניהולי" />;
 }

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { makeStyles, Theme } from '@material-ui/core';
-import React from 'react';
-import DataTable from '../../../components/DataTable/DataTable';
-import * as joinApi from '../../../utils/api-routes/join.js';
+import React, { useEffect, useState } from 'react';
+import DataTable from '../../../../components/DataTable/DataTable';
+import * as ownerApi from '../../../../utils/api-routes/owner';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
@@ -14,7 +14,6 @@ const rows = [
         groupType: 'תפוצת מייל',
         nameOfRequester: 'hirrarchy',
         group: '/מפקדת אסם/ענף חטיפים',
-        type: 'groupJoin',
     },
     {
         date: '09.12.2020',
@@ -23,25 +22,24 @@ const rows = [
         groupType: 'קבוצת אבטחה',
         nameOfRequester: 'hirrarchy',
         group: '/מפקדת אסם/ענף חטיפים',
-        type: 'groupJoin',
     },
 ];
 
 const headers = ['תאריך ', 'חברים', 'סיווג', 'סוג קבוצה', 'שם מבקש', 'קבוצה', ''];
 
-export default function JoinGroupTable() {
+export default function CreateGroupRequestsTable() {
     const classes = useStyles();
 
     // const [rows, setRows] = useState([] as any);
 
-    // const getRequests = async () => {
-    //     const newRequests = joinApi.getJoinRequestByApprover();
-    //     setRows(newRequests);
+    // const getGroups = async () => {
+    //     const newGroups = ownerApi.getOwnerRequestByCreator();
+    //     setRows(newGroups);
     // };
 
     // useEffect(() => {
-    //     getRequests();
+    //     getGroups();
     // }, []);
 
-    return <DataTable rows={rows} headers={headers} type="approveAndDecline" title="הצטרפות לקבוצה" />;
+    return <DataTable rows={rows} headers={headers} type="approveAndDecline" title="יצירת קבוצה" />;
 }
