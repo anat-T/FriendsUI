@@ -80,13 +80,12 @@ export default function DataTable({ rows, headers, type, title }: DataTableProps
     const classes = useStyles();
 
     const onClickApprove = (index: number) => {
-        console.log(rows[index] as JoinRequest);
-
+        // console.log(rows[index] as JoinRequest);
         // joinApi.approveJoinRequest(rows[index].id);
     };
 
     const onClickDecline = (index: number) => {
-        console.log(rows[index] as JoinRequest);
+        // console.log(rows[index] as JoinRequest);
         // joinApi.denyJoinRequest(rows[index].id);
     };
 
