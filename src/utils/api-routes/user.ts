@@ -1,60 +1,65 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable indent */
 import Axios from 'axios';
-import store from '@/store';
-import { baseURL } from '@/config';
-import { formatKartoffelUser, formatADUser } from '@/utils/user';
+import store from '../../stores/store';
+import { baseURL } from '../../config';
+import { formatKartoffelUser, formatADUser } from '../user';
 
 /**
  * getUserByKartoffelId returns the user by the kartoffelId
  * @param kartoffelId is the user kartoffel id
  */
-export async function getUserByKartoffelId(kartoffelId) {
+export async function getUserByKartoffelId(kartoffelId: string) {
     try {
         console.log('before res');
-        const res = await Axios.get(`${baseURL}/api/users/kartoffel/${kartoffelId}`).catch((err) => console.log('errrrr', err));
+        const res = await Axios.get(`${baseURL}/api/users/kartoffel/${kartoffelId}`);
         console.log('after res');
         const user = formatKartoffelUser(res.data);
-        store.commit('addUserToictionary', user);
-        console.log(user);
+        // store.commit('addUserToictionary', user);
+        // console.log(user);
         return user;
     } catch (error) {
-        store.dispatch('onError', error);
+        // store.dispatch('onError', error);
     }
+    return null;
 }
 
 /**
  * getUserByDomainUser returns the user by the domain user
  * @param domainUser is the user domain user
  * */
-export async function getUserByDomainUser(domainUser) {
+export async function getUserByDomainUser(domainUser: string) {
     try {
         const res = await Axios.get(`${baseURL}/api/users/domainuser/${domainUser}`);
         const user = formatKartoffelUser(res.data);
-        store.commit('addUserToictionary', user);
+        // store.commit('addUserToictionary', user);
         return user;
     } catch (error) {
-        store.dispatch('onError', error);
+        // store.dispatch('onError', error);
     }
+    return null;
 }
 
 /**
  * searchUsersByName gets all the users with the received name
  * @param name is the name of the users
  */
-export async function searchUsersByName(name) {
+export async function searchUsersByName(name: string) {
     try {
         const res = await Axios.get(`${baseURL}/api/users`, {
             params: { partialName: name },
         });
         const users = res.data
-            ? res.data.filter((user) => {
-                  return user.id !== store.state.auth.user.id;
+            ? res.data.filter((user: { id: any }) => {
+                  return user.id !== store.getState().user.id;
               })
             : [];
 
-        return Promise.all(users.map((user) => formatADUser(user)));
+        return Promise.all(users.map((user: any) => formatADUser(user)));
     } catch (err) {
-        store.dispatch('onError', err);
+        // store.dispatch('onError', err);
     }
+    return null;
 }
 
 /**
@@ -65,8 +70,9 @@ export async function isApprover() {
         const res = await Axios.get(`${baseURL}/api/users/approver`);
         return res.data;
     } catch (error) {
-        store.dispatch('onError', error);
+        // store.dispatch('onError', error);
     }
+    return null;
 }
 
 /**
@@ -77,15 +83,16 @@ export async function isSuperUser() {
         const res = await Axios.get(`${baseURL}/api/users/super`);
         return res.data;
     } catch (error) {
-        store.dispatch('onError', error);
+        // store.dispatch('onError', error);
     }
+    return null;
 }
 
 /**
  * searchApproverByName gets all the approvers with the received name
  * @param name is the name of the approver
  */
-export async function searchApproverByName(groupType, name) {
+export async function searchApproverByName(groupType: string, name: string) {
     try {
         // return await searchUsersByName(name);
         // TODO: use this for real approvers
@@ -93,12 +100,13 @@ export async function searchApproverByName(groupType, name) {
             params: { partialName: name },
         });
         const users = res.data
-            ? res.data.filter((user) => {
-                  return user.id !== store.state.auth.user.id;
+            ? res.data.filter((user: { id: any }) => {
+                  return user.id !== store.getState().user.id;
               })
             : [];
-        return Promise.all(users.map((user) => formatKartoffelUser(user)));
+        return Promise.all(users.map((user: any) => formatKartoffelUser(user)));
     } catch (error) {
-        store.dispatch('onError', error);
+        // store.dispatch('onError', error);
     }
+    return null;
 }

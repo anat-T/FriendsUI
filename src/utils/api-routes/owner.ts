@@ -8,7 +8,7 @@ import { formatOwnerRequests } from '../owner';
  * @param {string} groupId - group id
  * @param {string} ownerId - new owner id
  * */
-export async function createOwnerRequest({ groupId, ownerId }) {
+export async function createOwnerRequest(groupId: string, ownerId: string) {
     try {
         const res = await Axios.post(`${baseURL}/api/owner/request`, {
             groupId,
@@ -55,7 +55,7 @@ export async function getOwnerRequestByApprover() {
  * denyOwnerRequest - deny owner request
  * @param {string} ownerReqId - owner request id
  * */
-export async function denyJoinRequest(ownerReqId) {
+export async function denyJoinRequest(ownerReqId: string) {
     try {
         const res = await Axios.put(`${baseURL}/api/owner/request/deny/${ownerReqId}`);
         return res.data;
@@ -69,7 +69,7 @@ export async function denyJoinRequest(ownerReqId) {
  * approveOwnerRequest - approve owner request
  * @param {string} ownerReqId - owner request id
  * */
-export async function approveOwnerRequest(ownerReqId) {
+export async function approveOwnerRequest(ownerReqId: string) {
     try {
         const res = await Axios.put(`${baseURL}/api/owner/request/approve/${ownerReqId}`);
         return res.data;

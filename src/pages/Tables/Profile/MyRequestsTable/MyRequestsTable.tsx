@@ -1,33 +1,32 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable import/no-unresolved */
 import { makeStyles, Theme } from '@material-ui/core';
 import React from 'react';
-import DataTable from '../../../components/DataTable/DataTable';
-import * as joinApi from '../../../utils/api-routes/join.js';
+import DataTable from '../../../../components/DataTable/DataTable';
+import * as joinApi from '../../../../utils/api-routes/join';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
 const rows = [
     {
         date: '02.03.2021',
-        friends: '14',
-        classify: 'סמצ',
-        groupType: 'תפוצת מייל',
-        nameOfRequester: 'hirrarchy',
-        group: '/מפקדת אסם/ענף חטיפים',
         status: 'waiting',
+        requestType: 'הצטרפות לקבוצה',
+        groupType: 'תפוצת מייל',
+        approver: 'hirrarchy',
+        group: '/מפקדת אסם/ענף חטיפים',
     },
     {
-        date: '09.12.2020',
-        friends: '10',
-        classify: 'סמצ',
-        groupType: 'קבוצת אבטחה',
-        nameOfRequester: 'hirrarchy',
+        date: '02.03.2021',
+        status: 'waiting',
+        requestType: 'יצירת קבוצה ',
+        groupType: 'תפוצת מייל',
+        approver: 'hirrarchy',
         group: '/מפקדת אסם/ענף חטיפים',
-        status: 'approved',
     },
 ];
 
-const headers = ['תאריך ', 'חברים', 'סיווג', 'סוג קבוצה', 'שם מבקש', 'קבוצה', ''];
+const headers = ['תאריך בקשה', 'סטטוס', 'סוג בקשה', 'סוג קבוצה', 'גורם מאשר', 'שם תצוגה', ''];
 
 export default function MyRequestsTable() {
     const classes = useStyles();
