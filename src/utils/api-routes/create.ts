@@ -3,8 +3,9 @@
 import Axios from 'axios';
 import store from '../../stores/store';
 import { baseURL } from '../../config';
-import { formatCreateRequests } from '../create';
+import { formatCreateRequests } from '../format-requests/create';
 import { getUserByKartoffelId, getUserByDomainUser } from './user';
+import { CreateGroupRequest } from '../../interfaces/FormatedRequests/CreateGroupRequest';
 /**
  * createGroupRequest for creating group
  * @param {string} approverId - approver id
@@ -16,7 +17,7 @@ import { getUserByKartoffelId, getUserByDomainUser } from './user';
  * @param {string[]} members - group members
  * @param {string} owner - group owner
  *  * */
-export async function createGroupRequest(
+export async function createCreateRequest(
     approverId: string,
     groupName: string,
     hierarchy: string,
@@ -52,7 +53,7 @@ export async function createGroupRequest(
 /**
  * getGroupRequestByCreator - get group request by creator
  * */
-export async function getGroupRequestByCreator() {
+export async function getCreateRequestByCreator() {
     try {
         const res = await Axios.get(`${baseURL}/api/create/requests/creator`);
         const requestsFormatted = res.data.requests ? formatCreateRequests(res.data.requests) : [];
@@ -72,7 +73,7 @@ export async function getGroupRequestByCreator() {
 /**
  * getGroupRequestByApprover - get group requests by approver
  * */
-export async function getGroupRequestByApprover() {
+export async function getCreateRequestByApprover(): Promise<CreateGroupRequest[]> {
     try {
         const res = await Axios.get(`${baseURL}/api/create/requests/approver`);
         const requestsFormatted = res.data.requests ? formatCreateRequests(res.data.requests) : [];
@@ -86,14 +87,14 @@ export async function getGroupRequestByApprover() {
     } catch (error) {
         // store.dispatch('onError', error);
     }
-    return null;
+    return [];
 }
 
 /**
  * denyGroupRequest - deny group create request
  * @param {string} createReqId - create request id
  * */
-export async function denyGroupRequest(createReqId: string) {
+export async function denyCreateRequest(createReqId: string) {
     try {
         const res = await Axios.put(`${baseURL}/api/create/request/deny/${createReqId}`);
         return res.data;
@@ -107,7 +108,7 @@ export async function denyGroupRequest(createReqId: string) {
  * approveGroupRequest - approve group create request
  * @param {string} createReqId - create request id
  * */
-export async function approveGroupRequest(createReqId: string) {
+export async function approveCreateRequest(createReqId: string) {
     try {
         const res = await Axios.put(`${baseURL}/api/create/request/approve/${createReqId}`);
         return res.data;

@@ -1,7 +1,8 @@
 import Axios from 'axios';
 // eslint-disable-next-line import/no-unresolved
 import { baseURL } from '../../config';
-import { formatOwnerRequests } from '../owner';
+import { GroupManageRequest } from '../../interfaces/FormatedRequests/GroupManageRequest';
+import { formatOwnerRequests } from '../format-requests/owner';
 
 /**
  * createOwnerRequest for change owner to group
@@ -24,7 +25,7 @@ export async function createOwnerRequest(groupId: string, ownerId: string) {
 /**
  * getOwnerRequestByCreator - get owner requests by creator
  * */
-export async function getOwnerRequestByCreator() {
+export async function getOwnerRequestByCreator(): Promise<GroupManageRequest[]> {
     try {
         const res = await Axios.get(`${baseURL}/api/owner/requests/creator`);
         const requestsFormatted = res.data.requests ? await formatOwnerRequests(res.data.requests) : [];
@@ -32,13 +33,13 @@ export async function getOwnerRequestByCreator() {
     } catch (error) {
         // todo
     }
-    return null;
+    return [];
 }
 
 /**
  * getOwnerRequestByApprover - get owner requests by approver
  * */
-export async function getOwnerRequestByApprover() {
+export async function getOwnerRequestByApprover(): Promise<GroupManageRequest[]> {
     try {
         const res = await Axios.get(`${baseURL}/api/owner/requests/approver`);
         const requestsFormatted = res.data.requests ? await formatOwnerRequests(res.data.requests) : [];
@@ -48,7 +49,7 @@ export async function getOwnerRequestByApprover() {
     } catch (error) {
         // todo
     }
-    return null;
+    return [];
 }
 
 /**

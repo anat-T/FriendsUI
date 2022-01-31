@@ -3,6 +3,7 @@ import { makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import DataTable from '../../../../components/DataTable/DataTable';
 import * as groupsApi from '../../../../utils/api-routes/group';
+import { formatGroups } from '../../../../utils/format-rows/group';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
@@ -12,14 +13,14 @@ const rows = [
         groupType: 'תפוצת מייל',
         owner: 'רמד מלוחים',
         groupName: 'הקבוצה שלי',
-        group: '/מפקדת אסם/ענף חטיפים',
+        displayName: '/מפקדת אסם/ענף חטיפים',
     },
     {
         classify: 'סמצ',
         groupType: 'תפוצת מייל',
         owner: 'רמד מלוחים',
         groupName: 'הקבוצה שלי',
-        group: '/מפקדת אסם/ענף חטיפים',
+        displayName: '/מפקדת אסם/ענף חטיפים',
     },
 ];
 
@@ -31,7 +32,7 @@ export default function MyGroupsTable() {
     // const [rows, setRows] = useState([] as any);
 
     // const getGroups = async () => {
-    //     const newGroups = groupsApi.getUserGroups();
+    //     const newGroups = formatGroups(await groupsApi.getUserGroups());
     //     setRows(newGroups);
     // };
 

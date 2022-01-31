@@ -1,6 +1,6 @@
-import { JoinRequest } from '../interfaces/JoinRequest';
-import * as groupApi from './api-routes/group';
-import { RequestTypeEnum } from './request';
+import { JoinRequest } from '../../interfaces/JoinRequest';
+import * as groupApi from '../api-routes/group';
+import { RequestTypeEnum } from '../request';
 
 export async function formatJoinRequests(requests: JoinRequest[]) {
     const requestsFormatted = await Promise.all(

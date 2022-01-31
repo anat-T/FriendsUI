@@ -2,9 +2,54 @@
 import { makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import DataTable from '../../../../components/DataTable/DataTable';
-import * as ownerApi from '../../../../utils/api-routes/owner';
+import { GroupManageRequest } from '../../../../interfaces/FormatedRequests/GroupManageRequest';
+import * as createApi from '../../../../utils/api-routes/create';
+import { formatCreateRequests } from '../../../../utils/format-requests/create';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
+
+const requests: GroupManageRequest[] = [
+    {
+        reqType: 'create',
+        request: {
+            creator: 'Shay',
+            approver: 'Anat',
+            groupId: '1',
+        },
+        group: {
+            classification: 'סמצ',
+            displayName: '/מפקדת אסם/ענף חטיפים',
+            sAMAccountName: '?',
+            name: 'ענף חטיפים',
+            type: 'תפוצת מייל',
+            owner: {
+                displayName: 'רמד חטיפים',
+                sAMAccountName: '?',
+            },
+            members: [{ displayName: 'yoav', sAMAccountName: '?' }],
+        },
+    },
+    {
+        reqType: 'create',
+        request: {
+            creator: 'Shay',
+            approver: 'Anat',
+            groupId: '1',
+        },
+        group: {
+            classification: 'סמצ',
+            displayName: '/מפקדת אסם/ענף חטיפים',
+            sAMAccountName: '?',
+            name: 'ענף חטיפים',
+            type: 'תפוצת מייל',
+            owner: {
+                displayName: 'רמד חטיפים',
+                sAMAccountName: '?',
+            },
+            members: [{ displayName: 'yoav', sAMAccountName: '?' }],
+        },
+    },
+];
 
 const rows = [
     {
@@ -25,7 +70,7 @@ const rows = [
     },
 ];
 
-const headers = ['תאריך ', 'חברים', 'סיווג', 'סוג קבוצה', 'שם מבקש', 'קבוצה', ''];
+const headers = ['תאריך בקשה', 'חברים', 'סיווג', 'סוג קבוצה', 'מנהל', 'שם קבוצה', 'שם תצוגה', ''];
 
 export default function CreateGroupRequestsTable() {
     const classes = useStyles();
@@ -33,7 +78,7 @@ export default function CreateGroupRequestsTable() {
     // const [rows, setRows] = useState([] as any);
 
     // const getGroups = async () => {
-    //     const newGroups = ownerApi.getOwnerRequestByCreator();
+    //     const newGroups = formatCreateRequests(await createApi.getCreateRequestByApprover());
     //     setRows(newGroups);
     // };
 

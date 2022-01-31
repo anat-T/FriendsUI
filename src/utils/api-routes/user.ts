@@ -3,7 +3,7 @@
 import Axios from 'axios';
 import store from '../../stores/store';
 import { baseURL } from '../../config';
-import { formatKartoffelUser, formatADUser } from '../user';
+import { formatKartoffelUser, formatADUser } from '../format-requests/user';
 
 /**
  * getUserByKartoffelId returns the user by the kartoffelId
