@@ -2,9 +2,47 @@
 import { makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import DataTable from '../../../../components/DataTable/DataTable';
+import { GroupManageRequest } from '../../../../interfaces/FormatedRequests/GroupManageRequest';
 import * as ownerApi from '../../../../utils/api-routes/owner';
+import { formatOwnerRequests } from '../../../../utils/format-rows/owner';
+import { TableTypeEnum } from '../../../../utils/table';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
+
+const requests: GroupManageRequest[] = [
+    {
+        reqType: 'owner',
+        creator: 'Shay',
+        approver: 'Anat',
+        groupId: '1',
+        classification: 'סמצ',
+        displayName: '/מפקדת אסם/ענף חטיפים',
+        sAMAccountName: '?',
+        name: 'ענף חטיפים',
+        type: 'תפוצת מייל',
+        owner: {
+            displayName: 'רמד חטיפים',
+            sAMAccountName: '?',
+        },
+        members: [{ displayName: 'yoav', sAMAccountName: '?' }],
+    },
+    {
+        reqType: 'owner',
+        creator: 'Shay',
+        approver: 'Anat',
+        groupId: '1',
+        classification: 'סמצ',
+        displayName: '/מפקדת אסם/ענף חטיפים',
+        sAMAccountName: '?',
+        name: 'ענף חטיפים',
+        type: 'תפוצת מייל',
+        owner: {
+            displayName: 'רמד חטיפים',
+            sAMAccountName: '?',
+        },
+        members: [{ displayName: 'yoav', sAMAccountName: '?' }],
+    },
+];
 
 const rows = [
     {
@@ -12,22 +50,22 @@ const rows = [
         friends: '14',
         classify: 'סמצ',
         groupType: 'תפוצת מייל',
-        owner: 'מפקדת אסם / ענף חטיפים / מדור מלוחים',
+        manager: 'Anat',
         groupName: 'קבוצה שלי',
-        group: '/מפקדת אסם/ענף חטיפים',
+        displayName: '/מפקדת אסם/ענף חטיפים',
     },
     {
-        date: '09.12.2020',
-        friends: '10',
+        date: '02.03.2021',
+        friends: '14',
         classify: 'סמצ',
-        groupType: 'קבוצת אבטחה',
-        nameOfRequester: 'hirrarchy',
-        group: '/מפקדת אסם/ענף חטיפים',
-        status: 'approved',
+        groupType: 'תפוצת מייל',
+        manager: 'Shay',
+        groupName: 'קבוצה שלי',
+        displayName: 'מפקדת אסם / ענף חטיפים / מדור מלוחים',
     },
 ];
 
-const headers = ['תאריך ', 'חברים', 'סיווג', 'סוג קבוצה', 'שם מבקש', 'שם קבוצה', 'קבוצה', ''];
+const headers = ['תאריך בקשה', 'חברים', 'סיווג', 'סוג קבוצה', 'מנהל נוכחי', 'שם קבוצה', 'שם תצוגה', ''];
 
 export default function GroupManageRequestsTable() {
     const classes = useStyles();
@@ -35,7 +73,7 @@ export default function GroupManageRequestsTable() {
     // const [rows, setRows] = useState([] as any);
 
     // const getGroups = async () => {
-    //     const newGroups = ownerApi.getOwnerRequestByCreator();
+    //     const newGroups = formatOwnerRequests(await ownerApi.getOwnerRequestByCreator());
     //     setRows(newGroups);
     // };
 
@@ -43,5 +81,24 @@ export default function GroupManageRequestsTable() {
     //     getGroups();
     // }, []);
 
-    return <DataTable rows={rows} headers={headers} type="approveAndDecline" title="ניהול קבוצה" />;
+    const approveOwnerRequest = (index: number) => {
+        // ownerApi.approveOwnerRequest(rows[index].id);
+        console.log('approveOwnerRequest');
+    };
+
+    const declineOwnerRequest = (index: number) => {
+        // ownerApi.denyOwnerRequest(rows[index].id);
+        console.log('declineOwnerRequest');
+    };
+
+    return (
+        <DataTable
+            rows={rows}
+            headers={headers}
+            type={TableTypeEnum.approveDecline}
+            title="ניהול קבוצה"
+            approveFunction={approveOwnerRequest}
+            declineFunction={declineOwnerRequest}
+        />
+    );
 }

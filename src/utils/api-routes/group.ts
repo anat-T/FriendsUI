@@ -3,8 +3,9 @@ import Axios from 'axios';
 // eslint-disable-next-line import/no-unresolved
 import { baseURL } from '../../config';
 import { ADGroup } from '../../interfaces/ADGroup';
+import { Group } from '../../interfaces/FormatedRequests/Group';
 import { User } from '../../interfaces/User';
-import { formatGroup } from '../group';
+import { formatGroup } from '../format-requests/group';
 /**
  * searchGroups - search groups (distribution and security)
  * @param {string} partialName - partial name of the group
@@ -51,7 +52,7 @@ export async function getGroupById(id: string) {
 /**
  * getUserGroups - get user groups
  * */
-export async function getUserGroups() {
+export async function getUserGroups(): Promise<Group[]> {
     try {
         const res = await Axios.get(`${baseURL}/api/ad/groups/user`);
         console.log('res', res);
@@ -63,7 +64,7 @@ export async function getUserGroups() {
     } catch (error) {
         // TODO: Handle error
     }
-    return null;
+    return [];
 }
 
 /**

@@ -1,6 +1,6 @@
-import { OwnerRequest } from '../interfaces/OwnerRequest';
-import * as groupApi from './api-routes/group';
-import { RequestTypeEnum } from './request';
+import { OwnerRequest } from '../../interfaces/OwnerRequest';
+import * as groupApi from '../api-routes/group';
+import { RequestTypeEnum } from '../request';
 
 export async function formatOwnerRequests(requests: OwnerRequest[]) {
     const requestsFormatted = Promise.all(
