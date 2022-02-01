@@ -14,6 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
+import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
 import { TableTypeEnum } from '../../utils/table';
 
 const STATUS_CELL = 1;
@@ -60,8 +61,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 type DataTableProps = {
-    rows: Array<Object>;
-    headers: Array<string>;
+    rows: GridRowsProp;
+    columns: GridColDef[];
     type: string;
     title: string;
     approveFunction?: (index: number) => void;
@@ -71,24 +72,23 @@ type DataTableProps = {
 
 const getColor = (status?: string) => {
     // eslint-disable-next-line no-console
-    console.log('cell:', status);
     if (status === 'approved') return '#C2EFC7';
     if (status === 'waiting') return '#FFEB66';
     return '#4287f5';
 };
 
-export default function DataTable({ rows, headers, type, title, approveFunction, declineFunction, moreDetailsFunction }: DataTableProps) {
+export default function DataTable({ rows, columns, type, title, approveFunction, declineFunction, moreDetailsFunction }: DataTableProps) {
     const classes = useStyles();
 
     return (
         <>
+            {/* <Table sx={{ minWidth: 650 }} aria-label="simple table"> */}
             <Typography className={classes.title}>{title}</Typography>
             <TableContainer component={Paper} className={classes.table}>
-                <Table>
-                    {/* <Table sx={{ minWidth: 650 }} aria-label="simple table"> */}
+                {/* <Table>
                     <TableHead>
                         <TableRow>
-                            {headers.map((header) => (
+                            {columns.map((header) => (
                                 <TableCell classes={{ root: classes.tableCellHeader }}>{header}</TableCell>
                             ))}
                         </TableRow>
@@ -137,7 +137,8 @@ export default function DataTable({ rows, headers, type, title, approveFunction,
                             </TableRow>
                         ))}
                     </TableBody>
-                </Table>
+                </Table> */}
+                <DataGrid rows={rows} columns={columns} />
             </TableContainer>
         </>
     );

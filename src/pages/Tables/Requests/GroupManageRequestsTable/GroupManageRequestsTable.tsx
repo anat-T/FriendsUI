@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
+import { GridRowsProp, GridColDef } from '@mui/x-data-grid';
 import DataTable from '../../../../components/DataTable/DataTable';
 import { GroupManageRequest } from '../../../../interfaces/FormatedRequests/GroupManageRequest';
 import * as ownerApi from '../../../../utils/api-routes/owner';
@@ -44,28 +45,38 @@ const requests: GroupManageRequest[] = [
     },
 ];
 
-const rows = [
+const rows: GridRowsProp = [
     {
+        id: 1,
         date: '02.03.2021',
         friends: '14',
         classify: 'סמצ',
         groupType: 'תפוצת מייל',
-        manager: 'Anat',
+        owner: 'Anat',
         groupName: 'קבוצה שלי',
         displayName: '/מפקדת אסם/ענף חטיפים',
     },
     {
+        id: 2,
         date: '02.03.2021',
         friends: '14',
         classify: 'סמצ',
         groupType: 'תפוצת מייל',
-        manager: 'Shay',
+        owner: 'Shay',
         groupName: 'קבוצה שלי',
         displayName: 'מפקדת אסם / ענף חטיפים / מדור מלוחים',
     },
 ];
 
-const headers = ['תאריך בקשה', 'חברים', 'סיווג', 'סוג קבוצה', 'מנהל נוכחי', 'שם קבוצה', 'שם תצוגה', ''];
+const columns: GridColDef[] = [
+    { field: 'date', headerName: 'תאריך בקשה', width: 200 },
+    { field: 'friends', headerName: 'חברים', width: 200 },
+    { field: 'classify', headerName: 'סיווג', width: 200 },
+    { field: 'groupType', headerName: 'סוג קבוצה', width: 200 },
+    { field: 'owner', headerName: 'מנהל נוכחי', width: 200 },
+    { field: 'groupName', headerName: 'שם קבוצה', width: 200 },
+    { field: 'displayName', headerName: 'שם תצוגה', width: 200 },
+];
 
 export default function GroupManageRequestsTable() {
     const classes = useStyles();
@@ -94,7 +105,7 @@ export default function GroupManageRequestsTable() {
     return (
         <DataTable
             rows={rows}
-            headers={headers}
+            columns={columns}
             type={TableTypeEnum.approveDecline}
             title="ניהול קבוצה"
             approveFunction={approveOwnerRequest}

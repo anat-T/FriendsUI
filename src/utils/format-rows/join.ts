@@ -10,7 +10,7 @@ export async function formatJoinRequests(newRequests: JoinGroupRequest[]) {
             classify: request.classification,
             groupType: request.type,
             nameOfRequester: request.creator,
-            group: request.displayName,
+            displayName: request.displayName,
         });
     });
     return newRows;

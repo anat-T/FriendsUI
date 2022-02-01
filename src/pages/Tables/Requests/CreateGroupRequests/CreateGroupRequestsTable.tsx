@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
+import { GridRowsProp, GridColDef } from '@mui/x-data-grid';
 import DataTable from '../../../../components/DataTable/DataTable';
 import { CreateGroupRequest } from '../../../../interfaces/FormatedRequests/CreateGroupRequest';
 import * as createApi from '../../../../utils/api-routes/create';
@@ -38,24 +39,36 @@ const requests: CreateGroupRequest[] = [
 
 const rows = [
     {
+        id: 1,
         date: '02.03.2021',
         friends: '14',
         classify: 'סמצ',
         groupType: 'תפוצת מייל',
-        nameOfRequester: 'hirrarchy',
-        group: '/מפקדת אסם/ענף חטיפים',
+        owner: 'hirrarchy',
+        groupName: 'הקבוצה שלי',
+        displayName: '/מפקדת אסם/ענף חטיפים',
     },
     {
+        id: 2,
         date: '09.12.2020',
         friends: '10',
         classify: 'סמצ',
         groupType: 'קבוצת אבטחה',
-        nameOfRequester: 'hirrarchy',
-        group: '/מפקדת אסם/ענף חטיפים',
+        owner: 'hirrarchy',
+        groupName: 'הקבוצה שלי',
+        displayName: '/מפקדת אסם/ענף חטיפים',
     },
 ];
 
-const headers = ['תאריך בקשה', 'חברים', 'סיווג', 'סוג קבוצה', 'מנהל', 'שם קבוצה', 'שם תצוגה', ''];
+const columns: GridColDef[] = [
+    { field: 'date', headerName: 'תאריך בקשה', width: 200 },
+    { field: 'friends', headerName: 'מספר משתתפים', width: 200 },
+    { field: 'classify', headerName: 'סיווג', width: 200 },
+    { field: 'groupType', headerName: 'סוג קבוצה', width: 200 },
+    { field: 'owner', headerName: 'מנהל', width: 200 },
+    { field: 'groupName', headerName: 'שם קבוצה', width: 200 },
+    { field: 'displayName', headerName: 'קבוצה', width: 200 },
+];
 
 export default function CreateGroupRequestsTable() {
     const classes = useStyles();
@@ -84,7 +97,7 @@ export default function CreateGroupRequestsTable() {
     return (
         <DataTable
             rows={rows}
-            headers={headers}
+            columns={columns}
             type={TableTypeEnum.approveDecline}
             title="יצירת קבוצה"
             approveFunction={approveCreateRequest}

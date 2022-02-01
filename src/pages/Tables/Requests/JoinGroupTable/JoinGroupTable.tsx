@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { makeStyles, Theme } from '@material-ui/core';
 import React, { useState } from 'react';
+import { GridRowsProp, GridColDef } from '@mui/x-data-grid';
 import DataTable from '../../../../components/DataTable/DataTable';
 import { ADGroup } from '../../../../interfaces/ADGroup';
 import { JoinGroupRequest } from '../../../../interfaces/FormatedRequests/JoinGroupRequest';
@@ -48,28 +49,35 @@ const requests: JoinGroupRequest[] = [
     },
 ];
 
-const rows = [
+const rows: GridRowsProp = [
     {
+        id: 1,
         date: '02.03.2021',
         friends: '14',
         classify: 'סמצ',
         groupType: 'תפוצת מייל',
-        owner: 'מפקדת אסם / ענף חטיפים / מדור מלוחים',
-        groupName: 'קבוצה שלי',
-        group: '/מפקדת אסם/ענף חטיפים',
+        nameOfRequester: 'hirrarchy',
+        displayName: '/מפקדת אסם/ענף חטיפים',
     },
     {
+        id: 2,
         date: '09.12.2020',
         friends: '10',
         classify: 'סמצ',
         groupType: 'קבוצת אבטחה',
         nameOfRequester: 'hirrarchy',
-        group: '/מפקדת אסם/ענף חטיפים',
-        status: 'approved',
+        displayName: '/מפקדת אסם/ענף חטיפים',
     },
 ];
 
-const headers = ['תאריך ', 'חברים', 'סיווג', 'סוג קבוצה', 'שם מבקש', 'קבוצה', ''];
+const columns: GridColDef[] = [
+    { field: 'date', headerName: 'תאריך בקשה', width: 200 },
+    { field: 'friends', headerName: 'חברים', width: 200 },
+    { field: 'classify', headerName: 'סיווג', width: 200 },
+    { field: 'groupType', headerName: 'סוג קבוצה', width: 200 },
+    { field: 'nameOfRequester', headerName: 'שם מבקש', width: 200 },
+    { field: 'displayName', headerName: 'קבוצה', width: 200 },
+];
 
 export default function JoinGroupTable() {
     const classes = useStyles();
@@ -98,7 +106,7 @@ export default function JoinGroupTable() {
     return (
         <DataTable
             rows={rows}
-            headers={headers}
+            columns={columns}
             type={TableTypeEnum.approveDecline}
             title="הצטרפות לקבוצה"
             approveFunction={approveJoinRequest}

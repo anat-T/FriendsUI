@@ -9,7 +9,7 @@ export async function formatOwnerRequests(newRequests: GroupManageRequest[]) {
             friends: request.members ? request.members.length : 0,
             classify: request.classification,
             groupType: request.type,
-            manager: request.creator,
+            owner: request.creator,
             groupName: request.name,
             displayName: request.displayName,
         });
