@@ -1,8 +1,17 @@
-import { ADGroup } from '../ADGroup';
-import { JoinRequest } from '../JoinRequest';
-
 export interface JoinGroupRequest {
     reqType: string;
-    request: JoinRequest;
-    group: ADGroup;
+    creator: string;
+    approver: string;
+    groupId: string;
+    joinReason: string;
+    classification: string;
+    displayName: string;
+    sAMAccountName: string;
+    name: string;
+    type: string;
+    owner: {
+        displayName: string;
+        sAMAccountName: string;
+    };
+    members: [{ displayName: string; sAMAccountName: string }];
 }

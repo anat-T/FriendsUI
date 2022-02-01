@@ -3,6 +3,7 @@ import { makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import DataTable from '../../../../components/DataTable/DataTable';
 import * as ownerApi from '../../../../utils/api-routes/owner';
+import { TableTypeEnum } from '../../../../utils/table';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
@@ -39,5 +40,10 @@ export default function GroupManagerTable() {
     //     getGroups();
     // }, []);
 
-    return <DataTable rows={rows} headers={headers} type="status" title="קבוצות בניהולי" />;
+    const groupMoreDetails = (index: number) => {
+        // TODO MORE DETAILS POP UP
+        console.log('groupMoreDeta');
+    };
+
+    return <DataTable rows={rows} headers={headers} type={TableTypeEnum.moreDetails} title="קבוצות בניהולי" moreDetailsFunction={groupMoreDetails} />;
 }

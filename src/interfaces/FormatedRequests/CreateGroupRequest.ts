@@ -1,9 +1,7 @@
-import { CreateRequest } from '../CreateRequest';
-
 export interface CreateGroupRequest {
     reqType: string;
-    request: CreateRequest;
-    // group: ADGroup; // TODO ???
+    creator: string;
+    approver: string;
     groupName: string;
     hierarchy: string;
     displayName: string;

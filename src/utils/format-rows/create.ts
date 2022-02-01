@@ -9,7 +9,7 @@ export async function formatCreateRequests(newRequests: CreateGroupRequest[]) {
             friends: request.members ? request.members.length : 0,
             classify: request.classification,
             groupType: request.type,
-            manager: request.request.creator,
+            manager: request.creator,
             groupName: request.groupName,
             displayName: request.displayName,
         });

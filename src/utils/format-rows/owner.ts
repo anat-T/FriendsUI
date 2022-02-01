@@ -6,12 +6,12 @@ export async function formatOwnerRequests(newRequests: GroupManageRequest[]) {
     newRequests.forEach((request: GroupManageRequest) => {
         newRows.push({
             date: '09.12.2020',
-            friends: request.group.members ? request.group.members.length : 0,
-            classify: request.group.classification,
-            groupType: request.group.type,
-            manager: request.request.creator,
-            groupName: request.group.name,
-            displayName: request.group.displayName,
+            friends: request.members ? request.members.length : 0,
+            classify: request.classification,
+            groupType: request.type,
+            manager: request.creator,
+            groupName: request.name,
+            displayName: request.displayName,
         });
     });
     return newRows;

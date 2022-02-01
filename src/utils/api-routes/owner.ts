@@ -56,7 +56,7 @@ export async function getOwnerRequestByApprover(): Promise<GroupManageRequest[]>
  * denyOwnerRequest - deny owner request
  * @param {string} ownerReqId - owner request id
  * */
-export async function denyJoinRequest(ownerReqId: string) {
+export async function denyOwnerRequest(ownerReqId: string) {
     try {
         const res = await Axios.put(`${baseURL}/api/owner/request/deny/${ownerReqId}`);
         return res.data;

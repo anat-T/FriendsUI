@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import DataTable from '../../../../components/DataTable/DataTable';
 import * as groupsApi from '../../../../utils/api-routes/group';
 import { formatGroups } from '../../../../utils/format-rows/group';
+import { TableTypeEnum } from '../../../../utils/table';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
@@ -40,5 +41,5 @@ export default function MyGroupsTable() {
     //     getGroups();
     // }, []);
 
-    return <DataTable rows={rows} headers={headers} type="status" title="הקבוצות שלי" />;
+    return <DataTable rows={rows} headers={headers} type={TableTypeEnum.groups} title="הקבוצות שלי" />;
 }

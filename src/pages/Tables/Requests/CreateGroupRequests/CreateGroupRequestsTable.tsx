@@ -2,52 +2,37 @@
 import { makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import DataTable from '../../../../components/DataTable/DataTable';
-import { GroupManageRequest } from '../../../../interfaces/FormatedRequests/GroupManageRequest';
+import { CreateGroupRequest } from '../../../../interfaces/FormatedRequests/CreateGroupRequest';
 import * as createApi from '../../../../utils/api-routes/create';
 import { formatCreateRequests } from '../../../../utils/format-requests/create';
+import { TableTypeEnum } from '../../../../utils/table';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
-const requests: GroupManageRequest[] = [
+const requests: CreateGroupRequest[] = [
     {
         reqType: 'create',
-        request: {
-            creator: 'Shay',
-            approver: 'Anat',
-            groupId: '1',
-        },
-        group: {
-            classification: 'סמצ',
-            displayName: '/מפקדת אסם/ענף חטיפים',
-            sAMAccountName: '?',
-            name: 'ענף חטיפים',
-            type: 'תפוצת מייל',
-            owner: {
-                displayName: 'רמד חטיפים',
-                sAMAccountName: '?',
-            },
-            members: [{ displayName: 'yoav', sAMAccountName: '?' }],
-        },
+        creator: 'Shay',
+        approver: 'Anat',
+        groupName: 'ענף חטיפים',
+        hierarchy: '/מפקדת אסם/ענף חטיפים',
+        displayName: '/מפקדת אסם/ענף חטיפים',
+        classification: 'סמצ',
+        owner: 'רמד חטיפים',
+        members: ['yoav'],
+        type: 'תפוצת מייל',
     },
     {
         reqType: 'create',
-        request: {
-            creator: 'Shay',
-            approver: 'Anat',
-            groupId: '1',
-        },
-        group: {
-            classification: 'סמצ',
-            displayName: '/מפקדת אסם/ענף חטיפים',
-            sAMAccountName: '?',
-            name: 'ענף חטיפים',
-            type: 'תפוצת מייל',
-            owner: {
-                displayName: 'רמד חטיפים',
-                sAMAccountName: '?',
-            },
-            members: [{ displayName: 'yoav', sAMAccountName: '?' }],
-        },
+        creator: 'Shay',
+        approver: 'Anat',
+        groupName: 'ענף חטיפים',
+        hierarchy: '/מפקדת אסם/ענף חטיפים',
+        displayName: '/מפקדת אסם/ענף חטיפים',
+        classification: 'סמצ',
+        owner: 'רמד חטיפים',
+        members: ['yoav'],
+        type: 'תפוצת מייל',
     },
 ];
 
@@ -86,5 +71,24 @@ export default function CreateGroupRequestsTable() {
     //     getGroups();
     // }, []);
 
-    return <DataTable rows={rows} headers={headers} type="approveAndDecline" title="יצירת קבוצה" />;
+    const approveCreateRequest = (index: number) => {
+        // createApi.approveCreateRequest(rows[index].id);
+        console.log('approveCreateRequest');
+    };
+
+    const declineCreateRequest = (index: number) => {
+        // createApi.denyCreateRequest(rows[index].id);
+        console.log('declineCreateRequest');
+    };
+
+    return (
+        <DataTable
+            rows={rows}
+            headers={headers}
+            type={TableTypeEnum.approveDecline}
+            title="יצירת קבוצה"
+            approveFunction={approveCreateRequest}
+            declineFunction={declineCreateRequest}
+        />
+    );
 }

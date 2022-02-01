@@ -7,51 +7,44 @@ import { JoinGroupRequest } from '../../../../interfaces/FormatedRequests/JoinGr
 import { JoinRequest } from '../../../../interfaces/JoinRequest';
 import * as joinApi from '../../../../utils/api-routes/join';
 import { formatJoinRequests } from '../../../../utils/format-rows/join';
+import { TableTypeEnum } from '../../../../utils/table';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
 const requests: JoinGroupRequest[] = [
     {
         reqType: 'join',
-        request: {
-            creator: 'Shay',
-            approver: 'Anat',
-            groupId: '1',
-            joinReason: 'Nothing',
-        },
-        group: {
-            classification: 'סמצ',
-            displayName: '/מפקדת אסם/ענף חטיפים',
+        creator: 'Shay',
+        approver: 'Anat',
+        groupId: '1',
+        joinReason: 'Nothing',
+        classification: 'סמצ',
+        displayName: '/מפקדת אסם/ענף חטיפים',
+        sAMAccountName: '?',
+        name: 'ענף חטיפים',
+        type: 'תפוצת מייל',
+        owner: {
+            displayName: 'רמד חטיפים',
             sAMAccountName: '?',
-            name: 'ענף חטיפים',
-            type: 'תפוצת מייל',
-            owner: {
-                displayName: 'רמד חטיפים',
-                sAMAccountName: '?',
-            },
-            members: [{ displayName: 'yoav', sAMAccountName: '?' }],
         },
+        members: [{ displayName: 'yoav', sAMAccountName: '?' }],
     },
     {
         reqType: 'join',
-        request: {
-            creator: 'Shay',
-            approver: 'Anat',
-            groupId: '1',
-            joinReason: 'Nothing',
-        },
-        group: {
-            classification: 'סמצ',
-            displayName: '/מפקדת אסם/ענף חטיפים',
+        creator: 'Shay',
+        approver: 'Anat',
+        groupId: '1',
+        joinReason: 'Nothing',
+        classification: 'סמצ',
+        displayName: '/מפקדת אסם/ענף חטיפים',
+        sAMAccountName: '?',
+        name: 'ענף חטיפים',
+        type: 'תפוצת מייל',
+        owner: {
+            displayName: 'רמד חטיפים',
             sAMAccountName: '?',
-            name: 'ענף חטיפים',
-            type: 'תפוצת מייל',
-            owner: {
-                displayName: 'רמד חטיפים',
-                sAMAccountName: '?',
-            },
-            members: [{ displayName: 'yoav', sAMAccountName: '?' }],
         },
+        members: [{ displayName: 'yoav', sAMAccountName: '?' }],
     },
 ];
 
@@ -92,5 +85,24 @@ export default function JoinGroupTable() {
     //     getRequests();
     // }, []);
 
-    return <DataTable rows={rows} headers={headers} type="JoinGroupTable" title="הצטרפות לקבוצה" />;
+    const approveJoinRequest = (index: number) => {
+        // joinApi.approveJoinRequest(rows[index].id);
+        console.log('approveJoinRequest');
+    };
+
+    const declineJoinRequest = (index: number) => {
+        // joinApi.denyJoinRequest(rows[index].id);
+        console.log('declineJoinRequest');
+    };
+
+    return (
+        <DataTable
+            rows={rows}
+            headers={headers}
+            type={TableTypeEnum.approveDecline}
+            title="הצטרפות לקבוצה"
+            approveFunction={approveJoinRequest}
+            declineFunction={declineJoinRequest}
+        />
+    );
 }

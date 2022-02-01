@@ -1,8 +1,16 @@
-import { ADGroup } from '../ADGroup';
-import { OwnerRequest } from '../OwnerRequest';
-
 export interface GroupManageRequest {
     reqType: string;
-    request: OwnerRequest;
-    group: ADGroup;
+    creator: string;
+    approver: string;
+    groupId: string;
+    classification: string;
+    displayName: string;
+    sAMAccountName: string;
+    name: string;
+    type: string;
+    owner: {
+        displayName: string;
+        sAMAccountName: string;
+    };
+    members: [{ displayName: string; sAMAccountName: string }];
 }

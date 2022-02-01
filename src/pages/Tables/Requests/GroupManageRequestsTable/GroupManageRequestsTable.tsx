@@ -5,49 +5,42 @@ import DataTable from '../../../../components/DataTable/DataTable';
 import { GroupManageRequest } from '../../../../interfaces/FormatedRequests/GroupManageRequest';
 import * as ownerApi from '../../../../utils/api-routes/owner';
 import { formatOwnerRequests } from '../../../../utils/format-rows/owner';
+import { TableTypeEnum } from '../../../../utils/table';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
 const requests: GroupManageRequest[] = [
     {
         reqType: 'owner',
-        request: {
-            creator: 'Shay',
-            approver: 'Anat',
-            groupId: '1',
-        },
-        group: {
-            classification: 'סמצ',
-            displayName: '/מפקדת אסם/ענף חטיפים',
+        creator: 'Shay',
+        approver: 'Anat',
+        groupId: '1',
+        classification: 'סמצ',
+        displayName: '/מפקדת אסם/ענף חטיפים',
+        sAMAccountName: '?',
+        name: 'ענף חטיפים',
+        type: 'תפוצת מייל',
+        owner: {
+            displayName: 'רמד חטיפים',
             sAMAccountName: '?',
-            name: 'ענף חטיפים',
-            type: 'תפוצת מייל',
-            owner: {
-                displayName: 'רמד חטיפים',
-                sAMAccountName: '?',
-            },
-            members: [{ displayName: 'yoav', sAMAccountName: '?' }],
         },
+        members: [{ displayName: 'yoav', sAMAccountName: '?' }],
     },
     {
         reqType: 'owner',
-        request: {
-            creator: 'Shay',
-            approver: 'Anat',
-            groupId: '1',
-        },
-        group: {
-            classification: 'סמצ',
-            displayName: '/מפקדת אסם/ענף חטיפים',
+        creator: 'Shay',
+        approver: 'Anat',
+        groupId: '1',
+        classification: 'סמצ',
+        displayName: '/מפקדת אסם/ענף חטיפים',
+        sAMAccountName: '?',
+        name: 'ענף חטיפים',
+        type: 'תפוצת מייל',
+        owner: {
+            displayName: 'רמד חטיפים',
             sAMAccountName: '?',
-            name: 'ענף חטיפים',
-            type: 'תפוצת מייל',
-            owner: {
-                displayName: 'רמד חטיפים',
-                sAMAccountName: '?',
-            },
-            members: [{ displayName: 'yoav', sAMAccountName: '?' }],
         },
+        members: [{ displayName: 'yoav', sAMAccountName: '?' }],
     },
 ];
 
@@ -88,5 +81,24 @@ export default function GroupManageRequestsTable() {
     //     getGroups();
     // }, []);
 
-    return <DataTable rows={rows} headers={headers} type="approveAndDecline" title="ניהול קבוצה" />;
+    const approveOwnerRequest = (index: number) => {
+        // ownerApi.approveOwnerRequest(rows[index].id);
+        console.log('approveOwnerRequest');
+    };
+
+    const declineOwnerRequest = (index: number) => {
+        // ownerApi.denyOwnerRequest(rows[index].id);
+        console.log('declineOwnerRequest');
+    };
+
+    return (
+        <DataTable
+            rows={rows}
+            headers={headers}
+            type={TableTypeEnum.approveDecline}
+            title="ניהול קבוצה"
+            approveFunction={approveOwnerRequest}
+            declineFunction={declineOwnerRequest}
+        />
+    );
 }

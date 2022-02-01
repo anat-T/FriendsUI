@@ -6,11 +6,11 @@ export async function formatJoinRequests(newRequests: JoinGroupRequest[]) {
     newRequests.forEach((request: JoinGroupRequest) => {
         newRows.push({
             date: '09.12.2020', // TODO FIX
-            friends: request.group.members ? request.group.members.length : 0,
-            classify: request.group.classification,
-            groupType: request.group.type,
-            nameOfRequester: request.request.creator,
-            group: request.group.displayName,
+            friends: request.members ? request.members.length : 0,
+            classify: request.classification,
+            groupType: request.type,
+            nameOfRequester: request.creator,
+            group: request.displayName,
         });
     });
     return newRows;

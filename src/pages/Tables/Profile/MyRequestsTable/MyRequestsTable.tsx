@@ -4,6 +4,7 @@ import { makeStyles, Theme } from '@material-ui/core';
 import React from 'react';
 import DataTable from '../../../../components/DataTable/DataTable';
 import * as joinApi from '../../../../utils/api-routes/join';
+import { TableTypeEnum } from '../../../../utils/table';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
@@ -42,5 +43,5 @@ export default function MyRequestsTable() {
     //     getRequests();
     // }, []);
 
-    return <DataTable rows={rows} headers={headers} type="status" title="בקשות שהגשתי" />;
+    return <DataTable rows={rows} headers={headers} type={TableTypeEnum.status} title="בקשות שהגשתי" />;
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -13,8 +14,9 @@ import Paper from '@material-ui/core/Paper';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
-import * as joinApi from '../../utils/api-routes/join';
-import { JoinRequest } from '../../interfaces/JoinRequest';
+import { TableTypeEnum } from '../../utils/table';
+
+const STATUS_CELL = 1;
 
 const useStyles = makeStyles((theme: Theme) => ({
     table: {
@@ -62,32 +64,21 @@ type DataTableProps = {
     headers: Array<string>;
     type: string;
     title: string;
+    approveFunction?: (index: number) => void;
+    declineFunction?: (index: number) => void;
+    moreDetailsFunction?: (index: number) => void;
 };
 
-const regularCell = (cell: string) => {
-    return cell !== 'groupJoin';
-};
-
-const getColor = (status: string) => {
+const getColor = (status?: string) => {
     // eslint-disable-next-line no-console
     console.log('cell:', status);
     if (status === 'approved') return '#C2EFC7';
     if (status === 'waiting') return '#FFEB66';
-    return '#FF7878';
+    return '#4287f5';
 };
 
-export default function DataTable({ rows, headers, type, title }: DataTableProps) {
+export default function DataTable({ rows, headers, type, title, approveFunction, declineFunction, moreDetailsFunction }: DataTableProps) {
     const classes = useStyles();
-
-    const onClickApprove = (index: number) => {
-        // console.log(rows[index] as JoinRequest);
-        // joinApi.approveJoinRequest(rows[index].id);
-    };
-
-    const onClickDecline = (index: number) => {
-        // console.log(rows[index] as JoinRequest);
-        // joinApi.denyJoinRequest(rows[index].id);
-    };
 
     return (
         <>
@@ -103,27 +94,45 @@ export default function DataTable({ rows, headers, type, title }: DataTableProps
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row, index) => (
+                        {rows.map((row, rowIndex) => (
                             <TableRow>
-                                {Object.values(row).map((cell) =>
-                                    regularCell(cell) ? (
+                                {Object.values(row).map((cell, cellIndex) =>
+                                    type === TableTypeEnum.status && cellIndex === STATUS_CELL ? (
+                                        <TableCell component="th" scope="row" classes={{ root: classes.tableCellStatus }}>
+                                            <Button style={{ backgroundColor: getColor(cell), borderRadius: '18px' }}>{cell}</Button>{' '}
+                                        </TableCell>
+                                    ) : (
                                         <TableCell component="th" scope="row" classes={{ root: classes.tableCell }}>
                                             {cell}
                                         </TableCell>
-                                    ) : type === 'approveAndDecline' ? (
-                                        <TableCell component="th" scope="row" classes={{ root: classes.tableCell }}>
-                                            <IconButton className={classes.approveButton} onClick={() => onClickApprove(index)}>
-                                                <CheckIcon className={classes.icon} />
-                                            </IconButton>
-                                            <IconButton className={classes.declineButton} onClick={() => onClickDecline(index)}>
-                                                <ClearIcon />
-                                            </IconButton>
-                                        </TableCell>
-                                    ) : (
-                                        <TableCell component="th" scope="row" classes={{ root: classes.tableCellStatus }}>
-                                            <Button style={{ backgroundColor: getColor(cell) }}>{cell}</Button>
-                                        </TableCell>
                                     ),
+                                )}
+                                {type === TableTypeEnum.approveDecline ? (
+                                    <TableCell component="th" scope="row" classes={{ root: classes.tableCell }}>
+                                        <IconButton
+                                            className={classes.approveButton}
+                                            onClick={() => (approveFunction ? approveFunction(rowIndex) : null)}
+                                        >
+                                            <CheckIcon className={classes.icon} />
+                                        </IconButton>
+                                        <IconButton
+                                            className={classes.declineButton}
+                                            onClick={() => (declineFunction ? declineFunction(rowIndex) : null)}
+                                        >
+                                            <ClearIcon />
+                                        </IconButton>
+                                    </TableCell>
+                                ) : type === TableTypeEnum.moreDetails ? (
+                                    <TableCell component="th" scope="row" classes={{ root: classes.tableCellStatus }}>
+                                        <Button
+                                            style={{ backgroundColor: getColor(), borderRadius: '18px' }}
+                                            onClick={() => (moreDetailsFunction ? moreDetailsFunction(rowIndex) : null)}
+                                        >
+                                            פרטים נוספים
+                                        </Button>{' '}
+                                    </TableCell>
+                                ) : (
+                                    <br />
                                 )}
                             </TableRow>
                         ))}
