@@ -42,5 +42,5 @@ export default function MyRequestsTable() {
     //     getRequests();
     // }, []);
 
-    return <DataTable rows={rows} headers={headers} type="status" title="בקשות שהגשתי" />;
+    return <DataTable rows={rows} headers={headers} type="status" title="בקשות שהגשתי" warning={false} />;
 }

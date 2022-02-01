@@ -39,5 +39,5 @@ export default function GroupManagerTable() {
     //     getGroups();
     // }, []);
 
-    return <DataTable rows={rows} headers={headers} type="status" title="קבוצות בניהולי" />;
+    return <DataTable rows={rows} headers={headers} type="status" title="קבוצות בניהולי" warningType="User" warning />;
 }

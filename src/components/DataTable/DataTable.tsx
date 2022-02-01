@@ -2,7 +2,7 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, makeStyles, Theme, Typography } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -15,6 +15,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
 import * as joinApi from '../../utils/api-routes/join';
 import { JoinRequest } from '../../interfaces/JoinRequest';
+import Warning from '../Warning/Warning';
 
 const useStyles = makeStyles((theme: Theme) => ({
     table: {
@@ -62,6 +63,9 @@ type DataTableProps = {
     headers: Array<string>;
     type: string;
     title: string;
+    warning: boolean;
+    // eslint-disable-next-line react/require-default-props
+    warningType?: string;
 };
 
 const regularCell = (cell: string) => {
@@ -76,12 +80,15 @@ const getColor = (status: string) => {
     return '#FF7878';
 };
 
-export default function DataTable({ rows, headers, type, title }: DataTableProps) {
+export default function DataTable({ rows, headers, type, title, warning, warningType }: DataTableProps) {
     const classes = useStyles();
+
+    const [open, setOpen] = useState(false);
 
     const onClickApprove = (index: number) => {
         // console.log(rows[index] as JoinRequest);
         // joinApi.approveJoinRequest(rows[index].id);
+        setOpen(true);
     };
 
     const onClickDecline = (index: number) => {
@@ -91,6 +98,7 @@ export default function DataTable({ rows, headers, type, title }: DataTableProps
 
     return (
         <>
+            {warning && <Warning open={open} setOpen={setOpen} warningType={warningType} />}
             <Typography className={classes.title}>{title}</Typography>
             <TableContainer component={Paper} className={classes.table}>
                 <Table>

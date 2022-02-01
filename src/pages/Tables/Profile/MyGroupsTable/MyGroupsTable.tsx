@@ -39,5 +39,5 @@ export default function MyGroupsTable() {
     //     getGroups();
     // }, []);
 
-    return <DataTable rows={rows} headers={headers} type="status" title="הקבוצות שלי" />;
+    return <DataTable rows={rows} headers={headers} type="status" title="הקבוצות שלי" warning={false} />;
 }

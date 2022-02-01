@@ -15,12 +15,14 @@ const rows = [
         owner: 'מפקדת אסם / ענף חטיפים / מדור מלוחים',
         groupName: 'קבוצה שלי',
         group: '/מפקדת אסם/ענף חטיפים',
+        type: 'groupJoin',
     },
     {
         date: '09.12.2020',
         friends: '10',
         classify: 'סמצ',
         groupType: 'קבוצת אבטחה',
+        owner: 'מפקדת אסם / ענף חטיפים / מדור מלוחים',
         nameOfRequester: 'hirrarchy',
         group: '/מפקדת אסם/ענף חטיפים',
         type: 'groupJoin',
@@ -43,5 +45,5 @@ export default function GroupManageRequestsTable() {
     //     getGroups();
     // }, []);
 
-    return <DataTable rows={rows} headers={headers} type="approveAndDecline" title="ניהול קבוצה" />;
+    return <DataTable rows={rows} headers={headers} type="approveAndDecline" title="ניהול קבוצה" warningType="Group" warning />;
 }
