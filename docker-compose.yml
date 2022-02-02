@@ -9,9 +9,11 @@ services:
       depends_on: 
         - api
       
-
+  # TODO: RETURN THIS IMAGE TO AZURE friends.azurecr.io/friends-backend:latest
   api:
-    image: friends.azurecr.io/friends-backend:latest
+    build:
+      context: '../../friends-backend'
+    image: friends-backend
     env_file: docker-compose.env
     environment:
       SERVICES: api
@@ -27,7 +29,9 @@ services:
 
 
   user:
-    image: friends.azurecr.io/friends-backend:latest
+    build:
+      context: '../../friends-backend'
+    image: friends-backend
     env_file: docker-compose.env
     environment:
       SERVICES: user
