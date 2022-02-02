@@ -26,6 +26,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         color: '#707070',
         fontSize: '43px',
         fontStyle: 'bold',
+        justifyContent: 'center',
+        display: 'flex',
     },
     subTitle: {
         color: '#707070',
@@ -43,7 +45,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         width: '50px',
     },
     signWrap: {
-        alignItems: 'center',
+        justifyContent: 'center',
+        display: 'flex',
+        paddingTop: '2%',
     },
 }));
 
@@ -55,6 +59,8 @@ export default function Warning(props: { open: boolean; setOpen: any; warningTyp
         { name: warningType === 'User' ? `${i18next.t('Warning.rule3')}` : `${i18next.t('Warning.rule5')}`, set: 'false' },
         { name: warningType === 'User' ? `${i18next.t('Warning.rule4')}` : `${i18next.t('Warning.rule6')}`, set: 'false' },
     ];
+
+    const [enable, setEnable] = useState(false);
 
     const classes = useStyles();
 
