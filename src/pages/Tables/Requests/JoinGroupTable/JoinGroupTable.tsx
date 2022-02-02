@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { makeStyles, Theme } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DataTable from '../../../../components/DataTable/DataTable';
 import { ADGroup } from '../../../../interfaces/ADGroup';
 import { JoinGroupRequest } from '../../../../interfaces/FormatedRequests/JoinGroupRequest';
@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme: Theme) => ({}));
 
 const requests: JoinGroupRequest[] = [
     {
+        _id: '1',
         reqType: 'join',
         creator: 'Shay',
         approver: 'Anat',
@@ -30,6 +31,7 @@ const requests: JoinGroupRequest[] = [
         members: [{ displayName: 'yoav', sAMAccountName: '?' }],
     },
     {
+        _id: '2',
         reqType: 'join',
         creator: 'Shay',
         approver: 'Anat',
@@ -48,50 +50,53 @@ const requests: JoinGroupRequest[] = [
     },
 ];
 
-const rows = [
-    {
-        date: '02.03.2021',
-        friends: '14',
-        classify: 'סמצ',
-        groupType: 'תפוצת מייל',
-        owner: 'מפקדת אסם / ענף חטיפים / מדור מלוחים',
-        groupName: 'קבוצה שלי',
-        group: '/מפקדת אסם/ענף חטיפים',
-    },
-    {
-        date: '09.12.2020',
-        friends: '10',
-        classify: 'סמצ',
-        groupType: 'קבוצת אבטחה',
-        nameOfRequester: 'hirrarchy',
-        group: '/מפקדת אסם/ענף חטיפים',
-        status: 'approved',
-    },
-];
+// const rows = [
+//     {
+//         id: '1',
+//         date: '02.03.2021',
+//         friends: '14',
+//         classify: 'סמצ',
+//         groupType: 'תפוצת מייל',
+//         owner: 'מפקדת אסם / ענף חטיפים / מדור מלוחים',
+//         groupName: 'קבוצה שלי',
+//         group: '/מפקדת אסם/ענף חטיפים',
+//     },
+//     {
+//         id: '2',
+//         date: '09.12.2020',
+//         friends: '10',
+//         classify: 'סמצ',
+//         groupType: 'קבוצת אבטחה',
+//         nameOfRequester: 'hirrarchy',
+//         group: '/מפקדת אסם/ענף חטיפים',
+//         status: 'approved',
+//     },
+// ];
 
-const headers = ['תאריך ', 'חברים', 'סיווג', 'סוג קבוצה', 'שם מבקש', 'קבוצה', ''];
+const headers = ['תאריך ', 'חברים', 'סיווג', 'סוג קבוצה', 'שם מבקש', 'שם קבוצה', 'שם תצוגה', ''];
 
 export default function JoinGroupTable() {
     const classes = useStyles();
 
-    // const [rows, setRows] = useState([] as any);
+    const [rows, setRows] = useState([] as any);
 
-    // const getRequests = async () => {
-    //     const newRequests = formatJoinRequests(await joinApi.getJoinRequestByApprover());
-    //     setRows(newRequests);
-    // };
+    const getRequests = async () => {
+        // const newRequests = formatJoinRequests(await joinApi.getJoinRequestByApprover());
+        const newRequests = await formatJoinRequests(requests);
+        setRows(newRequests);
+    };
 
-    // useEffect(() => {
-    //     getRequests();
-    // }, []);
+    useEffect(() => {
+        getRequests();
+    }, []);
 
     const approveJoinRequest = (index: number) => {
-        // joinApi.approveJoinRequest(rows[index].id);
+        joinApi.approveJoinRequest(rows[index].id);
         console.log('approveJoinRequest');
     };
 
     const declineJoinRequest = (index: number) => {
-        // joinApi.denyJoinRequest(rows[index].id);
+        joinApi.denyJoinRequest(rows[index].id);
         console.log('declineJoinRequest');
     };
 

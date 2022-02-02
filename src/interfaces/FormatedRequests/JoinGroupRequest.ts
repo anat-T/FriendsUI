@@ -1,4 +1,5 @@
 export interface JoinGroupRequest {
+    _id: string;
     reqType: string;
     creator: string;
     approver: string;

@@ -1,4 +1,5 @@
 export interface ADGroup {
+    _id: string;
     classification: string;
     displayName: string;
     sAMAccountName: string;

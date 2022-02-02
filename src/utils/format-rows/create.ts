@@ -5,6 +5,7 @@ export async function formatCreateRequests(newRequests: CreateGroupRequest[]) {
 
     newRequests.forEach((request: CreateGroupRequest) => {
         newRows.push({
+            id: request._id,
             date: '09.12.2020',
             friends: request.members ? request.members.length : 0,
             classify: request.classification,

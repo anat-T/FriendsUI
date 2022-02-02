@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme: Theme) => ({}));
 
 const rows = [
     {
+        _id: '1',
         friends: '14',
         classify: 'סמצ',
         groupType: 'תפוצת מייל',
@@ -16,6 +17,7 @@ const rows = [
         group: '/מפקדת אסם/ענף חטיפים',
     },
     {
+        _id: '2',
         friends: '14',
         classify: 'סמצ',
         groupType: 'תפוצת מייל',

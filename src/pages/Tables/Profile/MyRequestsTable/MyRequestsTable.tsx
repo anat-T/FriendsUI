@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme: Theme) => ({}));
 
 const rows = [
     {
+        _id: '1',
         date: '02.03.2021',
         status: 'waiting',
         requestType: 'הצטרפות לקבוצה',
@@ -18,6 +19,7 @@ const rows = [
         group: '/מפקדת אסם/ענף חטיפים',
     },
     {
+        _id: '2',
         date: '02.03.2021',
         status: 'waiting',
         requestType: 'יצירת קבוצה ',
@@ -27,7 +29,7 @@ const rows = [
     },
 ];
 
-const headers = ['תאריך בקשה', 'סטטוס', 'סוג בקשה', 'סוג קבוצה', 'גורם מאשר', 'שם תצוגה', ''];
+const headers = ['תאריך בקשה', 'סטטוס', 'סוג בקשה', 'סוג קבוצה', 'גורם מאשר', 'שם תצוגה'];
 
 export default function MyRequestsTable() {
     const classes = useStyles();

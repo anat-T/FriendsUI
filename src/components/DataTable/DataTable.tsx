@@ -16,7 +16,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
 import { TableTypeEnum } from '../../utils/table';
 
-const STATUS_CELL = 1;
+const STATUS_CELL = 2;
 
 const useStyles = makeStyles((theme: Theme) => ({
     table: {
@@ -29,14 +29,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     tableCell: {
         borderBottom: 'none',
+        textAlign: 'center',
     },
     tableCellStatus: {
         borderBottom: 'none',
+        textAlign: 'center',
     },
     tableCellHeader: {
         // borderBottom: 'none',
         color: '#707070',
         fontSize: '21px',
+        textAlign: 'center',
     },
     approveButton: {
         backgroundColor: '#C1EFCF',
@@ -70,8 +73,6 @@ type DataTableProps = {
 };
 
 const getColor = (status?: string) => {
-    // eslint-disable-next-line no-console
-    console.log('cell:', status);
     if (status === 'approved') return '#C2EFC7';
     if (status === 'waiting') return '#FFEB66';
     return '#4287f5';
@@ -95,11 +96,20 @@ export default function DataTable({ rows, headers, type, title, approveFunction,
                     </TableHead>
                     <TableBody>
                         {rows.map((row, rowIndex) => (
-                            <TableRow>
+                            <TableRow key={Object.values(row)[0]}>
                                 {Object.values(row).map((cell, cellIndex) =>
-                                    type === TableTypeEnum.status && cellIndex === STATUS_CELL ? (
+                                    cellIndex === 0 ? null : type === TableTypeEnum.status && cellIndex === STATUS_CELL ? (
                                         <TableCell component="th" scope="row" classes={{ root: classes.tableCellStatus }}>
-                                            <Button style={{ backgroundColor: getColor(cell), borderRadius: '18px' }}>{cell}</Button>{' '}
+                                            <Button
+                                                disabled
+                                                style={{
+                                                    backgroundColor: getColor(cell),
+                                                    borderRadius: '18px',
+                                                    fontWeight: 'bold',
+                                                }}
+                                            >
+                                                {cell}
+                                            </Button>
                                         </TableCell>
                                     ) : (
                                         <TableCell component="th" scope="row" classes={{ root: classes.tableCell }}>
@@ -131,9 +141,7 @@ export default function DataTable({ rows, headers, type, title, approveFunction,
                                             פרטים נוספים
                                         </Button>{' '}
                                     </TableCell>
-                                ) : (
-                                    <br />
-                                )}
+                                ) : null}
                             </TableRow>
                         ))}
                     </TableBody>
