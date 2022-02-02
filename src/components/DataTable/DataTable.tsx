@@ -67,15 +67,19 @@ type DataTableProps = {
     headers: Array<string>;
     type: string;
     title: string;
-    approveFunction?: (index: number) => void;
-    declineFunction?: (index: number) => void;
-    moreDetailsFunction?: (index: number) => void;
+    approveFunction?: (id: string) => void;
+    declineFunction?: (id: string) => void;
+    moreDetailsFunction?: (id: string) => void;
 };
 
 const getColor = (status?: string) => {
     if (status === 'approved') return '#C2EFC7';
     if (status === 'waiting') return '#FFEB66';
     return '#4287f5';
+};
+
+const getId = (row: Object) => {
+    return Object.values(row)[0];
 };
 
 export default function DataTable({ rows, headers, type, title, approveFunction, declineFunction, moreDetailsFunction }: DataTableProps) {
@@ -96,7 +100,7 @@ export default function DataTable({ rows, headers, type, title, approveFunction,
                     </TableHead>
                     <TableBody>
                         {rows.map((row, rowIndex) => (
-                            <TableRow key={Object.values(row)[0]}>
+                            <TableRow key={getId(row)}>
                                 {Object.values(row).map((cell, cellIndex) =>
                                     cellIndex === 0 ? null : type === TableTypeEnum.status && cellIndex === STATUS_CELL ? (
                                         <TableCell component="th" scope="row" classes={{ root: classes.tableCellStatus }}>
@@ -121,13 +125,13 @@ export default function DataTable({ rows, headers, type, title, approveFunction,
                                     <TableCell component="th" scope="row" classes={{ root: classes.tableCell }}>
                                         <IconButton
                                             className={classes.approveButton}
-                                            onClick={() => (approveFunction ? approveFunction(rowIndex) : null)}
+                                            onClick={() => (approveFunction ? approveFunction(getId(row)) : null)}
                                         >
                                             <CheckIcon className={classes.icon} />
                                         </IconButton>
                                         <IconButton
                                             className={classes.declineButton}
-                                            onClick={() => (declineFunction ? declineFunction(rowIndex) : null)}
+                                            onClick={() => (declineFunction ? declineFunction(getId(row)) : null)}
                                         >
                                             <ClearIcon />
                                         </IconButton>
@@ -136,7 +140,7 @@ export default function DataTable({ rows, headers, type, title, approveFunction,
                                     <TableCell component="th" scope="row" classes={{ root: classes.tableCellStatus }}>
                                         <Button
                                             style={{ backgroundColor: getColor(), borderRadius: '18px' }}
-                                            onClick={() => (moreDetailsFunction ? moreDetailsFunction(rowIndex) : null)}
+                                            onClick={() => (moreDetailsFunction ? moreDetailsFunction(getId(row)) : null)}
                                         >
                                             פרטים נוספים
                                         </Button>{' '}

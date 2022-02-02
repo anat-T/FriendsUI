@@ -86,13 +86,13 @@ export default function GroupManageRequestsTable() {
         getGroups();
     }, []);
 
-    const approveOwnerRequest = (index: number) => {
-        // ownerApi.approveOwnerRequest(rows[index].id);
+    const approveOwnerRequest = (id: string) => {
+        // ownerApi.approveOwnerRequest(id);
         console.log('approveOwnerRequest');
     };
 
-    const declineOwnerRequest = (index: number) => {
-        // ownerApi.denyOwnerRequest(rows[index].id);
+    const declineOwnerRequest = (id: string) => {
+        // ownerApi.denyOwnerRequest(id);
         console.log('declineOwnerRequest');
     };
 

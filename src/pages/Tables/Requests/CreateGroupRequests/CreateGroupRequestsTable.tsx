@@ -76,13 +76,13 @@ export default function CreateGroupRequestsTable() {
         getGroups();
     }, []);
 
-    const approveCreateRequest = (index: number) => {
-        // createApi.approveCreateRequest(rows[index].id);
+    const approveCreateRequest = (id: string) => {
+        // createApi.approveCreateRequest(id);
         console.log('approveCreateRequest');
     };
 
-    const declineCreateRequest = (index: number) => {
-        // createApi.denyCreateRequest(rows[index].id);
+    const declineCreateRequest = (id: string) => {
+        // createApi.denyCreateRequest(id);
         console.log('declineCreateRequest');
     };
 

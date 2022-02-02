@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) => ({}));
 
 const requests: JoinGroupRequest[] = [
     {
-        _id: '1',
+        _id: '3',
         reqType: 'join',
         creator: 'Shay',
         approver: 'Anat',
@@ -90,13 +90,13 @@ export default function JoinGroupTable() {
         getRequests();
     }, []);
 
-    const approveJoinRequest = (index: number) => {
-        joinApi.approveJoinRequest(rows[index].id);
+    const approveJoinRequest = (id: string) => {
+        // joinApi.approveJoinRequest(id);
         console.log('approveJoinRequest');
     };
 
-    const declineJoinRequest = (index: number) => {
-        joinApi.denyJoinRequest(rows[index].id);
+    const declineJoinRequest = (id: string) => {
+        // joinApi.denyJoinRequest(id);
         console.log('declineJoinRequest');
     };
 

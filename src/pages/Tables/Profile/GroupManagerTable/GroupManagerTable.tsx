@@ -42,7 +42,7 @@ export default function GroupManagerTable() {
     //     getGroups();
     // }, []);
 
-    const groupMoreDetails = (index: number) => {
+    const groupMoreDetails = (id: string) => {
         // TODO MORE DETAILS POP UP
         console.log('groupMoreDeta');
     };
