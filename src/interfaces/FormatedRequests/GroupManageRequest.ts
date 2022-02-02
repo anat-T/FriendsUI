@@ -1,4 +1,5 @@
 export interface GroupManageRequest {
+    _id: string;
     reqType: string;
     creator: string;
     approver: string;

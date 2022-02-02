@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme: Theme) => ({}));
 
 const requests: GroupManageRequest[] = [
     {
+        _id: '1',
         reqType: 'owner',
         creator: 'Shay',
         approver: 'Anat',
@@ -27,6 +28,7 @@ const requests: GroupManageRequest[] = [
         members: [{ displayName: 'yoav', sAMAccountName: '?' }],
     },
     {
+        _id: '2',
         reqType: 'owner',
         creator: 'Shay',
         approver: 'Anat',
@@ -44,50 +46,53 @@ const requests: GroupManageRequest[] = [
     },
 ];
 
-const rows = [
-    {
-        date: '02.03.2021',
-        friends: '14',
-        classify: 'סמצ',
-        groupType: 'תפוצת מייל',
-        manager: 'Anat',
-        groupName: 'קבוצה שלי',
-        displayName: '/מפקדת אסם/ענף חטיפים',
-    },
-    {
-        date: '02.03.2021',
-        friends: '14',
-        classify: 'סמצ',
-        groupType: 'תפוצת מייל',
-        manager: 'Shay',
-        groupName: 'קבוצה שלי',
-        displayName: 'מפקדת אסם / ענף חטיפים / מדור מלוחים',
-    },
-];
+// const rows = [
+//     {
+//         id: '1',
+//         date: '02.03.2021',
+//         friends: '14',
+//         classify: 'סמצ',
+//         groupType: 'תפוצת מייל',
+//         manager: 'Anat',
+//         groupName: 'קבוצה שלי',
+//         displayName: '/מפקדת אסם/ענף חטיפים',
+//     },
+//     {
+//         id: '2',
+//         date: '02.03.2021',
+//         friends: '14',
+//         classify: 'סמצ',
+//         groupType: 'תפוצת מייל',
+//         manager: 'Shay',
+//         groupName: 'קבוצה שלי',
+//         displayName: 'מפקדת אסם / ענף חטיפים / מדור מלוחים',
+//     },
+// ];
 
 const headers = ['תאריך בקשה', 'חברים', 'סיווג', 'סוג קבוצה', 'מנהל נוכחי', 'שם קבוצה', 'שם תצוגה', ''];
 
 export default function GroupManageRequestsTable() {
     const classes = useStyles();
 
-    // const [rows, setRows] = useState([] as any);
+    const [rows, setRows] = useState([] as any);
 
-    // const getGroups = async () => {
-    //     const newGroups = formatOwnerRequests(await ownerApi.getOwnerRequestByCreator());
-    //     setRows(newGroups);
-    // };
+    const getGroups = async () => {
+        // const newGroups = formatOwnerRequests(await ownerApi.getOwnerRequestByCreator());
+        const newGroups = await formatOwnerRequests(requests);
+        setRows(newGroups);
+    };
 
-    // useEffect(() => {
-    //     getGroups();
-    // }, []);
+    useEffect(() => {
+        getGroups();
+    }, []);
 
-    const approveOwnerRequest = (index: number) => {
-        // ownerApi.approveOwnerRequest(rows[index].id);
+    const approveOwnerRequest = (id: string) => {
+        // ownerApi.approveOwnerRequest(id);
         console.log('approveOwnerRequest');
     };
 
-    const declineOwnerRequest = (index: number) => {
-        // ownerApi.denyOwnerRequest(rows[index].id);
+    const declineOwnerRequest = (id: string) => {
+        // ownerApi.denyOwnerRequest(id);
         console.log('declineOwnerRequest');
     };
 

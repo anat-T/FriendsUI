@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme: Theme) => ({}));
 
 const rows = [
     {
+        _id: '1',
         classify: 'סמצ',
         groupType: 'תפוצת מייל',
         owner: 'רמד מלוחים',
@@ -17,6 +18,7 @@ const rows = [
         displayName: '/מפקדת אסם/ענף חטיפים',
     },
     {
+        _id: '2',
         classify: 'סמצ',
         groupType: 'תפוצת מייל',
         owner: 'רמד מלוחים',
@@ -25,7 +27,7 @@ const rows = [
     },
 ];
 
-const headers = ['סיווג', 'סוג קבוצה', 'מנהל', 'שם קבוצה', 'קבוצה', ''];
+const headers = ['סיווג', 'סוג קבוצה', 'מנהל', 'שם קבוצה', 'קבוצה'];
 
 export default function MyGroupsTable() {
     const classes = useStyles();

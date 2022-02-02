@@ -25,6 +25,7 @@ module.exports = {
         // 'linebreak-style': ['error', 'unix'],
         'no-empty': 'warn',
         'no-use-before-define': 'off',
+        'no-underscore-dangle': 'off',
         '@typescript-eslint/no-use-before-define': ['error'],
         'react/jsx-filename-extension': [
             2,
