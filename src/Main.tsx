@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles, createStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core';
 import Cookies from 'js-cookie';
@@ -20,30 +20,24 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-function ShouldShowFirstTimeDialogue() {
-    if (!Cookies.get('firstTimeLogin')) {
-        return <FirstLoginPopUp />;
-    }
-    return <SearchBar />;
-}
-
 const Main = () => {
-    // const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [state, setState] = useState(true);
+    const ShouldShowFirstTimeDialogue = () => {
+        if (!Cookies.get('firstTimeLogin')) {
+            setState(true);
+        } else {
+            setState(false);
+        }
+    };
+
+    useEffect(() => {
+        ShouldShowFirstTimeDialogue();
+    }, []);
+
     const classes = useStyles();
 
-    // const handleDrawerOpen = () => {
-    //     setIsDrawerOpen(true);
-    // };
-
-    // const handleDrawerClose = () => {
-    //     setIsDrawerOpen(false);
-    // };
-
-    return (
-        <div className={classes.root}>
-            <ShouldShowFirstTimeDialogue />
-        </div>
-    );
+    console.log(state);
+    return <div className={classes.root}>{state ? <FirstLoginPopUp disablePopUp={() => setState(false)} /> : <SearchBar />}</div>;
 };
 
 export default Main;

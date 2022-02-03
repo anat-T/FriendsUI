@@ -24,7 +24,7 @@ function setFirstLoginCookie() {
     Cookies.set('firstTimeLogin', 'true', { expires: 4015 });
 }
 
-export default function FirstLoginPopUp() {
+export default function FirstLoginPopUp(disablePopUp: any) {
     const classes = useStyles();
 
     return (
@@ -34,6 +34,8 @@ export default function FirstLoginPopUp() {
                     style={{ borderRadius: '18px' }}
                     onClick={() => {
                         setFirstLoginCookie();
+                        // eslint-disable-next-line react/destructuring-assignment
+                        disablePopUp.disablePopUp();
                     }}
                 >
                     Hello
