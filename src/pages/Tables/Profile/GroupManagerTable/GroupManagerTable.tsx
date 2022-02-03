@@ -3,11 +3,13 @@ import { makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import DataTable from '../../../../components/DataTable/DataTable';
 import * as ownerApi from '../../../../utils/api-routes/owner';
+import { TableTypeEnum } from '../../../../utils/table';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
 const rows = [
     {
+        _id: '1',
         friends: '14',
         classify: 'סמצ',
         groupType: 'תפוצת מייל',
@@ -15,6 +17,7 @@ const rows = [
         group: '/מפקדת אסם/ענף חטיפים',
     },
     {
+        _id: '2',
         friends: '14',
         classify: 'סמצ',
         groupType: 'תפוצת מייל',
@@ -39,5 +42,14 @@ export default function GroupManagerTable() {
     //     getGroups();
     // }, []);
 
+<<<<<<< HEAD
     return <DataTable rows={rows} headers={headers} type="status" title="קבוצות בניהולי" warningType="User" warning />;
+=======
+    const groupMoreDetails = (id: string) => {
+        // TODO MORE DETAILS POP UP
+        console.log('groupMoreDeta');
+    };
+
+    return <DataTable rows={rows} headers={headers} type={TableTypeEnum.moreDetails} title="קבוצות בניהולי" moreDetailsFunction={groupMoreDetails} />;
+>>>>>>> 3699b14be593004c20b904efe0a458f2b411c555
 }

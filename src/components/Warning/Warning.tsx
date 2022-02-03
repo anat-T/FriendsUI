@@ -60,7 +60,7 @@ export default function Warning(props: { open: boolean; setOpen: any; warningTyp
         { name: warningType === 'User' ? `${i18next.t('Warning.rule4')}` : `${i18next.t('Warning.rule6')}`, set: 'false' },
     ];
 
-    const [enable, setEnable] = useState(false);
+    const [enable, setEnable] = useState(true);
 
     const classes = useStyles();
 
@@ -68,6 +68,8 @@ export default function Warning(props: { open: boolean; setOpen: any; warningTyp
         // todo: make post request with data
         setOpen(false);
     };
+
+    const handleClick = (name: string) => {};
 
     return (
         <Dialog
@@ -89,12 +91,16 @@ export default function Warning(props: { open: boolean; setOpen: any; warningTyp
                 </DialogContentText>
                 <FormGroup>
                     {rules.map((rule) => (
-                        <FormControlLabel className={classes.text} control={<Checkbox color="default" />} label={rule.name} />
+                        <FormControlLabel
+                            className={classes.text}
+                            control={<Checkbox color="default" onClick={() => handleClick(rule.name)} />}
+                            label={rule.name}
+                        />
                     ))}
                 </FormGroup>
             </DialogContent>
             <DialogActions className={classes.button}>
-                <Button className={classes.agreeButton} onClick={handleClose} color="primary">
+                <Button className={classes.agreeButton} onClick={handleClose} color="primary" disabled={enable}>
                     {i18next.t('Warning.agree')}
                 </Button>
             </DialogActions>

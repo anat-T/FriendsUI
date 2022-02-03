@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -16,6 +17,9 @@ import IconButton from '@material-ui/core/IconButton';
 import * as joinApi from '../../utils/api-routes/join';
 import { JoinRequest } from '../../interfaces/JoinRequest';
 import Warning from '../Warning/Warning';
+import { TableTypeEnum } from '../../utils/table';
+
+const STATUS_CELL = 2;
 
 const useStyles = makeStyles((theme: Theme) => ({
     table: {
@@ -28,14 +32,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     tableCell: {
         borderBottom: 'none',
+        textAlign: 'center',
     },
     tableCellStatus: {
         borderBottom: 'none',
+        textAlign: 'center',
     },
     tableCellHeader: {
         // borderBottom: 'none',
         color: '#707070',
         fontSize: '21px',
+        textAlign: 'center',
     },
     approveButton: {
         backgroundColor: '#C1EFCF',
@@ -66,21 +73,28 @@ type DataTableProps = {
     warning: boolean;
     // eslint-disable-next-line react/require-default-props
     warningType?: string;
+    approveFunction?: (id: string) => void;
+    declineFunction?: (id: string) => void;
+    moreDetailsFunction?: (id: string) => void;
 };
 
-const regularCell = (cell: string) => {
-    return cell !== 'groupJoin';
-};
-
-const getColor = (status: string) => {
-    // eslint-disable-next-line no-console
-    console.log('cell:', status);
+const getColor = (status?: string) => {
     if (status === 'approved') return '#C2EFC7';
     if (status === 'waiting') return '#FFEB66';
-    return '#FF7878';
+    return '#4287f5';
 };
 
-export default function DataTable({ rows, headers, type, title, warning, warningType }: DataTableProps) {
+export default function DataTable({
+    rows,
+    headers,
+    type,
+    title,
+    warning,
+    warningType,
+    approveFunction,
+    declineFunction,
+    moreDetailsFunction,
+}: DataTableProps) {
     const classes = useStyles();
 
     const [open, setOpen] = useState(false);
@@ -90,10 +104,8 @@ export default function DataTable({ rows, headers, type, title, warning, warning
         // joinApi.approveJoinRequest(rows[index].id);
         setOpen(true);
     };
-
-    const onClickDecline = (index: number) => {
-        // console.log(rows[index] as JoinRequest);
-        // joinApi.denyJoinRequest(rows[index].id);
+    const getId = (row: Object) => {
+        return Object.values(row)[0];
     };
 
     return (
@@ -111,28 +123,53 @@ export default function DataTable({ rows, headers, type, title, warning, warning
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row, index) => (
-                            <TableRow>
-                                {Object.values(row).map((cell) =>
-                                    regularCell(cell) ? (
+                        {rows.map((row, rowIndex) => (
+                            <TableRow key={getId(row)}>
+                                {Object.values(row).map((cell, cellIndex) =>
+                                    cellIndex === 0 ? null : type === TableTypeEnum.status && cellIndex === STATUS_CELL ? (
+                                        <TableCell component="th" scope="row" classes={{ root: classes.tableCellStatus }}>
+                                            <Button
+                                                disabled
+                                                style={{
+                                                    backgroundColor: getColor(cell),
+                                                    borderRadius: '18px',
+                                                    fontWeight: 'bold',
+                                                }}
+                                            >
+                                                {cell}
+                                            </Button>
+                                        </TableCell>
+                                    ) : (
                                         <TableCell component="th" scope="row" classes={{ root: classes.tableCell }}>
                                             {cell}
                                         </TableCell>
-                                    ) : type === 'approveAndDecline' ? (
-                                        <TableCell component="th" scope="row" classes={{ root: classes.tableCell }}>
-                                            <IconButton className={classes.approveButton} onClick={() => onClickApprove(index)}>
-                                                <CheckIcon className={classes.icon} />
-                                            </IconButton>
-                                            <IconButton className={classes.declineButton} onClick={() => onClickDecline(index)}>
-                                                <ClearIcon />
-                                            </IconButton>
-                                        </TableCell>
-                                    ) : (
-                                        <TableCell component="th" scope="row" classes={{ root: classes.tableCellStatus }}>
-                                            <Button style={{ backgroundColor: getColor(cell) }}>{cell}</Button>
-                                        </TableCell>
                                     ),
                                 )}
+                                {type === TableTypeEnum.approveDecline ? (
+                                    <TableCell component="th" scope="row" classes={{ root: classes.tableCell }}>
+                                        <IconButton
+                                            className={classes.approveButton}
+                                            onClick={() => (approveFunction ? approveFunction(getId(row)) : null)}
+                                        >
+                                            <CheckIcon className={classes.icon} />
+                                        </IconButton>
+                                        <IconButton
+                                            className={classes.declineButton}
+                                            onClick={() => (declineFunction ? declineFunction(getId(row)) : null)}
+                                        >
+                                            <ClearIcon />
+                                        </IconButton>
+                                    </TableCell>
+                                ) : type === TableTypeEnum.moreDetails ? (
+                                    <TableCell component="th" scope="row" classes={{ root: classes.tableCellStatus }}>
+                                        <Button
+                                            style={{ backgroundColor: getColor(), borderRadius: '18px' }}
+                                            onClick={() => (moreDetailsFunction ? moreDetailsFunction(getId(row)) : null)}
+                                        >
+                                            פרטים נוספים
+                                        </Button>{' '}
+                                    </TableCell>
+                                ) : null}
                             </TableRow>
                         ))}
                     </TableBody>

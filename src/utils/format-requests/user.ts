@@ -1,4 +1,4 @@
-import { User } from '../interfaces/User';
+import { User } from '../../interfaces/User';
 
 export function formatKartoffelUser(user: any) {
     const formatedUser = user;

@@ -2,12 +2,16 @@
 import { makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import DataTable from '../../../../components/DataTable/DataTable';
-import * as ownerApi from '../../../../utils/api-routes/owner';
+import { CreateGroupRequest } from '../../../../interfaces/FormatedRequests/CreateGroupRequest';
+import * as createApi from '../../../../utils/api-routes/create';
+import { formatCreateRequests } from '../../../../utils/format-rows/create';
+import { TableTypeEnum } from '../../../../utils/table';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
-const rows = [
+const requests: CreateGroupRequest[] = [
     {
+<<<<<<< HEAD
         date: '02.03.2021',
         friends: '14',
         classify: 'סמצ',
@@ -24,24 +28,95 @@ const rows = [
         nameOfRequester: 'hirrarchy',
         group: '/מפקדת אסם/ענף חטיפים',
         type: 'groupJoin',
+=======
+        _id: '1',
+        reqType: 'create',
+        creator: 'Shay',
+        approver: 'Anat',
+        groupName: 'ענף חטיפים',
+        hierarchy: '/מפקדת אסם/ענף חטיפים',
+        displayName: '/מפקדת אסם/ענף חטיפים',
+        classification: 'סמצ',
+        owner: 'רמד חטיפים',
+        members: ['yoav'],
+        type: 'תפוצת מייל',
+    },
+    {
+        _id: '2',
+        reqType: 'create',
+        creator: 'Shay',
+        approver: 'Anat',
+        groupName: 'ענף חטיפים',
+        hierarchy: '/מפקדת אסם/ענף חטיפים',
+        displayName: '/מפקדת אסם/ענף חטיפים',
+        classification: 'סמצ',
+        owner: 'רמד חטיפים',
+        members: ['yoav'],
+        type: 'תפוצת מייל',
+>>>>>>> 3699b14be593004c20b904efe0a458f2b411c555
     },
 ];
 
-const headers = ['תאריך ', 'חברים', 'סיווג', 'סוג קבוצה', 'שם מבקש', 'קבוצה', ''];
+// const rows = [
+//     {
+//         id: '1',
+//         date: '02.03.2021',
+//         friends: '14',
+//         classify: 'סמצ',
+//         groupType: 'תפוצת מייל',
+//         nameOfRequester: 'hirrarchy',
+//         group: '/מפקדת אסם/ענף חטיפים',
+//     },
+//     {
+//         id: '2',
+//         date: '09.12.2020',
+//         friends: '10',
+//         classify: 'סמצ',
+//         groupType: 'קבוצת אבטחה',
+//         nameOfRequester: 'hirrarchy',
+//         group: '/מפקדת אסם/ענף חטיפים',
+//     },
+// ];
+
+const headers = ['תאריך בקשה', 'חברים', 'סיווג', 'סוג קבוצה', 'מנהל', 'שם קבוצה', 'שם תצוגה', ''];
 
 export default function CreateGroupRequestsTable() {
     const classes = useStyles();
 
-    // const [rows, setRows] = useState([] as any);
+    const [rows, setRows] = useState([] as any[]);
 
-    // const getGroups = async () => {
-    //     const newGroups = ownerApi.getOwnerRequestByCreator();
-    //     setRows(newGroups);
-    // };
+    const getGroups = async () => {
+        // const newGroups = formatCreateRequests(await createApi.getCreateRequestByApprover());
+        const newGroups = await formatCreateRequests(requests);
+        setRows(newGroups);
+    };
 
-    // useEffect(() => {
-    //     getGroups();
-    // }, []);
+    useEffect(() => {
+        getGroups();
+    }, []);
 
+    const approveCreateRequest = (id: string) => {
+        // createApi.approveCreateRequest(id);
+        console.log('approveCreateRequest');
+    };
+
+    const declineCreateRequest = (id: string) => {
+        // createApi.denyCreateRequest(id);
+        console.log('declineCreateRequest');
+    };
+
+<<<<<<< HEAD
     return <DataTable rows={rows} headers={headers} type="approveAndDecline" title="יצירת קבוצה" warningType="Group" warning />;
+=======
+    return (
+        <DataTable
+            rows={rows}
+            headers={headers}
+            type={TableTypeEnum.approveDecline}
+            title="יצירת קבוצה"
+            approveFunction={approveCreateRequest}
+            declineFunction={declineCreateRequest}
+        />
+    );
+>>>>>>> 3699b14be593004c20b904efe0a458f2b411c555
 }

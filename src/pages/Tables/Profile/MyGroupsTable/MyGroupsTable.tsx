@@ -3,27 +3,31 @@ import { makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import DataTable from '../../../../components/DataTable/DataTable';
 import * as groupsApi from '../../../../utils/api-routes/group';
+import { formatGroups } from '../../../../utils/format-rows/group';
+import { TableTypeEnum } from '../../../../utils/table';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
 const rows = [
     {
+        _id: '1',
         classify: 'סמצ',
         groupType: 'תפוצת מייל',
         owner: 'רמד מלוחים',
         groupName: 'הקבוצה שלי',
-        group: '/מפקדת אסם/ענף חטיפים',
+        displayName: '/מפקדת אסם/ענף חטיפים',
     },
     {
+        _id: '2',
         classify: 'סמצ',
         groupType: 'תפוצת מייל',
         owner: 'רמד מלוחים',
         groupName: 'הקבוצה שלי',
-        group: '/מפקדת אסם/ענף חטיפים',
+        displayName: '/מפקדת אסם/ענף חטיפים',
     },
 ];
 
-const headers = ['סיווג', 'סוג קבוצה', 'מנהל', 'שם קבוצה', 'קבוצה', ''];
+const headers = ['סיווג', 'סוג קבוצה', 'מנהל', 'שם קבוצה', 'קבוצה'];
 
 export default function MyGroupsTable() {
     const classes = useStyles();
@@ -31,7 +35,7 @@ export default function MyGroupsTable() {
     // const [rows, setRows] = useState([] as any);
 
     // const getGroups = async () => {
-    //     const newGroups = groupsApi.getUserGroups();
+    //     const newGroups = formatGroups(await groupsApi.getUserGroups());
     //     setRows(newGroups);
     // };
 
@@ -39,5 +43,5 @@ export default function MyGroupsTable() {
     //     getGroups();
     // }, []);
 
-    return <DataTable rows={rows} headers={headers} type="status" title="הקבוצות שלי" warning={false} />;
+    return <DataTable rows={rows} headers={headers} type={TableTypeEnum.groups} title="הקבוצות שלי" warning={false} />;
 }

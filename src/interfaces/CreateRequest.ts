@@ -1,4 +1,5 @@
 export interface CreateRequest {
+    _id: string;
     creator: string;
     approver: string;
     group: {

@@ -3,9 +3,10 @@
 import Axios from 'axios';
 import store from '../../stores/store';
 import { baseURL } from '../../config';
-import { formatJoinRequests } from '../join';
+import { formatJoinRequests } from '../format-requests/join';
 import { getUserByKartoffelId, getUserByDomainUser } from './user';
 import { getGroupById } from './group';
+import { JoinGroupRequest } from '../../interfaces/FormatedRequests/JoinGroupRequest';
 
 /**
  * createJoinRequest for joining group
@@ -59,7 +60,7 @@ export async function getJoinRequestByCreator() {
 /**
  * getJoinRequestByApprover - get join requests by approver
  * */
-export async function getJoinRequestByApprover() {
+export async function getJoinRequestByApprover(): Promise<JoinGroupRequest[]> {
     try {
         const res = await Axios.get(`${baseURL}/api/join/requests/approver`);
         const requestsDetail = res.data.requests ? await formatJoinRequests(res.data.requests) : [];
@@ -73,7 +74,7 @@ export async function getJoinRequestByApprover() {
     } catch (error) {
         // store.dispatch('onError', error);
     }
-    return null;
+    return [];
 }
 
 /**

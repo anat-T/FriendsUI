@@ -1,5 +1,10 @@
-export interface ADGroup {
+export interface JoinGroupRequest {
     _id: string;
+    reqType: string;
+    creator: string;
+    approver: string;
+    groupId: string;
+    joinReason: string;
     classification: string;
     displayName: string;
     sAMAccountName: string;
