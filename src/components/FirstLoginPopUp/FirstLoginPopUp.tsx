@@ -2,8 +2,11 @@
 /* eslint-disable no-shadow */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import { Box, Grid, IconButton, makeStyles, TextField, Theme, Typography, Button } from '@material-ui/core';
+import i18next from 'i18next';
+
 import Cookies from 'js-cookie';
+import { Box, makeStyles, Theme, Typography, Button } from '@material-ui/core';
+import friendslogo from '../../images/friends-logo.png';
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -11,14 +14,31 @@ const useStyles = makeStyles((theme: Theme) => ({
         backgroundColor: 'white',
         width: '50rem',
         height: '30rem',
-        alignItems: 'center',
         marginRight: 'auto',
         marginLeft: 'auto',
         marginTop: '5%',
+        flexDirection: 'column',
+        alignItems: 'center',
+        textAlign: 'center',
+    },
+    typography: {
+        fontWeight: 700,
+        fontSize: '32px',
+        color: '#707070',
+        width: '100%',
+    },
+    title: {
+        justifyContent: 'center',
+        width: '100%',
+        fontSize: '52px',
+        color: '#545252',
+        paddingBottom: '1%',
+        marginTop: '12%',
+    },
+    imageClass: {
+        margin: '16px',
     },
 }));
-//         cookies.set('firstTimeLogin', true, { expires: expireDate });
-//         const expireDate = new Date(2147483647 * 1000);
 
 function setFirstLoginCookie() {
     Cookies.set('firstTimeLogin', 'true', { expires: 4015 });
@@ -30,6 +50,8 @@ export default function FirstLoginPopUp(disablePopUp: any) {
     return (
         <>
             <Box display="flex" className={classes.root} alignItems="center" boxShadow="0px 3px 25px #BABABA">
+                <Typography className={classes.title}>{i18next.t('greeting.welcomeMessage')}</Typography>
+                <img src={friendslogo} alt="" className={classes.imageClass} />
                 <Button
                     style={{ borderRadius: '18px' }}
                     onClick={() => {
@@ -38,7 +60,7 @@ export default function FirstLoginPopUp(disablePopUp: any) {
                         disablePopUp.disablePopUp();
                     }}
                 >
-                    Hello
+                    <Typography className={classes.typography}>{i18next.t('greeting.letsGetStarted')}</Typography>
                 </Button>
             </Box>
         </>
