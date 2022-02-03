@@ -1,5 +1,7 @@
+/* eslint-disable react/require-default-props */
+/* eslint-disable react/no-unused-prop-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -51,25 +53,45 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-export default function Warning(props: { open: boolean; setOpen: any; warningType: any }) {
-    const { open, setOpen, warningType } = props;
-    const rules = [
-        { name: `${i18next.t('Warning.rule1')}`, set: 'false' },
-        { name: `${i18next.t('Warning.rule2')}`, set: 'false' },
-        { name: warningType === 'User' ? `${i18next.t('Warning.rule3')}` : `${i18next.t('Warning.rule5')}`, set: 'false' },
-        { name: warningType === 'User' ? `${i18next.t('Warning.rule4')}` : `${i18next.t('Warning.rule6')}`, set: 'false' },
-    ];
+export default function Warning(props: { open: boolean; setOpen: any; warningType: any; approveFunction?: (id: string) => void; id: string }) {
+    const { open, setOpen, warningType, approveFunction, id } = props;
+    const [rules, setRules] = useState([
+        { name: `${i18next.t('Warning.rule1')}`, set: false },
+        { name: `${i18next.t('Warning.rule2')}`, set: false },
+        { name: warningType === 'User' ? `${i18next.t('Warning.rule3')}` : `${i18next.t('Warning.rule5')}`, set: false },
+        { name: warningType === 'User' ? `${i18next.t('Warning.rule4')}` : `${i18next.t('Warning.rule6')}`, set: false },
+    ]);
 
     const [enable, setEnable] = useState(true);
+    const numberOfRules = 4;
 
     const classes = useStyles();
 
     const handleClose = () => {
         // todo: make post request with data
+        if (approveFunction) {
+            approveFunction(id);
+        }
         setOpen(false);
     };
 
-    const handleClick = (name: string) => {};
+    useEffect(() => {
+        let countClicked = 0;
+        rules.forEach((rule) => {
+            if (rule.set === true) {
+                countClicked += 1;
+            }
+        });
+        if (countClicked === numberOfRules) {
+            setEnable(false);
+        } else {
+            setEnable(true);
+        }
+    }, [rules]);
+
+    const handleClick = (name: string) => {
+        setRules(rules.map((obj) => (obj.name === name ? { ...obj, set: !obj.set } : obj)));
+    };
 
     return (
         <Dialog

@@ -42,14 +42,20 @@ export default function GroupManagerTable() {
     //     getGroups();
     // }, []);
 
-<<<<<<< HEAD
-    return <DataTable rows={rows} headers={headers} type="status" title="קבוצות בניהולי" warningType="User" warning />;
-=======
     const groupMoreDetails = (id: string) => {
         // TODO MORE DETAILS POP UP
         console.log('groupMoreDeta');
     };
 
-    return <DataTable rows={rows} headers={headers} type={TableTypeEnum.moreDetails} title="קבוצות בניהולי" moreDetailsFunction={groupMoreDetails} />;
->>>>>>> 3699b14be593004c20b904efe0a458f2b411c555
+    return (
+        <DataTable
+            rows={rows}
+            headers={headers}
+            type={TableTypeEnum.moreDetails}
+            title="קבוצות בניהולי"
+            warningType="User"
+            warning
+            moreDetailsFunction={groupMoreDetails}
+        />
+    );
 }

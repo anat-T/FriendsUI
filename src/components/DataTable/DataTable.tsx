@@ -98,6 +98,7 @@ export default function DataTable({
     const classes = useStyles();
 
     const [open, setOpen] = useState(false);
+    const [id, setId] = useState('');
 
     const onClickApprove = (index: number) => {
         // console.log(rows[index] as JoinRequest);
@@ -110,7 +111,7 @@ export default function DataTable({
 
     return (
         <>
-            {warning && <Warning open={open} setOpen={setOpen} warningType={warningType} />}
+            {warning && <Warning open={open} setOpen={setOpen} warningType={warningType} approveFunction={approveFunction} id={id} />}
             <Typography className={classes.title}>{title}</Typography>
             <TableContainer component={Paper} className={classes.table}>
                 <Table>
@@ -149,7 +150,10 @@ export default function DataTable({
                                     <TableCell component="th" scope="row" classes={{ root: classes.tableCell }}>
                                         <IconButton
                                             className={classes.approveButton}
-                                            onClick={() => (approveFunction ? approveFunction(getId(row)) : null)}
+                                            onClick={() => {
+                                                setId(getId(row));
+                                                onClickApprove(rowIndex);
+                                            }}
                                         >
                                             <CheckIcon className={classes.icon} />
                                         </IconButton>

@@ -11,24 +11,6 @@ const useStyles = makeStyles((theme: Theme) => ({}));
 
 const requests: CreateGroupRequest[] = [
     {
-<<<<<<< HEAD
-        date: '02.03.2021',
-        friends: '14',
-        classify: 'סמצ',
-        groupType: 'תפוצת מייל',
-        nameOfRequester: 'hirrarchy',
-        group: '/מפקדת אסם/ענף חטיפים',
-        type: 'groupJoin',
-    },
-    {
-        date: '09.12.2020',
-        friends: '10',
-        classify: 'סמצ',
-        groupType: 'קבוצת אבטחה',
-        nameOfRequester: 'hirrarchy',
-        group: '/מפקדת אסם/ענף חטיפים',
-        type: 'groupJoin',
-=======
         _id: '1',
         reqType: 'create',
         creator: 'Shay',
@@ -53,7 +35,6 @@ const requests: CreateGroupRequest[] = [
         owner: 'רמד חטיפים',
         members: ['yoav'],
         type: 'תפוצת מייל',
->>>>>>> 3699b14be593004c20b904efe0a458f2b411c555
     },
 ];
 
@@ -105,9 +86,6 @@ export default function CreateGroupRequestsTable() {
         console.log('declineCreateRequest');
     };
 
-<<<<<<< HEAD
-    return <DataTable rows={rows} headers={headers} type="approveAndDecline" title="יצירת קבוצה" warningType="Group" warning />;
-=======
     return (
         <DataTable
             rows={rows}
@@ -116,7 +94,8 @@ export default function CreateGroupRequestsTable() {
             title="יצירת קבוצה"
             approveFunction={approveCreateRequest}
             declineFunction={declineCreateRequest}
+            warningType="Group"
+            warning
         />
     );
->>>>>>> 3699b14be593004c20b904efe0a458f2b411c555
 }

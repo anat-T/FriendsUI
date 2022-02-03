@@ -13,24 +13,6 @@ const useStyles = makeStyles((theme: Theme) => ({}));
 
 const requests: JoinGroupRequest[] = [
     {
-<<<<<<< HEAD
-        date: '02.03.2021',
-        friends: '14',
-        classify: 'סמצ',
-        groupType: 'תפוצת מייל',
-        nameOfRequester: 'hirrarchy',
-        group: '/מפקדת אסם/ענף חטיפים',
-        type: 'groupJoin',
-    },
-    {
-        date: '09.12.2020',
-        friends: '10',
-        classify: 'סמצ',
-        groupType: 'קבוצת אבטחה',
-        nameOfRequester: 'hirrarchy',
-        group: '/מפקדת אסם/ענף חטיפים',
-        type: 'groupJoin',
-=======
         _id: '3',
         reqType: 'join',
         creator: 'Shay',
@@ -65,7 +47,6 @@ const requests: JoinGroupRequest[] = [
             sAMAccountName: '?',
         },
         members: [{ displayName: 'yoav', sAMAccountName: '?' }],
->>>>>>> 3699b14be593004c20b904efe0a458f2b411c555
     },
 ];
 
@@ -119,9 +100,6 @@ export default function JoinGroupTable() {
         console.log('declineJoinRequest');
     };
 
-<<<<<<< HEAD
-    return <DataTable rows={rows} headers={headers} type="approveAndDecline" title="הצטרפות לקבוצה" warningType="User" warning />;
-=======
     return (
         <DataTable
             rows={rows}
@@ -130,7 +108,8 @@ export default function JoinGroupTable() {
             title="הצטרפות לקבוצה"
             approveFunction={approveJoinRequest}
             declineFunction={declineJoinRequest}
+            warningType="User"
+            warning
         />
     );
->>>>>>> 3699b14be593004c20b904efe0a458f2b411c555
 }
