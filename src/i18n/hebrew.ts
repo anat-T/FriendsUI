@@ -46,4 +46,10 @@ export default {
         manager: 'מנהל:',
         numberOfParticipents: 'מס משתתפים:',
     },
+    MoreDetails: {
+        title: 'פרטים נוספים',
+        friends: 'מספר משתתפים:',
+        displayName: 'שם תצוגה:',
+        groupName: 'שם קבוצה:',
+    },
 };

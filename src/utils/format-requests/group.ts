@@ -46,7 +46,7 @@ export function getHierarchyFromDisplayNameAndName(displayName: string, name: st
 export function formatGroup(group: ADGroup) {
     const newGroup = {
         id: group.sAMAccountName,
-        attendees: group.members ? group.members.length : 0,
+        friends: group.members ? group.members.length : 0,
         hierarchy: getHierarchyFromDisplayNameAndName(group.displayName, group.name),
         ...group,
     };
