@@ -14,9 +14,12 @@ import Paper from '@material-ui/core/Paper';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
+import i18next from 'i18next';
 import { TableTypeEnum } from '../../utils/table';
 
 const STATUS_CELL = 2;
+const WAITING = 'waiting';
+const APPROVED = 'approved';
 
 const useStyles = makeStyles((theme: Theme) => ({
     table: {
@@ -99,7 +102,7 @@ export default function DataTable({ rows, headers, type, title, approveFunction,
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row, rowIndex) => (
+                        {rows.map((row) => (
                             <TableRow key={getId(row)}>
                                 {Object.values(row).map((cell, cellIndex) =>
                                     cellIndex === 0 ? null : type === TableTypeEnum.status && cellIndex === STATUS_CELL ? (
@@ -109,10 +112,10 @@ export default function DataTable({ rows, headers, type, title, approveFunction,
                                                 style={{
                                                     backgroundColor: getColor(cell),
                                                     borderRadius: '18px',
-                                                    fontWeight: 'bold',
+                                                    color: 'black',
                                                 }}
                                             >
-                                                {cell}
+                                                {cell === WAITING ? i18next.t('Status.waiting') : i18next.t('Status.approved')}
                                             </Button>
                                         </TableCell>
                                     ) : (
@@ -139,11 +142,11 @@ export default function DataTable({ rows, headers, type, title, approveFunction,
                                 ) : type === TableTypeEnum.moreDetails ? (
                                     <TableCell component="th" scope="row" classes={{ root: classes.tableCellStatus }}>
                                         <Button
-                                            style={{ backgroundColor: getColor(), borderRadius: '18px' }}
+                                            style={{ backgroundColor: getColor(), borderRadius: '18px', color: 'white' }}
                                             onClick={() => (moreDetailsFunction ? moreDetailsFunction(getId(row)) : null)}
                                         >
-                                            פרטים נוספים
-                                        </Button>{' '}
+                                            {i18next.t('MoreDetails.title')}
+                                        </Button>
                                     </TableCell>
                                 ) : null}
                             </TableRow>

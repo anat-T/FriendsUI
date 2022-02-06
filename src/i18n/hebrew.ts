@@ -51,5 +51,11 @@ export default {
         friends: 'מספר משתתפים:',
         displayName: 'שם תצוגה:',
         groupName: 'שם קבוצה:',
+        edit: 'עריכה',
+        save: 'שמירה',
+    },
+    Status: {
+        approved: 'אושר',
+        waiting: 'בהמתנה',
     },
 };

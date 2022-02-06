@@ -12,7 +12,7 @@ const rows = [
     {
         _id: '1',
         date: '02.03.2021',
-        status: 'waiting',
+        status: 'approved',
         requestType: 'הצטרפות לקבוצה',
         groupType: 'תפוצת מייל',
         approver: 'hirrarchy',
