@@ -50,9 +50,12 @@ const useStyles = makeStyles((theme: Theme) =>
         image: {
             paddingRight: '90%',
             width: '98%',
+            position: 'relative',
         },
         disableClick: {
             pointerEvents: 'none',
+            zIndex: -1,
+            position: 'relative',
         },
         header: {},
     }),
@@ -150,19 +153,21 @@ const App = () => {
     const renderApp = () => (
         <ThemeProvider theme={globalTheme(preferences.paletteType)}>
             <CssBaseline />
-            <Router>
-                <div className="background" />
-                <main className={classes.content}>
-                    <div className={`${classes.header} ${isFirstLogin ? classes.disableClick : ''}`}>
-                        <img src={friendslogo} alt="" className={classes.image} />
-                        <ToolBar />
-                    </div>
-                </main>
-                {!isFirstLogin ? router : null}
-            </Router>
-            <Backdrop open={isFirstLogin}>
-                <FirstLoginPopUp disablePopUp={() => setIsFirstLogin(false)} />
-            </Backdrop>{' '}
+            <div>
+                <Router>
+                    <div className="background" />
+                    <main className={`${classes.content} ${isFirstLogin ? classes.disableClick : ''}`}>
+                        <div className={classes.header}>
+                            <img src={friendslogo} alt="" className={classes.image} />
+                            <ToolBar />
+                        </div>
+                    </main>
+                    {!isFirstLogin ? router : null}
+                </Router>
+                <Backdrop open={isFirstLogin}>
+                    <FirstLoginPopUp disablePopUp={() => setIsFirstLogin(false)} />
+                </Backdrop>{' '}
+            </div>
         </ThemeProvider>
     );
 
