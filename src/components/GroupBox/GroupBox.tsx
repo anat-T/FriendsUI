@@ -54,8 +54,10 @@ type searchBarProps = {
 export default function GroupBox({ groupName, groupManager, groupNumberOfParticipents }: searchBarProps) {
     const classes = useStyles();
 
+    const handleClick = () => {};
+
     return (
-        <Grid item key={groupName} className={classes.groupBox}>
+        <Grid item key={groupName} className={classes.groupBox} onClick={handleClick}>
             <MailIcon className={classes.boxIcon} />
             <Typography className={classes.groupNameBox}>{groupName}</Typography>
             <Grid item>
