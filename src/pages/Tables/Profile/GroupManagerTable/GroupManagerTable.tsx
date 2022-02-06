@@ -47,5 +47,15 @@ export default function GroupManagerTable() {
         console.log('groupMoreDeta');
     };
 
-    return <DataTable rows={rows} headers={headers} type={TableTypeEnum.moreDetails} title="קבוצות בניהולי" moreDetailsFunction={groupMoreDetails} />;
+    return (
+        <DataTable
+            rows={rows}
+            headers={headers}
+            type={TableTypeEnum.moreDetails}
+            title="קבוצות בניהולי"
+            warningType="User"
+            warning
+            moreDetailsFunction={groupMoreDetails}
+        />
+    );
 }

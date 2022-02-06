@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
@@ -104,6 +105,8 @@ export default function GroupManageRequestsTable() {
             title="ניהול קבוצה"
             approveFunction={approveOwnerRequest}
             declineFunction={declineOwnerRequest}
+            warningType="Group"
+            warning
         />
     );
 }

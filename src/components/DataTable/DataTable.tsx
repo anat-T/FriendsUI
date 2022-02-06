@@ -3,7 +3,7 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, makeStyles, Theme, Typography } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -14,6 +14,9 @@ import Paper from '@material-ui/core/Paper';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
+import * as joinApi from '../../utils/api-routes/join';
+import { JoinRequest } from '../../interfaces/JoinRequest';
+import Warning from '../Warning/Warning';
 import { TableTypeEnum } from '../../utils/table';
 
 const STATUS_CELL = 2;
@@ -67,6 +70,9 @@ type DataTableProps = {
     headers: Array<string>;
     type: string;
     title: string;
+    warning: boolean;
+    // eslint-disable-next-line react/require-default-props
+    warningType?: string;
     approveFunction?: (id: string) => void;
     declineFunction?: (id: string) => void;
     moreDetailsFunction?: (id: string) => void;
@@ -78,15 +84,34 @@ const getColor = (status?: string) => {
     return '#4287f5';
 };
 
-const getId = (row: Object) => {
-    return Object.values(row)[0];
-};
-
-export default function DataTable({ rows, headers, type, title, approveFunction, declineFunction, moreDetailsFunction }: DataTableProps) {
+export default function DataTable({
+    rows,
+    headers,
+    type,
+    title,
+    warning,
+    warningType,
+    approveFunction,
+    declineFunction,
+    moreDetailsFunction,
+}: DataTableProps) {
     const classes = useStyles();
+
+    const [open, setOpen] = useState(false);
+    const [id, setId] = useState('');
+
+    const onClickApprove = (index: number) => {
+        // console.log(rows[index] as JoinRequest);
+        // joinApi.approveJoinRequest(rows[index].id);
+        setOpen(true);
+    };
+    const getId = (row: Object) => {
+        return Object.values(row)[0];
+    };
 
     return (
         <>
+            {warning && <Warning open={open} setOpen={setOpen} warningType={warningType} approveFunction={approveFunction} id={id} />}
             <Typography className={classes.title}>{title}</Typography>
             <TableContainer component={Paper} className={classes.table}>
                 <Table>
@@ -125,7 +150,10 @@ export default function DataTable({ rows, headers, type, title, approveFunction,
                                     <TableCell component="th" scope="row" classes={{ root: classes.tableCell }}>
                                         <IconButton
                                             className={classes.approveButton}
-                                            onClick={() => (approveFunction ? approveFunction(getId(row)) : null)}
+                                            onClick={() => {
+                                                setId(getId(row));
+                                                onClickApprove(rowIndex);
+                                            }}
                                         >
                                             <CheckIcon className={classes.icon} />
                                         </IconButton>
