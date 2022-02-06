@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import i18next from 'i18next';
-import { ADGroup } from '../interfaces/ADGroup';
-import { User } from '../interfaces/User';
+import { ADGroup } from '../../interfaces/ADGroup';
+import { User } from '../../interfaces/User';
 
 export const GroupTypeEnum = {
     security: 'security',

@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { CircularProgress, ThemeProvider, CssBaseline, Theme } from '@material-ui/core';
 import i18next from 'i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/styles';
 
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
@@ -13,20 +14,22 @@ import { ConfigService } from './services/configService';
 import { globalTheme } from './theme';
 import Main from './Main';
 import './App.css';
-import { ConfigContext, PreferencesContext, UserContext } from './index';
 
 import ToolBar from './components/ToolBar/ToolBar';
 import friendslogo from './images/friends-logo.png';
 import CreateGroup from './pages/CreateGroup/CreateGroup';
 import Requests from './pages/Requests/Requests';
 import Profile from './pages/Profile/Profile';
-import MyRequestsTable from './pages/Tables/MyRequestsTable/MyRequestsTable';
-import JoinGroupTable from './pages/Tables/JoinGroupTable/JoinGroupTable';
+import MyRequestsTable from './pages/Tables/Profile/MyRequestsTable/MyRequestsTable';
+import JoinGroupTable from './pages/Tables/Requests/JoinGroupTable/JoinGroupTable';
 import { AuthService } from './services/authService';
-import MyGroupsTable from './pages/Tables/MyGroupsTable/MyGroupsTable';
-import GroupManagerTable from './pages/Tables/GroupManagerTable/GroupManagerTable';
-import GroupManageRequestsTable from './pages/Tables/GroupManageRequestsTable/GroupManageRequestsTable';
-import CreateGroupRequestsTable from './pages/Tables/CreateGroupRequests/CreateGroupRequestsTable';
+import { UserActions } from './stores/user/user.reducer';
+import { ConfigActions } from './stores/config/config.reducer';
+import { IStoreContext } from './stores/root-reducer';
+import MyGroupsTable from './pages/Tables/Profile/MyGroupsTable/MyGroupsTable';
+import GroupManagerTable from './pages/Tables/Profile/GroupManagerTable/GroupManagerTable';
+import GroupManageRequestsTable from './pages/Tables/Requests/GroupManageRequestsTable/GroupManageRequestsTable';
+import CreateGroupRequestsTable from './pages/Tables/Requests/CreateGroupRequests/CreateGroupRequestsTable';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const useStyles = makeStyles((theme: Theme) =>
@@ -52,16 +55,19 @@ const useStyles = makeStyles((theme: Theme) =>
 const App = () => {
     const classes = useStyles();
 
-    const { state: preferences } = useContext(PreferencesContext);
-    const { update: updateConfigContext } = useContext(ConfigContext);
-    const { state: currentUser, update: updateUserContext } = useContext(UserContext);
+    const dispatch = useDispatch();
+    const [preferences, currentUser] = useSelector<IStoreContext, [IStoreContext['preferences'], IStoreContext['user']]>((state) => [
+        state.preferences,
+        state.user,
+    ]);
+
     const [isLoading, setIsLoading] = useState(true);
     const { enqueueSnackbar } = useSnackbar();
 
     const initUser = async () => {
         const user = AuthService.getUser();
         if (user) {
-            updateUserContext(user);
+            dispatch({ type: UserActions.SET_USER, payload: user });
             setIsLoading(false);
         }
     };
@@ -74,7 +80,7 @@ const App = () => {
         }
 
         if (config) {
-            updateConfigContext(config);
+            dispatch({ type: ConfigActions.SET_CONFIG, payload: config });
         }
     };
 

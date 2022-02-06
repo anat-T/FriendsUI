@@ -1,5 +1,9 @@
-export interface ADGroup {
+export interface GroupManageRequest {
     _id: string;
+    reqType: string;
+    creator: string;
+    approver: string;
+    groupId: string;
     classification: string;
     displayName: string;
     sAMAccountName: string;

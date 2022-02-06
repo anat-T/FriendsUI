@@ -1,5 +1,5 @@
 import axios from '../axios';
-import { IUserContext } from '../stores/index';
+import { IUserContext } from '../stores/user/user.interface';
 import { trycatch } from '../utils/trycatch';
 
 export class UserService {

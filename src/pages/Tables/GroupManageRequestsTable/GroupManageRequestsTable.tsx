@@ -2,7 +2,6 @@
 import { makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import DataTable from '../../../components/DataTable/DataTable';
-import * as ownerApi from '../../../utils/api-routes/owner.js';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 

@@ -1,8 +1,11 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable @typescript-eslint/no-shadow */
 import Axios from 'axios';
-import store from '@/store';
-import { baseURL } from '@/config';
-import { formatCreateRequests } from '@/utils/create';
+import store from '../../stores/store';
+import { baseURL } from '../../config';
+import { formatCreateRequests } from '../format-requests/create';
 import { getUserByKartoffelId, getUserByDomainUser } from './user';
+import { CreateGroupRequest } from '../../interfaces/FormatedRequests/CreateGroupRequest';
 /**
  * createGroupRequest for creating group
  * @param {string} approverId - approver id
@@ -14,11 +17,20 @@ import { getUserByKartoffelId, getUserByDomainUser } from './user';
  * @param {string[]} members - group members
  * @param {string} owner - group owner
  *  * */
-export async function createGroupRequest({ approverId, groupName, hierarchy, type, displayName, classification, members, owner }) {
+export async function createCreateRequest(
+    approverId: string,
+    groupName: string,
+    hierarchy: string,
+    type: string,
+    displayName: string,
+    classification: string,
+    members: string[],
+    owner: string,
+) {
     try {
         const createRequest = {
-            approver: approverId || store.state.auth.user.id,
-            creator: store.state.auth.user.id,
+            approver: approverId || store.getState().user.id,
+            creator: store.getState().user.id,
             group: {
                 groupName,
                 displayName,
@@ -32,15 +44,16 @@ export async function createGroupRequest({ approverId, groupName, hierarchy, typ
         const res = await Axios.post(`${baseURL}/api/create/request`, createRequest);
         return res.data;
     } catch (error) {
-        store.dispatch('onError', error);
-        throw new Error(error);
+        // store.dispatch('onError', error);
+        // throw new Error(error);
     }
+    return null;
 }
 
 /**
  * getGroupRequestByCreator - get group request by creator
  * */
-export async function getGroupRequestByCreator() {
+export async function getCreateRequestByCreator() {
     try {
         const res = await Axios.get(`${baseURL}/api/create/requests/creator`);
         const requestsFormatted = res.data.requests ? formatCreateRequests(res.data.requests) : [];
@@ -52,14 +65,15 @@ export async function getGroupRequestByCreator() {
         );
         return requestsFormatted;
     } catch (error) {
-        store.dispatch('onError', error);
+        // store.dispatch('onError', error);
     }
+    return null;
 }
 
 /**
  * getGroupRequestByApprover - get group requests by approver
  * */
-export async function getGroupRequestByApprover() {
+export async function getCreateRequestByApprover(): Promise<CreateGroupRequest[]> {
     try {
         const res = await Axios.get(`${baseURL}/api/create/requests/approver`);
         const requestsFormatted = res.data.requests ? formatCreateRequests(res.data.requests) : [];
@@ -71,32 +85,35 @@ export async function getGroupRequestByApprover() {
         );
         return requestsFormatted;
     } catch (error) {
-        store.dispatch('onError', error);
+        // store.dispatch('onError', error);
     }
+    return [];
 }
 
 /**
  * denyGroupRequest - deny group create request
  * @param {string} createReqId - create request id
  * */
-export async function denyGroupRequest(createReqId) {
+export async function denyCreateRequest(createReqId: string) {
     try {
         const res = await Axios.put(`${baseURL}/api/create/request/deny/${createReqId}`);
         return res.data;
     } catch (error) {
-        store.dispatch('onError', error);
+        // store.dispatch('onError', error);
     }
+    return null;
 }
 
 /**
  * approveGroupRequest - approve group create request
  * @param {string} createReqId - create request id
  * */
-export async function approveGroupRequest(createReqId) {
+export async function approveCreateRequest(createReqId: string) {
     try {
         const res = await Axios.put(`${baseURL}/api/create/request/approve/${createReqId}`);
         return res.data;
     } catch (error) {
-        store.dispatch('onError', error);
+        // store.dispatch('onError', error);
     }
+    return null;
 }
