@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import i18next from 'i18next';
-import { FormGroup, Grid, makeStyles, Theme } from '@material-ui/core';
+import { Box, FormGroup, Grid, makeStyles, Theme } from '@material-ui/core';
 import { ADGroup } from '../../interfaces/ADGroup';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -23,30 +23,26 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     title: {
         color: '#707070',
-        fontSize: '22px',
-        fontStyle: 'bold',
-        justifyContent: 'center',
-        display: 'flex',
+        fontSize: '26px',
+        fontWeight: 'bold',
+        // justifyContent: 'center',
+        // display: 'flex',
     },
     subTitle: {
         color: '#707070',
-        fontSize: '26px',
-        fontStyle: 'bold',
+        fontSize: '22px',
+        // fontStyle: 'bold',
+        marginTop: '-15px',
     },
     text: {
         color: '#707070',
-        fontSize: '26px',
+        fontSize: '22px',
+    },
+    headerText: {
+        fontWeight: 'bold',
     },
     button: {
         justifyContent: 'center',
-    },
-    warningSign: {
-        width: '50px',
-    },
-    signWrap: {
-        justifyContent: 'center',
-        display: 'flex',
-        paddingTop: '2%',
     },
 }));
 
@@ -72,13 +68,32 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; group:
             aria-describedby="alert-dialog-description"
         >
             <DialogTitle>
-                <div className={classes.signWrap}>{i18next.t('MoreDetails.title')}</div>
+                <div className={classes.title}>{i18next.t('MoreDetails.title')}</div>
             </DialogTitle>
-            <DialogContent className={classes.title} id="alert-dialog-title">
+            <DialogContent id="alert-dialog-title">
                 <Grid container direction="column" justifyContent="center" alignItems="flex-start">
-                    <Grid item>{`${i18next.t('MoreDetails.friends')} ${getGroupLength()}`}</Grid>
-                    <Grid item>{`${i18next.t('MoreDetails.displayName')} ${group.displayName}`}</Grid>
-                    <Grid item>{`${i18next.t('MoreDetails.friends')} ${group.name}`}</Grid>
+                    <Box className={classes.subTitle}>
+                        <Grid item>
+                            <Grid container direction="row" alignItems="flex-start" spacing={2}>
+                                <Grid item className={classes.headerText}>
+                                    {i18next.t('MoreDetails.friends')}
+                                </Grid>
+                                <Grid item>{getGroupLength()}</Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid container direction="row" alignItems="flex-start" spacing={2}>
+                            <Grid item className={classes.headerText}>
+                                {i18next.t('MoreDetails.displayName')}
+                            </Grid>
+                            <Grid item>{group.displayName}</Grid>
+                        </Grid>
+                        <Grid container direction="row" alignItems="flex-start" spacing={2}>
+                            <Grid item className={classes.headerText}>
+                                {i18next.t('MoreDetails.groupName')}
+                            </Grid>
+                            <Grid item>{group.name}</Grid>
+                        </Grid>
+                    </Box>
                 </Grid>
             </DialogContent>
             <DialogActions className={classes.button} />
