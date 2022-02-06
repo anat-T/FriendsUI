@@ -13,6 +13,8 @@ export default {
         noon: 'צהריים טובים',
         evening: 'ערב טוב',
         night: 'לילה טוב',
+        welcomeMessage: 'ברוכים הבאים למערכת פריינדס',
+        letsGetStarted: 'יאללה בואו נתחיל',
     },
     supportDialog: {
         title: 'צור קשר',
