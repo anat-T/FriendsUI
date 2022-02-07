@@ -42,5 +42,6 @@ export default function GroupManageRequestsTable() {
     //     getGroups();
     // }, []);
 
-    return <DataTable rows={rows} headers={headers} type="approveAndDecline" title="ניהול קבוצה" warning={false} />;
+
+    return <DataTable rows={rows} headers={headers} type="approveAndDecline" title="ניהול קבוצה" warningType="User" warning />;
 }

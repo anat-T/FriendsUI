@@ -11,6 +11,7 @@ import LockIcon from '@material-ui/icons/Lock';
 import i18next from 'i18next';
 import debounce from '../../utils/debounce';
 import * as groupsApi from '../../utils/api-routes/group';
+import GroupBox from '../GroupBox/GroupBox';
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -188,24 +189,11 @@ export default function SearchBar() {
                         {selectedGroups.map(
                             (group) =>
                                 group.type === 'mail' && (
-                                    <Grid item key={group.name} className={classes.groupBox}>
-                                        <MailIcon className={classes.boxIcon} />
-                                        <Typography className={classes.groupNameBox}>{group.name}</Typography>
-                                        <Grid item>
-                                            <Box display="flex" className={classes.detailsBox}>
-                                                <Typography className={classes.detailsTypography}>{i18next.t('GroupBox.manager')}</Typography>
-                                                <Typography className={classes.detailsTypography}>{group.manager}</Typography>
-                                            </Box>
-                                        </Grid>
-                                        <Grid item>
-                                            <Box display="flex" className={classes.detailsBox}>
-                                                <Typography className={classes.detailsTypography}>
-                                                    {i18next.t('GroupBox.numberOfParticipents')}
-                                                </Typography>
-                                                <Typography className={classes.detailsTypography}>{group.numberOfParticipents}</Typography>
-                                            </Box>
-                                        </Grid>
-                                    </Grid>
+                                    <GroupBox
+                                        groupName={group.name}
+                                        groupManager={group.manager}
+                                        groupNumberOfParticipents={group.numberOfParticipents}
+                                    />
                                 ),
                         )}
                     </Grid>
@@ -220,24 +208,11 @@ export default function SearchBar() {
                             {selectedGroups.map(
                                 (group) =>
                                     group.type === 'security' && (
-                                        <Grid container key={group.name} className={classes.groupBox}>
-                                            <LockIcon className={classes.boxIcon} />
-                                            <Typography className={classes.groupNameBox}>{group.name}</Typography>
-                                            <Grid item>
-                                                <Box display="flex" className={classes.detailsBox}>
-                                                    <Typography className={classes.detailsTypography}>{i18next.t('GroupBox.manager')}</Typography>
-                                                    <Typography className={classes.detailsTypography}>{group.manager}</Typography>
-                                                </Box>
-                                            </Grid>
-                                            <Grid item>
-                                                <Box display="flex" className={classes.detailsBox}>
-                                                    <Typography className={classes.detailsTypography}>
-                                                        {i18next.t('GroupBox.numberOfParticipents')}
-                                                    </Typography>
-                                                    <Typography className={classes.detailsTypography}>{group.numberOfParticipents}</Typography>
-                                                </Box>
-                                            </Grid>
-                                        </Grid>
+                                        <GroupBox
+                                            groupName={group.name}
+                                            groupManager={group.manager}
+                                            groupNumberOfParticipents={group.numberOfParticipents}
+                                        />
                                     ),
                             )}
                         </Grid>
