@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     dialogContent: {
         zIndex: 15,
         position: 'relative',
-        height: '38rem',
+        height: '38.5rem',
+        width: '73rem',
     },
     typography: {
         fontWeight: 700,
@@ -22,6 +23,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     imageClass: {
         zIndex: 10,
         height: '100%',
+        width: '100%',
         marginRight: 'auto',
         marginLeft: 'auto',
         alignItems: 'center',
