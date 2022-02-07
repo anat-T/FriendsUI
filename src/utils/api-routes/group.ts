@@ -116,6 +116,21 @@ export async function updateGroupName(groupId: string, name: string) {
 }
 
 /**
+ * updateGroup - update group name and display name
+ * @param {string} groupId - id of the group
+ * @param {{ groupId: string, displayName: string, name: string }} editedGroup - edited group
+ * */
+export async function updateGroup(groupId: string, editedGroup: { groupId: string; displayName: string; name: string }) {
+    try {
+        const res = await Axios.put(`${baseURL}/api/ad/group/${groupId}`, editedGroup); // TODO I WRITED THAT
+        return res.data;
+    } catch (error) {
+        // TODO: Handle error
+        return null;
+    }
+}
+
+/**
  * addGroupMember - add group member
  * @param {string} groupId - id of the group
  * @param {string[]} users - new members (sAMAccountName)

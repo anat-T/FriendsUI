@@ -53,6 +53,9 @@ export default {
         groupName: 'שם קבוצה:',
         edit: 'עריכה',
         save: 'שמירה',
+        manager: 'מנהל:',
+        addUsers: 'הוספת משתמשים',
+        search: 'חפש משתמשים להוספה',
     },
     Status: {
         approved: 'אושר',
