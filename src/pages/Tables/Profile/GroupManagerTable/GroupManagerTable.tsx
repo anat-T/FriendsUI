@@ -17,15 +17,19 @@ const groups: Group[] = [
         friends: '10',
         hierarchy: 'hierarchy',
         classification: 'סמצ',
-        displayName: '/מפקדת אסם/ענף חטיפים',
+        displayName: '/מפקדת אסם/ענף אנשים',
         sAMAccountName: 'lala',
-        name: 'Meluhim@services.idf',
+        name: 'Anashim@services.idf',
         type: 'תפוצת מייל',
         owner: {
             displayName: 'Shay',
             sAMAccountName: '123',
         },
-        members: [{ displayName: 'Anat', sAMAccountName: '123' }],
+        members: [
+            { displayName: 'Anat', sAMAccountName: '123' },
+            { displayName: 'Sean', sAMAccountName: '12' },
+            { displayName: 'Itay', sAMAccountName: '1' },
+        ],
     },
     {
         id: '2',
@@ -48,15 +52,19 @@ const headers = ['מספר משתתפים', 'סיווג', 'סוג', 'מנהל', 
 
 const group: ADGroup = {
     classification: 'סמצ',
-    displayName: '/מפקדת אסם/ענף חטיפים',
+    displayName: '/מפקדת אסם/ענף אנשים ',
     sAMAccountName: 'la',
-    name: 'Meluhim@services.idf',
+    name: 'Anashim@services.idf',
     type: 'תפוצת מייל',
     owner: {
         displayName: 'Shay',
         sAMAccountName: '123',
     },
-    members: [{ displayName: 'Anat', sAMAccountName: '123' }],
+    members: [
+        { displayName: 'Anat', sAMAccountName: '123' },
+        { displayName: 'Sean', sAMAccountName: '12' },
+        { displayName: 'Itay', sAMAccountName: '1' },
+    ],
 };
 
 export default function GroupManagerTable() {

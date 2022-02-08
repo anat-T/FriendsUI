@@ -8,5 +8,5 @@ export interface ADGroup {
         displayName: string;
         sAMAccountName: string;
     };
-    members: [{ displayName: string; sAMAccountName: string }];
+    members: { displayName: string; sAMAccountName: string }[];
 }

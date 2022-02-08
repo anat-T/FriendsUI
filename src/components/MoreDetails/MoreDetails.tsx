@@ -12,25 +12,28 @@ import { Box, FormGroup, Grid, InputAdornment, makeStyles, TextField, Theme } fr
 import EditIcon from '@material-ui/icons/Edit';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import SearchIcon from '@material-ui/icons/Search';
+import ClearIcon from '@material-ui/icons/Clear';
 import { ADGroup } from '../../interfaces/ADGroup';
 import * as groupApi from '../../utils/api-routes/group';
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
-        '& .MuiDialogTitle-root': {
-            padding: '16px 24px 0px 24px',
-        },
         display: 'inline-flex',
         justifyContent: 'center',
         width: '100%',
         '& .MuiDialog-paperWidthSm': {
-            minWidth: '700px',
+            minWidth: '800px',
+            minHeight: '600px',
         },
     },
-    agreeButton: {
-        backgroundColor: '#FF0606',
-        borderRadius: '20px',
-        color: 'white',
+    dialogTitle: {
+        padding: '50px 50px 0px 50px',
+    },
+    dialogContent: {
+        padding: '0px 50px 0px 50px',
+    },
+    detail: {
+        marginBottom: '10px',
     },
     title: {
         color: '#707070',
@@ -63,17 +66,15 @@ const useStyles = makeStyles((theme: Theme) => ({
         backgroundColor: 'white',
         width: '100%',
         top: '-3px',
-        border: '1px solid',
-        borderColor: '#707070',
+        borderColor: 'transparent',
         marginRight: '-10px',
         '& input::placeholder': {
             fontSize: '22px',
         },
         '& .MuiInputBase-input': {
             fontSize: '22px',
-            padding: '5px 9px 5px 9px',
+            padding: '6px 10px 6px 10px',
         },
-        boxShadow: '0px 1px 5px',
     },
     addUser: {
         height: '35px',
@@ -90,12 +91,21 @@ const useStyles = makeStyles((theme: Theme) => ({
             fontSize: '22px',
             padding: '5px 9px 5px 9px',
         },
-        boxShadow: '0px 1px 5px',
     },
     editField: {
         height: '35px',
         width: '300px',
         fontSize: '22px',
+    },
+    removeUser: {
+        display: 'inline-flex',
+        justifyContent: 'space-between',
+        padding: '5px 13px 5px 13px',
+        boxShadow: '0px 1px 8px #00000029',
+        '&:hover': {
+            backgroundColor: '#c0ebe5',
+        },
+        marginTop: '5px',
     },
 }));
 
@@ -132,6 +142,11 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; group:
         setDisplayName(event.target.value);
     };
 
+    const removeMember = (member: { displayName?: string; sAMAccountName: any }) => {
+        // groupApi.deleteGroupMember(group.sAMAccountName, [member.sAMAccountName]);
+        console.log(member);
+    };
+
     const getGroupLength = () => {
         return group.members ? group.members.length : 0;
     };
@@ -144,19 +159,29 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; group:
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
         >
-            <DialogTitle>
+            <DialogTitle className={classes.dialogTitle}>
                 <div className={classes.title}>{i18next.t('MoreDetails.title')}</div>
+                <hr
+                    style={{
+                        margin: '15px 0 20px 0',
+                        color: 'white',
+                        backgroundColor: 'white',
+                        height: 0.5,
+                        borderColor: 'white',
+                        width: '100%',
+                    }}
+                />
             </DialogTitle>
-            <DialogContent id="alert-dialog-title">
+            <DialogContent id="alert-dialog-title" className={classes.dialogContent}>
                 <Grid container direction="column" justifyContent="center" alignItems="flex-start">
                     <Box className={classes.subTitle}>
-                        <Grid container direction="row" alignItems="flex-start" spacing={2}>
+                        <Grid container direction="row" alignItems="flex-start" spacing={2} className={classes.detail}>
                             <Grid item className={classes.headerText}>
                                 {i18next.t('MoreDetails.friends')}
                             </Grid>
                             <Grid item>{getGroupLength()}</Grid>
                         </Grid>
-                        <Grid container direction="row" alignItems="flex-start" spacing={2}>
+                        <Grid container direction="row" alignItems="flex-start" spacing={2} className={classes.detail}>
                             <Grid item className={classes.headerText}>
                                 {i18next.t('MoreDetails.displayName')}
                             </Grid>
@@ -164,16 +189,11 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; group:
                                 {edit === false ? (
                                     group.displayName
                                 ) : (
-                                    <TextField
-                                        className={classes.textField}
-                                        InputProps={{ disableUnderline: true }}
-                                        placeholder={group.displayName}
-                                        onChange={handleDisplayNameChange}
-                                    />
+                                    <TextField className={classes.textField} onChange={handleDisplayNameChange} value={displayName} />
                                 )}
                             </Grid>
                         </Grid>
-                        <Grid container direction="row" alignItems="flex-start" spacing={2}>
+                        <Grid container direction="row" alignItems="flex-start" spacing={2} className={classes.detail}>
                             <Grid item className={classes.headerText}>
                                 {i18next.t('MoreDetails.groupName')}
                             </Grid>
@@ -181,12 +201,7 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; group:
                                 {edit === false ? (
                                     group.name
                                 ) : (
-                                    <TextField
-                                        className={classes.textField}
-                                        InputProps={{ disableUnderline: true }}
-                                        placeholder={group.name}
-                                        onChange={handleGroupNameChange}
-                                    />
+                                    <TextField className={classes.textField} onChange={handleGroupNameChange} value={groupName} />
                                 )}
                             </Grid>
                         </Grid>
@@ -201,7 +216,7 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; group:
                                 {edit === false ? (
                                     <Button
                                         className={classes.button}
-                                        style={{ backgroundColor: '#4287f5', borderRadius: '18px', color: 'white', width: '100px' }}
+                                        style={{ backgroundColor: '#49A3E1', borderRadius: '18px', color: 'white', width: '100px' }}
                                         onClick={handleEdit}
                                     >
                                         <EditIcon />
@@ -210,7 +225,7 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; group:
                                 ) : (
                                     <Button
                                         className={classes.button}
-                                        style={{ backgroundColor: '#4287f5', borderRadius: '18px', color: 'white', width: '100px' }}
+                                        style={{ backgroundColor: '#49A3E1', borderRadius: '18px', color: 'white', width: '100px' }}
                                         onClick={handleDoneEdit}
                                     >
                                         <CheckCircleIcon />
@@ -264,6 +279,27 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; group:
                                     width: '100%',
                                 }}
                             />
+                        </Grid>
+                        <Grid container direction="column" spacing={2}>
+                            <Grid item className={classes.headerText}>
+                                {i18next.t('MoreDetails.members')}
+                            </Grid>
+                            <Grid item>
+                                <Grid container direction="row" alignItems="flex-start" spacing={2}>
+                                    {group.members.map((member) => (
+                                        <Grid item>
+                                            <Button
+                                                className={classes.removeUser}
+                                                style={{ backgroundColor: '#E1F2FF', borderRadius: '2px', color: '#707070', width: '130px' }}
+                                                onClick={() => removeMember(member)}
+                                            >
+                                                {member.displayName}
+                                                <ClearIcon />
+                                            </Button>
+                                        </Grid>
+                                    ))}
+                                </Grid>
+                            </Grid>
                         </Grid>
                     </Box>
                 </Grid>

@@ -56,6 +56,7 @@ export default {
         manager: 'מנהל:',
         addUsers: 'הוספת משתמשים',
         search: 'חפש משתמשים להוספה',
+        members: 'משתתפים',
     },
     Status: {
         approved: 'אושר',

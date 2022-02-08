@@ -8,7 +8,7 @@ export interface CreateRequest {
         displayName: string;
         classification: string;
         owner: string;
-        members: [string];
+        members: string[];
         type: string;
     };
 }
