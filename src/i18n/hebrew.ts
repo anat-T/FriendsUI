@@ -60,4 +60,8 @@ export default {
         rule6: 'כלל החברים חשופים לחומרים העוברים בקבוצה',
         agree: 'כן אני מבין',
     },
+    GroupDetails: {
+        mailURL: 'כתובת מייל',
+        name: 'שם',
+    },
 };

@@ -1,10 +1,11 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable no-shadow */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Grid, Theme, Typography, makeStyles } from '@material-ui/core';
 import MailIcon from '@material-ui/icons/Mail';
 import i18next from 'i18next';
+import GroupDetails from '../GroupDetails/GroupDetails';
 
 const useStyles = makeStyles((theme: Theme) => ({
     boxIcon: {
@@ -51,25 +52,48 @@ type searchBarProps = {
     groupNumberOfParticipents: String;
 };
 
+const participantsDemo = [
+    { mail: 'argaliyot@services.idf', name: 'מפקדת אסם/ ענף חטיפים/ מדור מתוקים/ ערגליות' },
+    { mail: 'tortit@d360.dom', name: 'מפקדת אסם/ ענף חטיפים/ מדור מתוקים/ ערגליות' },
+];
+
 export default function GroupBox({ groupName, groupManager, groupNumberOfParticipents }: searchBarProps) {
     const classes = useStyles();
 
+    const [open, setOpen] = useState(false);
+    const [participants, setParticipants] = useState(participantsDemo);
+
+    const handleClick = () => {
+        // TODO: get participants
+        setOpen(true);
+    };
+
     return (
-        <Grid item key={groupName} className={classes.groupBox}>
-            <MailIcon className={classes.boxIcon} />
-            <Typography className={classes.groupNameBox}>{groupName}</Typography>
-            <Grid item>
-                <Box display="flex" className={classes.detailsBox}>
-                    <Typography className={classes.detailsTypography}>{i18next.t('GroupBox.manager')}</Typography>
-                    <Typography className={classes.detailsTypography}>{groupManager}</Typography>
-                </Box>
+        <>
+            <GroupDetails
+                open={open}
+                setOpen={setOpen}
+                groupName={groupName}
+                groupManager={groupManager}
+                groupNumberOfParticipents={groupNumberOfParticipents}
+                participants={participants}
+            />
+            <Grid item key={groupName} className={classes.groupBox} onClick={handleClick}>
+                <MailIcon className={classes.boxIcon} />
+                <Typography className={classes.groupNameBox}>{groupName}</Typography>
+                <Grid item>
+                    <Box display="flex" className={classes.detailsBox}>
+                        <Typography className={classes.detailsTypography}>{i18next.t('GroupBox.manager')}</Typography>
+                        <Typography className={classes.detailsTypography}>{groupManager}</Typography>
+                    </Box>
+                </Grid>
+                <Grid item>
+                    <Box display="flex" className={classes.detailsBox}>
+                        <Typography className={classes.detailsTypography}>{i18next.t('GroupBox.numberOfParticipents')}</Typography>
+                        <Typography className={classes.detailsTypography}>{groupNumberOfParticipents}</Typography>
+                    </Box>
+                </Grid>
             </Grid>
-            <Grid item>
-                <Box display="flex" className={classes.detailsBox}>
-                    <Typography className={classes.detailsTypography}>{i18next.t('GroupBox.numberOfParticipents')}</Typography>
-                    <Typography className={classes.detailsTypography}>{groupNumberOfParticipents}</Typography>
-                </Box>
-            </Grid>
-        </Grid>
+        </>
     );
 }
