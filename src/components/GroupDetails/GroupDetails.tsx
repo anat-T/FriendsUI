@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Dialog, Grid, makeStyles, Theme, Typography, IconButton } from '@material-ui/core';
+import { Dialog, Grid, makeStyles, Theme, Typography, Fab } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import i18next from 'i18next';
 import EditIcon from '@material-ui/icons/Edit';
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         fontSize: '22px',
         color: '#707070',
         width: '350px',
-        paddingTop: '8%',
+        paddingTop: '7%',
     },
     dividedTypography: {
         fontSize: '22px',
@@ -46,16 +46,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     dialogPaper: {
         minHeight: '45vh',
         maxHeight: '60vh',
-        minWidth: '100vh',
+        minWidth: '95vh',
     },
     icon: {
         backgroundColor: '#92E1D6',
         color: 'white',
-        width: '50px',
+        width: '60px',
     },
     iconGrid: {
         direction: 'ltr',
         paddingTop: '5%',
+        paddingLeft: '4%',
     },
 }));
 
@@ -73,6 +74,14 @@ export default function GroupDetails({ open, setOpen, groupName, groupManager, g
 
     const handleClose = () => {
         setOpen(false);
+    };
+
+    const addPersonClick = () => {
+        // TODO: add person
+    };
+
+    const editGroupClick = () => {
+        // TODO: edit group
     };
 
     return (
@@ -112,12 +121,12 @@ export default function GroupDetails({ open, setOpen, groupName, groupManager, g
                 </Grid>
             </Grid>
             <Grid className={classes.iconGrid}>
-                <IconButton className={classes.icon}>
-                    <PersonAddIcon />
-                </IconButton>
-                <IconButton className={classes.icon}>
-                    <EditIcon />
-                </IconButton>
+                <Fab className={classes.icon}>
+                    <PersonAddIcon onClick={addPersonClick} />
+                </Fab>
+                {/* <Fab className={classes.icon}>
+                    <EditIcon onClick={editGroupClick} />
+                </Fab> */}
             </Grid>
         </Dialog>
     );
