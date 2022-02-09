@@ -1,6 +1,6 @@
 export interface Group {
     id: string;
-    friends: string;
+    friends: number;
     hierarchy: string;
     classification: string;
     displayName: string;

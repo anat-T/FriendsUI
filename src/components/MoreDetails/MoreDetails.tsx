@@ -13,8 +13,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
-import { ADGroup } from '../../interfaces/ADGroup';
 import * as groupApi from '../../utils/api-routes/group';
+import { Group } from '../../interfaces/FormatedRequests/Group';
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -109,10 +109,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-export default function MoreDetails(props: { open: boolean; setOpen: any; group: ADGroup }) {
-    const { open, setOpen, group } = props;
+export default function MoreDetails(props: { open: boolean; setOpen: any; selectedGroup: Group }) {
+    const { open, setOpen, selectedGroup } = props;
 
     const [edit, setEdit] = useState(false);
+
+    const [group, setGroup] = useState(selectedGroup);
 
     const [displayName, setDisplayName] = useState(group.displayName);
     const [groupName, setGroupName] = useState(group.name);
@@ -127,11 +129,16 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; group:
         setEdit(true);
     };
 
+    const updateSelectedGroup = async () => {
+        setGroup(await groupApi.getGroupById(group.sAMAccountName));
+    };
+
     const handleDoneEdit = () => {
         setEdit(false);
         const editedGroup = { groupId: group.sAMAccountName, displayName, name: groupName };
         console.log(editedGroup);
         // groupApi.updateGroup(group.sAMAccountName, editedGroup);
+        // updateSelectedGroup();
     };
 
     const handleGroupNameChange = (event: { target: { value: React.SetStateAction<string> } }) => {
@@ -144,6 +151,8 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; group:
 
     const removeMember = (member: { displayName?: string; sAMAccountName: any }) => {
         // groupApi.deleteGroupMember(group.sAMAccountName, [member.sAMAccountName]);
+        // updateSelectedGroup();
+
         console.log(member);
     };
 

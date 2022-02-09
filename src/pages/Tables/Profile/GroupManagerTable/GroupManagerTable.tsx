@@ -6,6 +6,7 @@ import MoreDetails from '../../../../components/MoreDetails/MoreDetails';
 import { ADGroup } from '../../../../interfaces/ADGroup';
 import { Group } from '../../../../interfaces/FormatedRequests/Group';
 import * as groupsApi from '../../../../utils/api-routes/group';
+import { formatGroup } from '../../../../utils/format-requests/group';
 import { formatGroups } from '../../../../utils/format-rows/group';
 import { TableTypeEnum } from '../../../../utils/table';
 
@@ -13,8 +14,8 @@ const useStyles = makeStyles((theme: Theme) => ({}));
 
 const groups: Group[] = [
     {
-        id: '1',
-        friends: '10',
+        id: '0',
+        friends: 10,
         hierarchy: 'hierarchy',
         classification: 'סמצ',
         displayName: '/מפקדת אסם/ענף אנשים',
@@ -32,8 +33,8 @@ const groups: Group[] = [
         ],
     },
     {
-        id: '2',
-        friends: '14',
+        id: '1',
+        friends: 14,
         hierarchy: 'hierarchy',
         classification: 'סמצ',
         displayName: '/מפקדת אסם/ענף חטיפים',
@@ -50,23 +51,6 @@ const groups: Group[] = [
 
 const headers = ['מספר משתתפים', 'סיווג', 'סוג', 'מנהל', 'שם קבוצה', 'שם תצוגה', ''];
 
-const group: ADGroup = {
-    classification: 'סמצ',
-    displayName: '/מפקדת אסם/ענף אנשים ',
-    sAMAccountName: 'la',
-    name: 'Anashim@services.idf',
-    type: 'תפוצת מייל',
-    owner: {
-        displayName: 'Shay',
-        sAMAccountName: '123',
-    },
-    members: [
-        { displayName: 'Anat', sAMAccountName: '123' },
-        { displayName: 'Sean', sAMAccountName: '12' },
-        { displayName: 'Itay', sAMAccountName: '1' },
-    ],
-};
-
 export default function GroupManagerTable() {
     const classes = useStyles();
 
@@ -74,7 +58,7 @@ export default function GroupManagerTable() {
 
     const [open, setOpen] = useState(false);
 
-    const [selectedGroup, setSelectedGroup] = useState(group as ADGroup);
+    const [selectedGroup, setSelectedGroup] = useState({} as Group);
 
     const getGroups = async () => {
         // const newGroups = await formatGroups(await groupsApi.getUserGroups());
@@ -91,12 +75,12 @@ export default function GroupManagerTable() {
 
         // setSelectedGroup(await groupsApi.getGroupById(id));
 
-        setSelectedGroup(group);
+        setSelectedGroup(groups[Number(id)]);
     };
 
     return (
         <>
-            {open && <MoreDetails open={open} setOpen={setOpen} group={selectedGroup} />}
+            {open && <MoreDetails open={open} setOpen={setOpen} selectedGroup={selectedGroup} />}
             <DataTable rows={rows} headers={headers} type={TableTypeEnum.moreDetails} title="קבוצות בניהולי" moreDetailsFunction={groupMoreDetails} />
         </>
     );

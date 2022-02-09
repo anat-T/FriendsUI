@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) => ({}));
 const groups: Group[] = [
     {
         id: '1',
-        friends: '10',
+        friends: 10,
         hierarchy: 'hierarchy',
         classification: 'סמצ',
         displayName: '/מפקדת אסם/ענף חטיפים',
@@ -27,7 +27,7 @@ const groups: Group[] = [
     },
     {
         id: '2',
-        friends: '14',
+        friends: 14,
         hierarchy: 'hierarchy',
         classification: 'סמצ',
         displayName: '/מפקדת אסם/ענף חטיפים',
