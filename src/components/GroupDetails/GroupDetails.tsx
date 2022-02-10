@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import i18next from 'i18next';
 import EditIcon from '@material-ui/icons/Edit';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import JoinGroupPopup from '../JoinGroupPopup/JoinGroupPopup';
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -72,12 +73,15 @@ type groupDetailsProps = {
 export default function GroupDetails({ open, setOpen, groupName, groupManager, groupNumberOfParticipents, participants }: groupDetailsProps) {
     const classes = useStyles();
 
+    const [joinROpen, setJoinROpen] = useState(false);
+
     const handleClose = () => {
         setOpen(false);
     };
 
     const addPersonClick = () => {
-        // TODO: add person
+        setJoinROpen(true);
+        setOpen(false);
     };
 
     const editGroupClick = () => {
@@ -85,49 +89,52 @@ export default function GroupDetails({ open, setOpen, groupName, groupManager, g
     };
 
     return (
-        <Dialog
-            className={classes.root}
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-            classes={{ paper: classes.dialogPaper }}
-        >
-            <Grid container className={classes.container}>
-                <Grid item>
-                    <Typography className={classes.title}>{groupName}</Typography>
+        <>
+            <JoinGroupPopup joinROpen={joinROpen} setJoinROpen={setJoinROpen} />
+            <Dialog
+                className={classes.root}
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                classes={{ paper: classes.dialogPaper }}
+            >
+                <Grid container className={classes.container}>
+                    <Grid item>
+                        <Typography className={classes.title}>{groupName}</Typography>
+                    </Grid>
+                    <Grid item className={classes.grid}>
+                        <Typography className={classes.typography}>{i18next.t('GroupBox.manager')}</Typography>
+                        <Typography className={classes.typography}>{groupManager}</Typography>
+                    </Grid>
+                    <Grid item className={classes.grid}>
+                        <Typography className={classes.typography}>{i18next.t('GroupBox.numberOfParticipents')}</Typography>
+                        <Typography className={classes.typography}>{groupNumberOfParticipents}</Typography>
+                    </Grid>
+                    <Grid item className={classes.grid}>
+                        <Typography className={classes.boldTypography}>{i18next.t('GroupDetails.mailURL')}</Typography>
+                        <Typography className={classes.boldTypography}>{i18next.t('GroupDetails.name')}</Typography>
+                    </Grid>
+                    <Grid item>
+                        {participants.map((participant) => (
+                            <Grid item className={classes.grid}>
+                                <Typography className={classes.dividedTypography}>{participant.mail}</Typography>
+                                <Typography className={classes.dividedTypography} style={{ width: '550px' }}>
+                                    {participant.name}
+                                </Typography>
+                            </Grid>
+                        ))}
+                    </Grid>
                 </Grid>
-                <Grid item className={classes.grid}>
-                    <Typography className={classes.typography}>{i18next.t('GroupBox.manager')}</Typography>
-                    <Typography className={classes.typography}>{groupManager}</Typography>
-                </Grid>
-                <Grid item className={classes.grid}>
-                    <Typography className={classes.typography}>{i18next.t('GroupBox.numberOfParticipents')}</Typography>
-                    <Typography className={classes.typography}>{groupNumberOfParticipents}</Typography>
-                </Grid>
-                <Grid item className={classes.grid}>
-                    <Typography className={classes.boldTypography}>{i18next.t('GroupDetails.mailURL')}</Typography>
-                    <Typography className={classes.boldTypography}>{i18next.t('GroupDetails.name')}</Typography>
-                </Grid>
-                <Grid item>
-                    {participants.map((participant) => (
-                        <Grid item className={classes.grid}>
-                            <Typography className={classes.dividedTypography}>{participant.mail}</Typography>
-                            <Typography className={classes.dividedTypography} style={{ width: '550px' }}>
-                                {participant.name}
-                            </Typography>
-                        </Grid>
-                    ))}
-                </Grid>
-            </Grid>
-            <Grid className={classes.iconGrid}>
-                <Fab className={classes.icon}>
-                    <PersonAddIcon onClick={addPersonClick} />
-                </Fab>
-                {/* <Fab className={classes.icon}>
+                <Grid className={classes.iconGrid} onClick={addPersonClick}>
+                    <Fab className={classes.icon}>
+                        <PersonAddIcon />
+                    </Fab>
+                    {/* <Fab className={classes.icon}>
                     <EditIcon onClick={editGroupClick} />
                 </Fab> */}
-            </Grid>
-        </Dialog>
+                </Grid>
+            </Dialog>
+        </>
     );
 }
