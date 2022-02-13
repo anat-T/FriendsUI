@@ -90,7 +90,13 @@ export default function GroupDetails({ open, setOpen, groupName, groupManager, g
 
     return (
         <>
-            <JoinGroupPopup joinROpen={joinROpen} setJoinROpen={setJoinROpen} />
+            <JoinGroupPopup
+                joinROpen={joinROpen}
+                setJoinROpen={setJoinROpen}
+                groupName={groupName}
+                groupManager={groupManager}
+                groupNumberOfParticipents={groupNumberOfParticipents}
+            />
             <Dialog
                 className={classes.root}
                 open={open}
