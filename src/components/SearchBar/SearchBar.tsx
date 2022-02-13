@@ -109,7 +109,6 @@ export default function SearchBar() {
 
     const inputChange = (event: any, newInputValue: React.SetStateAction<string>) => {
         setSearchValue(newInputValue);
-        // getProducts(newInputValue);
     };
 
     const setPrefix = (event: any, newValue: any) => {
@@ -160,7 +159,6 @@ export default function SearchBar() {
                                 placeholder="חיפוש קבוצה"
                                 InputProps={{
                                     ...params.InputProps,
-                                    autoComplete: 'new-password',
                                     disableUnderline: true,
                                 }}
                             />
@@ -209,39 +207,35 @@ export default function SearchBar() {
                                 ),
                         )}
                     </Grid>
-                    {false && (
-                        <Grid className={classes.grid}>
-                            <LockIcon className={classes.gridIcon} />
-                            <Typography className={classes.typography}>{i18next.t('Groups.security')}</Typography>
-                        </Grid>
-                    )}
-                    {false && (
-                        <Grid className={classes.groupsBoxesGrid}>
-                            {selectedGroups.map(
-                                (group) =>
-                                    group.type === 'security' && (
-                                        <Grid container key={group.name} className={classes.groupBox}>
-                                            <LockIcon className={classes.boxIcon} />
-                                            <Typography className={classes.groupNameBox}>{group.name}</Typography>
-                                            <Grid item>
-                                                <Box display="flex" className={classes.detailsBox}>
-                                                    <Typography className={classes.detailsTypography}>{i18next.t('GroupBox.manager')}</Typography>
-                                                    <Typography className={classes.detailsTypography}>{group.manager}</Typography>
-                                                </Box>
-                                            </Grid>
-                                            <Grid item>
-                                                <Box display="flex" className={classes.detailsBox}>
-                                                    <Typography className={classes.detailsTypography}>
-                                                        {i18next.t('GroupBox.numberOfParticipents')}
-                                                    </Typography>
-                                                    <Typography className={classes.detailsTypography}>{group.numberOfParticipents}</Typography>
-                                                </Box>
-                                            </Grid>
+                    {/* <Grid className={classes.grid}>
+                        <LockIcon className={classes.gridIcon} />
+                        <Typography className={classes.typography}>{i18next.t('Groups.security')}</Typography>
+                    </Grid>
+                    <Grid className={classes.groupsBoxesGrid}>
+                        {selectedGroups.map(
+                            (group) =>
+                                group.type === 'security' && (
+                                    <Grid container key={group.name} className={classes.groupBox}>
+                                        <LockIcon className={classes.boxIcon} />
+                                        <Typography className={classes.groupNameBox}>{group.name}</Typography>
+                                        <Grid item>
+                                            <Box display="flex" className={classes.detailsBox}>
+                                                <Typography className={classes.detailsTypography}>{i18next.t('GroupBox.manager')}</Typography>
+                                                <Typography className={classes.detailsTypography}>{group.manager}</Typography>
+                                            </Box>
                                         </Grid>
-                                    ),
-                            )}
-                        </Grid>
-                    )}
+                                        <Grid item>
+                                            <Box display="flex" className={classes.detailsBox}>
+                                                <Typography className={classes.detailsTypography}>
+                                                    {i18next.t('GroupBox.numberOfParticipents')}
+                                                </Typography>
+                                                <Typography className={classes.detailsTypography}>{group.numberOfParticipents}</Typography>
+                                            </Box>
+                                        </Grid>
+                                    </Grid>
+                                ),
+                        )}
+                    </Grid> */}
                 </Grid>
             )}
         </div>
