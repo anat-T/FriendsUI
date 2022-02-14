@@ -64,4 +64,10 @@ export default {
         mailURL: 'כתובת מייל',
         name: 'שם',
     },
+    JoinRequest: {
+        title: 'הצטרפות לקבוצה',
+        groupName: 'שם קבוצה:',
+        textAreaContent: 'מדוע אתה רוצה להצטרף לקבוצה זו? אנא פרט עבור מנהל הקבוצה',
+        sendRequest: 'שליחת בקשה להצטרפות',
+    },
 };
