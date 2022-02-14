@@ -30,6 +30,11 @@ const useStyles = makeStyles((theme: Theme) => ({
         fontSize: '22px',
         color: '#707070',
     },
+    typographyBold: {
+        fontSize: '22px',
+        color: '#707070',
+        fontWeight: 'bold',
+    },
     grid: {
         display: 'inline-flex',
     },
@@ -42,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         paddingBottom: '3%',
     },
     content: {
-        width: 1000,
+        width: '95%',
     },
     button: {
         backgroundColor: '#92E1D6',
@@ -52,6 +57,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         borderRadius: '40px',
         height: '70px',
         alignSelf: 'center',
+        marginBottom: '15px',
     },
 }));
 
@@ -85,16 +91,16 @@ export default function JoinGroupPopup({ joinROpen, setJoinROpen, groupName, gro
                     <Typography className={classes.title}>{i18next.t('JoinRequest.title')}</Typography>
                 </Grid>
                 <Grid item className={classes.grid}>
-                    <Typography className={classes.typography}>{i18next.t('JoinRequest.groupName')}</Typography>
+                    <Typography className={classes.typographyBold}>{i18next.t('JoinRequest.groupName')}</Typography>
                     <Typography className={classes.typography}>{groupName}</Typography>
                 </Grid>
                 <Grid container className={classes.detailsContainer}>
                     <Grid item className={classes.grid}>
-                        <Typography className={classes.typography}>{i18next.t('GroupBox.manager')}</Typography>
+                        <Typography className={classes.typographyBold}>{i18next.t('GroupBox.manager')}</Typography>
                         <Typography className={classes.typography}>{groupManager}</Typography>
                     </Grid>
                     <Grid item className={classes.grid}>
-                        <Typography className={classes.typography}>{i18next.t('GroupBox.numberOfParticipents')}</Typography>
+                        <Typography className={classes.typographyBold}>{i18next.t('GroupBox.numberOfParticipents')}</Typography>
                         <Typography className={classes.typography}>{groupNumberOfParticipents}</Typography>
                     </Grid>
                 </Grid>

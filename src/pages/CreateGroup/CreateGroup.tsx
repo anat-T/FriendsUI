@@ -60,6 +60,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         width: '100%',
         paddingRight: '20px',
         right: 0,
+        minWidth: '300px',
     },
     grid: {
         justifyContent: 'center',
@@ -68,6 +69,8 @@ const useStyles = makeStyles((theme: Theme) => ({
             fontSize: '18px',
             backgroundColor: 'transparent',
         },
+        minWidth: '100%',
+        width: '1000px',
     },
     gridRow: {
         width: '40%',
@@ -89,6 +92,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         justifyContent: 'space-between',
         width: '35%',
         color: '#707070',
+        minWidth: '300px',
     },
     warningText1: {
         color: '#707070',
@@ -145,6 +149,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         backgroundColor: '#92E1D6',
         paddingLeft: '10px',
         marginBottom: '5px',
+    },
+    radio: {
+        minWidth: '25%',
     },
 }));
 
@@ -329,7 +336,7 @@ export default function CreateGroup() {
                 <CreateNewFolderIcon className={classes.icon} />
                 <Typography className={classes.typography}>יצירת קבוצה</Typography>
             </div>
-            <Grid container className={classes.grid} direction="column">
+            <Grid container className={classes.grid} direction="column" alignItems="center">
                 <Grid className={classes.gridRow}>
                     <Typography className={classes.subTypography}>ההיררכיה שלי</Typography>
                     <TextField
@@ -340,27 +347,49 @@ export default function CreateGroup() {
                         // store.getState().user.hierarchy
                     />
                 </Grid>
-                <Grid className={classes.buttons}>
-                    <RadioGroup className={classes.group} value={type} onChange={handleTypeChange}>
-                        <FormControlLabel value="mail" control={<Radio color="default" />} label="קבוצת אבטחה" labelPlacement="start" />
-                        <FormControlLabel value="security" control={<Radio color="default" />} label="תפוצת דואל" labelPlacement="start" />
-                    </RadioGroup>
-                    <StylesProvider jss={jss}>
-                        <FormControl variant="outlined" className={classes.formControl}>
-                            <InputLabel id="classifyLabel">סיווג</InputLabel>
-                            <Select value={classify} labelId="classifyLabel" className={classes.classifySelect} onChange={handleClassifyChange}>
-                                <MenuItem className={classes.option} value="safe">
-                                    מנהלי
-                                </MenuItem>
-                                <MenuItem className={classes.option} value="secret">
-                                    סגול מצומצם
-                                </MenuItem>
-                                <MenuItem className={classes.option} value="topSecret">
-                                    כחול
-                                </MenuItem>
-                            </Select>
-                        </FormControl>
-                    </StylesProvider>
+                <Grid container direction="row" className={classes.buttons} justifyContent="space-between" alignItems="center">
+                    <Grid item className={classes.radio}>
+                        <Grid container direction="row" alignItems="flex-start">
+                            <Grid item>
+                                <RadioGroup className={classes.group} value={type} onChange={handleTypeChange}>
+                                    <FormControlLabel value="mail" control={<Radio color="default" />} label="קבוצת אבטחה" labelPlacement="start" />
+                                    <FormControlLabel
+                                        value="security"
+                                        control={<Radio color="default" />}
+                                        label="תפוצת דואל"
+                                        labelPlacement="start"
+                                    />
+                                </RadioGroup>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item>
+                        <Grid container direction="row" alignItems="flex-end">
+                            <Grid item>
+                                <StylesProvider jss={jss}>
+                                    <FormControl variant="outlined" className={classes.formControl}>
+                                        <InputLabel id="classifyLabel">סיווג</InputLabel>
+                                        <Select
+                                            value={classify}
+                                            labelId="classifyLabel"
+                                            className={classes.classifySelect}
+                                            onChange={handleClassifyChange}
+                                        >
+                                            <MenuItem className={classes.option} value="safe">
+                                                מנהלי
+                                            </MenuItem>
+                                            <MenuItem className={classes.option} value="secret">
+                                                סגול מצומצם
+                                            </MenuItem>
+                                            <MenuItem className={classes.option} value="topSecret">
+                                                כחול
+                                            </MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </StylesProvider>
+                            </Grid>
+                        </Grid>
+                    </Grid>
                 </Grid>
 
                 <Grid className={classes.gridRow}>

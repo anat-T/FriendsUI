@@ -107,6 +107,14 @@ const useStyles = makeStyles((theme: Theme) => ({
         },
         marginTop: '5px',
     },
+    hr: {
+        margin: '15px 0 20px 0',
+        color: 'white',
+        backgroundColor: 'white',
+        height: 0.5,
+        borderColor: 'white',
+        width: '100%',
+    },
 }));
 
 export default function MoreDetails(props: { open: boolean; setOpen: any; selectedGroup: Group }) {
@@ -170,16 +178,8 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; select
         >
             <DialogTitle className={classes.dialogTitle}>
                 <div className={classes.title}>{i18next.t('MoreDetails.title')}</div>
-                <hr
-                    style={{
-                        margin: '15px 0 20px 0',
-                        color: 'white',
-                        backgroundColor: 'white',
-                        height: 0.5,
-                        borderColor: 'white',
-                        width: '100%',
-                    }}
-                />
+
+                <hr className={classes.hr} />
             </DialogTitle>
             <DialogContent id="alert-dialog-title" className={classes.dialogContent}>
                 <Grid container direction="column" justifyContent="center" alignItems="flex-start">
@@ -207,11 +207,7 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; select
                                 {i18next.t('MoreDetails.groupName')}
                             </Grid>
                             <Grid item className={classes.editField}>
-                                {edit === false ? (
-                                    group.name
-                                ) : (
-                                    <TextField className={classes.textField} onChange={handleGroupNameChange} value={groupName} />
-                                )}
+                                {!edit ? group.name : <TextField className={classes.textField} onChange={handleGroupNameChange} value={groupName} />}
                             </Grid>
                         </Grid>
                         <Grid container direction="row" alignItems="flex-start" spacing={2}>
@@ -244,16 +240,9 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; select
                             </Grid>
                         </Grid>
                     </Box>
-                    <hr
-                        style={{
-                            margin: '20px 0 20px 0',
-                            color: 'white',
-                            backgroundColor: 'white',
-                            height: 0.5,
-                            borderColor: 'white',
-                            width: '100%',
-                        }}
-                    />
+
+                    <hr className={classes.hr} />
+
                     <Box className={classes.subTitle}>
                         <Grid container direction="row" justifyContent="space-between">
                             <Grid item className={classes.headerText}>
@@ -278,16 +267,8 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; select
                                     />
                                 </Grid>
                             </Grid>
-                            <hr
-                                style={{
-                                    margin: '15px 0 20px 0',
-                                    color: 'white',
-                                    backgroundColor: 'white',
-                                    height: 0.5,
-                                    borderColor: 'white',
-                                    width: '100%',
-                                }}
-                            />
+
+                            <hr className={classes.hr} />
                         </Grid>
                         <Grid container direction="column" spacing={2}>
                             <Grid item className={classes.headerText}>

@@ -22,13 +22,14 @@ const useStyles = makeStyles((theme: Theme) => ({
         alignItems: 'center',
         marginRight: 'auto',
         marginLeft: 'auto',
-        marginTop: '5%',
+        marginTop: '100px',
     },
     icon: {
-        width: '2.5em',
-        height: '70%',
+        position: 'relative',
+        width: '60px',
+        height: '58px',
         borderRadius: '50%',
-        marginLeft: '2%',
+        left: '15px',
         backgroundColor: '#92E1D6',
 
         '&:hover': {
@@ -49,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         paddingTop: '3%',
     },
     div: {
-        width: '100%',
+        minWidth: '100%',
     },
     typography: {
         fontWeight: 600,
@@ -57,10 +58,10 @@ const useStyles = makeStyles((theme: Theme) => ({
         color: '#707070',
     },
     grid: {
-        paddingTop: '5%',
+        paddingTop: '100px',
         display: 'flex',
-        paddingRight: '20%',
         paddingBottom: '2%',
+        width: '60%',
     },
     groupBox: {
         width: '300px',
@@ -91,6 +92,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         color: '#707070',
         fontSize: '18px',
         paddingRight: '1%',
+    },
+    textField: {
+        width: '196%',
     },
 }));
 
@@ -141,61 +145,69 @@ export default function SearchBar() {
     }, [searchValue]);
 
     return (
-        <div className={classes.div}>
-            <Box display="flex" className={classes.root} alignItems="center" boxShadow="0px 3px 25px #BABABA">
-                <Box flex={1}>
-                    <Autocomplete
-                        freeSolo
-                        options={groups}
-                        getOptionLabel={(option: any) => option.name}
-                        filterOptions={(x) => x}
-                        onChange={setPrefix}
-                        onInputChange={debounce(inputChange, 450)}
-                        renderInput={(params) => (
-                            <TextField
-                                // inputRef={searchedValue}
-                                variant="standard"
-                                // eslint-disable-next-line react/jsx-props-no-spreading
-                                {...params}
-                                placeholder="חיפוש קבוצה"
-                                InputProps={{
-                                    ...params.InputProps,
-                                    disableUnderline: true,
-                                }}
-                            />
-                        )}
-                        renderOption={(option) => (
-                            <Box style={{ width: '100%', overflowX: 'hidden' }} display="flex" justifyContent="space-between" alignItems="center">
-                                <Box flex={1}>{option.name}</Box>
-                                <Box />
-                            </Box>
-                        )}
-                    />
+        <Grid direction="column" className={classes.div}>
+            <Grid item>
+                <Box display="flex" className={classes.root} alignItems="center" boxShadow="0px 3px 25px #BABABA">
+                    <Box flex={1}>
+                        <Autocomplete
+                            freeSolo
+                            options={groups}
+                            getOptionLabel={(option: any) => option.name}
+                            filterOptions={(x) => x}
+                            onChange={setPrefix}
+                            onInputChange={debounce(inputChange, 450)}
+                            renderInput={(params) => (
+                                <TextField
+                                    // inputRef={searchedValue}
+                                    variant="standard"
+                                    className={classes.textField}
+                                    // eslint-disable-next-line react/jsx-props-no-spreading
+                                    {...params}
+                                    placeholder="חיפוש קבוצה"
+                                    InputProps={{
+                                        ...params.InputProps,
+                                        disableUnderline: true,
+                                    }}
+                                />
+                            )}
+                            renderOption={(option) => (
+                                <Box style={{ width: '100%', overflowX: 'hidden' }} display="flex" justifyContent="space-between" alignItems="center">
+                                    <Box flex={1}>{option.name}</Box>
+                                    <Box />
+                                </Box>
+                            )}
+                        />
+                    </Box>
+                    <Box flex={1} />
+                    <IconButton className={classes.icon} onClick={onClickSearch}>
+                        <SearchIcon fontSize="large" style={{ color: 'white' }} />
+                    </IconButton>
                 </Box>
-                <Box flex={1} />
-                <IconButton className={classes.icon} onClick={onClickSearch}>
-                    <SearchIcon fontSize="large" style={{ color: 'white' }} />
-                </IconButton>
-            </Box>
-            {showResults && (
-                <Grid>
-                    <Grid className={classes.grid}>
-                        <MailIcon className={classes.gridIcon} />
-                        <Typography className={classes.typography}>{i18next.t('Groups.mail')}</Typography>
-                    </Grid>
-                    <Grid container className={classes.groupsBoxesGrid}>
-                        {selectedGroups.map(
-                            (group) =>
-                                group.type === 'mail' && (
-                                    <GroupBox
-                                        groupName={group.name}
-                                        groupManager={group.manager}
-                                        groupNumberOfParticipents={group.numberOfParticipents}
-                                    />
-                                ),
-                        )}
-                    </Grid>
-                    {/* <Grid className={classes.grid}>
+            </Grid>
+            <Grid item>
+                {showResults && (
+                    <Grid container direction="column" alignContent="center">
+                        <Grid item className={classes.grid}>
+                            <MailIcon className={classes.gridIcon} />
+                            <Typography className={classes.typography}>{i18next.t('Groups.mail')}</Typography>
+                        </Grid>
+                        <Grid item className={classes.groupsBoxesGrid}>
+                            <Grid container direction="row" spacing={3}>
+                                {selectedGroups.map(
+                                    (group) =>
+                                        group.type === 'mail' && (
+                                            <Grid item>
+                                                <GroupBox
+                                                    groupName={group.name}
+                                                    groupManager={group.manager}
+                                                    groupNumberOfParticipents={group.numberOfParticipents}
+                                                />
+                                            </Grid>
+                                        ),
+                                )}
+                            </Grid>
+                        </Grid>
+                        {/* <Grid className={classes.grid}>
                         <LockIcon className={classes.gridIcon} />
                         <Typography className={classes.typography}>{i18next.t('Groups.security')}</Typography>
                     </Grid>
@@ -240,8 +252,9 @@ export default function SearchBar() {
                                 ),
                         )}
                     </Grid> */}
-                </Grid>
-            )}
-        </div>
+                    </Grid>
+                )}
+            </Grid>
+        </Grid>
     );
 }
