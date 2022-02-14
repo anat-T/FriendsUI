@@ -155,7 +155,7 @@ export default function DataTable({
                                             className={classes.approveButton}
                                             onClick={() => {
                                                 setId(getId(row));
-                                                onClickApprove(rowIndex);
+                                                onClickApprove(id);
                                             }}
                                         >
                                             <CheckIcon className={classes.icon} />

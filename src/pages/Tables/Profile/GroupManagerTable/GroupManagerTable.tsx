@@ -81,8 +81,15 @@ export default function GroupManagerTable() {
     return (
         <>
             {open && <MoreDetails open={open} setOpen={setOpen} selectedGroup={selectedGroup} />}
-            <DataTable rows={rows} headers={headers} type={TableTypeEnum.moreDetails} title="קבוצות בניהולי" warningType="User"
-            warning moreDetailsFunction={groupMoreDetails} />
+            <DataTable
+                rows={rows}
+                headers={headers}
+                type={TableTypeEnum.moreDetails}
+                title="קבוצות בניהולי"
+                warningType="User"
+                warning
+                moreDetailsFunction={groupMoreDetails}
+            />
         </>
     );
 }
