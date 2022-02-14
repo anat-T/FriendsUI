@@ -103,9 +103,7 @@ export default function DataTable({
     const [open, setOpen] = useState(false);
     const [id, setId] = useState('');
 
-    const onClickApprove = (index: number) => {
-        // console.log(rows[index] as JoinRequest);
-        // joinApi.approveJoinRequest(rows[index].id);
+    const onClickApprove = () => {
         setOpen(true);
     };
     const getId = (row: Object) => {
@@ -155,7 +153,7 @@ export default function DataTable({
                                             className={classes.approveButton}
                                             onClick={() => {
                                                 setId(getId(row));
-                                                onClickApprove(rowIndex);
+                                                onClickApprove();
                                             }}
                                         >
                                             <CheckIcon className={classes.icon} />
