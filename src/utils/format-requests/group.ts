@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 import i18next from 'i18next';
 import { ADGroup } from '../../interfaces/ADGroup';
+import { Group } from '../../interfaces/FormatedRequests/Group';
 import { User } from '../../interfaces/User';
 
 export const GroupTypeEnum = {
@@ -43,10 +44,10 @@ export function getHierarchyFromDisplayNameAndName(displayName: string, name: st
     return displayName ? displayName.replace(new RegExp(`/${name}$`), '') : '';
 }
 
-export function formatGroup(group: ADGroup) {
+export function formatGroup(group: ADGroup): Group {
     const newGroup = {
         id: group.sAMAccountName,
-        attendees: group.members ? group.members.length : 0,
+        friends: group.members ? group.members.length : 0,
         hierarchy: getHierarchyFromDisplayNameAndName(group.displayName, group.name),
         ...group,
     };

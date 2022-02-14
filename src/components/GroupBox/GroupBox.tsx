@@ -44,6 +44,12 @@ const useStyles = makeStyles((theme: Theme) => ({
         fontSize: '18px',
         paddingRight: '1%',
     },
+    detailsTypographyBold: {
+        color: '#707070',
+        fontSize: '18px',
+        paddingRight: '1%',
+        fontWeight: 'bold',
+    },
 }));
 
 type searchBarProps = {
@@ -83,13 +89,13 @@ export default function GroupBox({ groupName, groupManager, groupNumberOfPartici
                 <Typography className={classes.groupNameBox}>{groupName}</Typography>
                 <Grid item>
                     <Box display="flex" className={classes.detailsBox}>
-                        <Typography className={classes.detailsTypography}>{i18next.t('GroupBox.manager')}</Typography>
+                        <Typography className={classes.detailsTypographyBold}>{i18next.t('GroupBox.manager')}</Typography>
                         <Typography className={classes.detailsTypography}>{groupManager}</Typography>
                     </Box>
                 </Grid>
                 <Grid item>
                     <Box display="flex" className={classes.detailsBox}>
-                        <Typography className={classes.detailsTypography}>{i18next.t('GroupBox.numberOfParticipents')}</Typography>
+                        <Typography className={classes.detailsTypographyBold}>{i18next.t('GroupBox.numberOfParticipents')}</Typography>
                         <Typography className={classes.detailsTypography}>{groupNumberOfParticipents}</Typography>
                     </Box>
                 </Grid>

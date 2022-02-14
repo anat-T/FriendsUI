@@ -1,5 +1,4 @@
 export interface ADGroup {
-    _id: string;
     classification: string;
     displayName: string;
     sAMAccountName: string;
@@ -9,5 +8,5 @@ export interface ADGroup {
         displayName: string;
         sAMAccountName: string;
     };
-    members: [{ displayName: string; sAMAccountName: string }];
+    members: { displayName: string; sAMAccountName: string }[];
 }

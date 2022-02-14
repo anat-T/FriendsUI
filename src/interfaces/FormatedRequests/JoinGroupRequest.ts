@@ -14,5 +14,5 @@ export interface JoinGroupRequest {
         displayName: string;
         sAMAccountName: string;
     };
-    members: [{ displayName: string; sAMAccountName: string }];
+    members: { displayName: string; sAMAccountName: string }[];
 }

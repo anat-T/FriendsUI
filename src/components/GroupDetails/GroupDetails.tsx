@@ -28,17 +28,22 @@ const useStyles = makeStyles((theme: Theme) => ({
         fontSize: '22px',
         color: '#707070',
     },
+    typographyBold: {
+        fontSize: '22px',
+        color: '#707070',
+        fontWeight: 'bold',
+    },
     boldTypography: {
         fontWeight: 600,
         fontSize: '22px',
         color: '#707070',
-        width: '350px',
+        width: '315px',
         paddingTop: '7%',
     },
     dividedTypography: {
         fontSize: '22px',
         color: '#707070',
-        width: '350px',
+        width: '315px',
         paddingTop: '1%',
     },
     grid: {
@@ -56,8 +61,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     iconGrid: {
         direction: 'ltr',
-        paddingTop: '5%',
-        paddingLeft: '4%',
+        padding: '5% 0 3% 4%',
     },
 }));
 
@@ -110,11 +114,11 @@ export default function GroupDetails({ open, setOpen, groupName, groupManager, g
                         <Typography className={classes.title}>{groupName}</Typography>
                     </Grid>
                     <Grid item className={classes.grid}>
-                        <Typography className={classes.typography}>{i18next.t('GroupBox.manager')}</Typography>
+                        <Typography className={classes.typographyBold}>{i18next.t('GroupBox.manager')}</Typography>
                         <Typography className={classes.typography}>{groupManager}</Typography>
                     </Grid>
                     <Grid item className={classes.grid}>
-                        <Typography className={classes.typography}>{i18next.t('GroupBox.numberOfParticipents')}</Typography>
+                        <Typography className={classes.typographyBold}>{i18next.t('GroupBox.numberOfParticipents')}</Typography>
                         <Typography className={classes.typography}>{groupNumberOfParticipents}</Typography>
                     </Grid>
                     <Grid item className={classes.grid}>

@@ -48,6 +48,22 @@ export default {
         manager: 'מנהל:',
         numberOfParticipents: 'מס משתתפים:',
     },
+    MoreDetails: {
+        title: 'פרטים נוספים',
+        friends: 'מספר משתתפים:',
+        displayName: 'שם תצוגה:',
+        groupName: 'שם קבוצה:',
+        edit: 'עריכה',
+        save: 'שמירה',
+        manager: 'מנהל:',
+        addUsers: 'הוספת משתמשים',
+        search: 'חפש משתמשים להוספה',
+        members: 'משתתפים',
+    },
+    Status: {
+        approved: 'אושר',
+        waiting: 'בהמתנה',
+    },
     Warning: {
         title: 'שים לב!',
         subTitleUser: 'הנך עומד להוסיף משתמש לקבוצה, באחריותך לוודא כי:',

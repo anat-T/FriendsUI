@@ -5,7 +5,7 @@ export function formatCreateRequests(requests: any[]) {
         request.reqType = RequestTypeEnum.create;
         // eslint-disable-next-line no-param-reassign
         request = { ...request.creator, ...request.approver, ...request.group };
-        request.attendees = request.members.length;
+        request.friends = request.members ? request.member.length : 0;
         return request;
     });
 
