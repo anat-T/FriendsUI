@@ -63,6 +63,7 @@ export default {
     Status: {
         approved: 'אושר',
         waiting: 'בהמתנה',
+    },
     Warning: {
         title: 'שים לב!',
         subTitleUser: 'הנך עומד להוסיף משתמש לקבוצה, באחריותך לוודא כי:',
