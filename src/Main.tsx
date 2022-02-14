@@ -4,8 +4,6 @@ import { Theme } from '@material-ui/core';
 
 import SearchBar from './components/SearchBar/SearchBar';
 
-// const drawerWidth = 200;
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -19,16 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const Main = () => {
-    // const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const classes = useStyles();
-
-    // const handleDrawerOpen = () => {
-    //     setIsDrawerOpen(true);
-    // };
-
-    // const handleDrawerClose = () => {
-    //     setIsDrawerOpen(false);
-    // };
 
     return (
         <div className={classes.root}>

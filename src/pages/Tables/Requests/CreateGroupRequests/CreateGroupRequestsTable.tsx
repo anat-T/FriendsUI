@@ -94,6 +94,8 @@ export default function CreateGroupRequestsTable() {
             title="יצירת קבוצה"
             approveFunction={approveCreateRequest}
             declineFunction={declineCreateRequest}
+            warningType="Group"
+            warning
         />
     );
 }

@@ -59,5 +59,5 @@ export default function MyGroupsTable() {
         getGroups();
     }, []);
 
-    return <DataTable rows={rows} headers={headers} type={TableTypeEnum.groups} title="הקבוצות שלי" />;
+    return <DataTable rows={rows} headers={headers} type={TableTypeEnum.groups} title="הקבוצות שלי" warning={false} />;
 }

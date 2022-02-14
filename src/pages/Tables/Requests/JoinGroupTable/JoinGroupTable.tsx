@@ -108,6 +108,8 @@ export default function JoinGroupTable() {
             title="הצטרפות לקבוצה"
             approveFunction={approveJoinRequest}
             declineFunction={declineJoinRequest}
+            warningType="User"
+            warning
         />
     );
 }
