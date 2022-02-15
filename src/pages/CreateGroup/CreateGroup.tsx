@@ -70,7 +70,6 @@ const useStyles = makeStyles((theme: Theme) => ({
             backgroundColor: 'transparent',
         },
         minWidth: '100%',
-        width: '1000px',
     },
     gridRow: {
         width: '40%',
