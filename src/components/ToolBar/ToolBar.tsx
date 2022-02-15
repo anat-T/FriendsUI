@@ -43,8 +43,8 @@ export default function ToolBar() {
 
     return (
         <AppBar position="static">
-            <Container className={classes.container} maxWidth="xl">
-                <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            <Container className={classes.container}>
+                <Box sx={{ flexGrow: 1, display: { md: 'flex' } }}>
                     {toolBarOptions.map((option) => (
                         <Link to={option.route} key={option.name} className={classes.link}>
                             <option.icon className={classes.icon} />

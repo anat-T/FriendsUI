@@ -244,7 +244,7 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; select
                     <hr className={classes.hr} />
 
                     <Box className={classes.subTitle}>
-                        <Grid container direction="row" justifyContent="space-between">
+                        {/* <Grid container direction="row" justifyContent="space-between">
                             <Grid item className={classes.headerText}>
                                 <Grid container direction="row" justifyContent="flex-start">
                                     {i18next.t('MoreDetails.addUsers')}
@@ -269,7 +269,7 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; select
                             </Grid>
 
                             <hr className={classes.hr} />
-                        </Grid>
+                        </Grid> */}
                         <Grid container direction="column" spacing={2}>
                             <Grid item className={classes.headerText}>
                                 {i18next.t('MoreDetails.members')}

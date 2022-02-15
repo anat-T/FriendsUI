@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         justifyContent: 'center',
         padding: '3%',
         width: '100%',
+        alignItems: 'center',
     },
     header: {
         display: 'inline-flex',
@@ -46,7 +47,7 @@ export default function Profile() {
                 <PersonIcon className={classes.icon} />
                 <Typography className={classes.typography}>{i18next.t('profile.title')}</Typography>
             </div>
-            <Grid container className={classes.grid} spacing={10}>
+            <Grid container direction="row" className={classes.grid} spacing={10}>
                 {sections.map((section) => (
                     <Grid item>
                         <SectionButton title={section.title} src={section.src} route={section.route} />
