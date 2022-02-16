@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
@@ -8,11 +9,14 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import i18next from 'i18next';
-import { Box, FormGroup, Grid, InputAdornment, makeStyles, TextField, Theme } from '@material-ui/core';
+import { Box, FormGroup, Grid, InputAdornment, makeStyles, TextField, Theme, Chip, IconButton } from '@material-ui/core';
+import { Autocomplete } from '@material-ui/lab';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
+import AddIcon from '@material-ui/icons/Add';
+import debounce from '../../utils/debounce';
 import * as groupApi from '../../utils/api-routes/group';
 import { Group } from '../../interfaces/FormatedRequests/Group';
 
@@ -39,8 +43,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         color: '#707070',
         fontSize: '26px',
         fontWeight: 'bold',
-        // justifyContent: 'center',
-        // display: 'flex',
     },
     subTitle: {
         color: '#707070',
@@ -77,7 +79,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         },
     },
     addUser: {
-        height: '35px',
+        height: 'auto',
         borderRadius: '40px',
         backgroundColor: 'white',
         width: '450px',
@@ -103,9 +105,13 @@ const useStyles = makeStyles((theme: Theme) => ({
         padding: '5px 13px 5px 13px',
         boxShadow: '0px 1px 8px #00000029',
         '&:hover': {
-            backgroundColor: '#c0ebe5',
+            backgroundColor: '#E1F2FF',
         },
         marginTop: '5px',
+        backgroundColor: '#c0ebe5',
+        borderRadius: '2px',
+        color: '#707070',
+        width: '130px',
     },
     hr: {
         margin: '15px 0 20px 0',
@@ -115,7 +121,36 @@ const useStyles = makeStyles((theme: Theme) => ({
         borderColor: 'white',
         width: '100%',
     },
+    chip: {
+        backgroundColor: '#49A3E1',
+        paddingLeft: '10px',
+    },
+    iconButtonDisabled: {
+        padding: 0,
+    },
+    iconButtonEnabled: {
+        backgroundColor: '#49A3E1',
+        padding: 0,
+        '&:hover': {
+            backgroundColor: 'white',
+        },
+    },
+    iconEnabled: {
+        color: 'white',
+        '&:hover': {
+            color: '#49A3E1',
+        },
+    },
+    iconDisabled: {
+        color: '#49A3E1',
+    },
 }));
+
+const users = [
+    { displayName: 'Anataaaa', sAMAccountName: '123' },
+    { displayName: 'Sean', sAMAccountName: '12' },
+    { displayName: 'Itay', sAMAccountName: '1' },
+];
 
 export default function MoreDetails(props: { open: boolean; setOpen: any; selectedGroup: Group }) {
     const { open, setOpen, selectedGroup } = props;
@@ -126,6 +161,11 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; select
 
     const [displayName, setDisplayName] = useState(group.displayName);
     const [groupName, setGroupName] = useState(group.name);
+
+    // const [users, setUsers] = useState([] as any);
+    const [userPrefix, setUserPrefix] = useState('');
+
+    const [members, setMembers] = useState([] as string[]);
 
     const classes = useStyles();
 
@@ -157,6 +197,15 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; select
         setDisplayName(event.target.value);
     };
 
+    const userInputChange = (event: any, newInputValue: any) => {
+        setUserPrefix(newInputValue);
+    };
+
+    const handleMembersAdd = (event: any, newInputValue: any) => {
+        const newMembers = newInputValue.map((member: { sAMAccountName: any }) => member.sAMAccountName);
+        setMembers(newMembers);
+    };
+
     const removeMember = (member: { displayName?: string; sAMAccountName: any }) => {
         // groupApi.deleteGroupMember(group.sAMAccountName, [member.sAMAccountName]);
         // updateSelectedGroup();
@@ -167,6 +216,25 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; select
     const getGroupLength = () => {
         return group.members ? group.members.length : 0;
     };
+
+    const areThereMembersToAdd = (): boolean => {
+        return members.length > 0;
+    };
+
+    const addMembers = () => {
+        // groupApi.addGroupMembers(group.sAMAccountName, members);
+        // updateSelectedGroup();
+
+        console.log(members);
+    };
+
+    // useEffect(() => {
+    //     async function getUsers() {
+    //         const newUsers = await usersApi.searchUsersByName(userPrefix);
+    //         setUsers(newUsers);
+    //     }
+    //     getUsers();
+    // }, [userPrefix]);
 
     return (
         <Dialog
@@ -195,7 +263,7 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; select
                                 {i18next.t('MoreDetails.displayName')}
                             </Grid>
                             <Grid item className={classes.editField}>
-                                {edit === false ? (
+                                {!edit ? (
                                     group.displayName
                                 ) : (
                                     <TextField className={classes.textField} onChange={handleDisplayNameChange} value={displayName} />
@@ -244,7 +312,7 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; select
                     <hr className={classes.hr} />
 
                     <Box className={classes.subTitle}>
-                        {/* <Grid container direction="row" justifyContent="space-between">
+                        <Grid container direction="row" justifyContent="space-between">
                             <Grid item className={classes.headerText}>
                                 <Grid container direction="row" justifyContent="flex-start">
                                     {i18next.t('MoreDetails.addUsers')}
@@ -252,24 +320,68 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; select
                             </Grid>
                             <Grid item>
                                 <Grid container direction="row" justifyContent="flex-end">
-                                    <TextField
-                                        className={classes.addUser}
-                                        InputProps={{
-                                            disableUnderline: true,
-                                            endAdornment: (
-                                                <InputAdornment position="end">
-                                                    <SearchIcon fontSize="large" style={{ color: '#4287f5' }} />
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        placeholder={i18next.t('MoreDetails.search')}
-                                        onChange={handleGroupNameChange}
+                                    <Autocomplete
+                                        freeSolo
+                                        multiple
+                                        options={users}
+                                        getOptionLabel={(option: any) => option.displayName}
+                                        onChange={handleMembersAdd}
+                                        onInputChange={debounce(userInputChange, 450)}
+                                        renderTags={(value, getTagProps) =>
+                                            value.map((option, index) => (
+                                                <Chip classes={{ root: classes.chip }} label={option.displayName} {...getTagProps({ index })} />
+                                            ))
+                                        }
+                                        renderInput={(params) => (
+                                            <TextField
+                                                className={classes.addUser}
+                                                {...params}
+                                                InputProps={{
+                                                    ...params.InputProps,
+                                                    disableUnderline: true,
+                                                    // startAdornment: (
+                                                    // <InputAdornment position="end">
+                                                    //     <SearchIcon fontSize="large" style={{ color: '#49A3E1' }} />
+                                                    // </InputAdornment>
+                                                    // ),
+                                                    endAdornment: (
+                                                        <InputAdornment position="end">
+                                                            <IconButton
+                                                                disabled={!areThereMembersToAdd()}
+                                                                onClick={addMembers}
+                                                                className={
+                                                                    areThereMembersToAdd() ? classes.iconButtonEnabled : classes.iconButtonDisabled
+                                                                }
+                                                            >
+                                                                <AddIcon
+                                                                    fontSize="large"
+                                                                    className={areThereMembersToAdd() ? classes.iconEnabled : classes.iconDisabled}
+                                                                />
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                    ),
+                                                }}
+                                                label={i18next.t('MoreDetails.search')}
+                                                onChange={handleGroupNameChange}
+                                            />
+                                        )}
+                                        renderOption={(option) => (
+                                            <Box
+                                                style={{ width: '100%', overflowX: 'hidden' }}
+                                                display="flex"
+                                                justifyContent="space-between"
+                                                alignItems="center"
+                                            >
+                                                <Box flex={1}>{option.displayName}</Box>
+                                                <Box />
+                                            </Box>
+                                        )}
                                     />
                                 </Grid>
                             </Grid>
 
                             <hr className={classes.hr} />
-                        </Grid> */}
+                        </Grid>
                         <Grid container direction="column" spacing={2}>
                             <Grid item className={classes.headerText}>
                                 {i18next.t('MoreDetails.members')}
@@ -278,11 +390,7 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; select
                                 <Grid container direction="row" alignItems="flex-start" spacing={2}>
                                     {group.members.map((member) => (
                                         <Grid item>
-                                            <Button
-                                                className={classes.removeUser}
-                                                style={{ backgroundColor: '#E1F2FF', borderRadius: '2px', color: '#707070', width: '130px' }}
-                                                onClick={() => removeMember(member)}
-                                            >
+                                            <Button className={classes.removeUser} style={{}} onClick={() => removeMember(member)}>
                                                 {member.displayName}
                                                 <ClearIcon />
                                             </Button>
