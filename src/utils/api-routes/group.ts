@@ -4,7 +4,6 @@ import Axios from 'axios';
 import { baseURL } from '../../config';
 import { ADGroup } from '../../interfaces/ADGroup';
 import { Group } from '../../interfaces/FormatedRequests/Group';
-import { User } from '../../interfaces/User';
 import { formatGroup } from '../format-requests/group';
 /**
  * searchGroups - search groups (distribution and security)
@@ -131,11 +130,12 @@ export async function updateGroup(groupId: string, editedGroup: { groupId: strin
 }
 
 /**
- * addGroupMember - add group member
+ * addGroupMembers - add group member
  * @param {string} groupId - id of the group
  * @param {string[]} users - new members (sAMAccountName)
  * */
-export async function addGroupMember(groupId: string, users: string) {
+export async function addGroupMembers(groupId: string, users: string[]) {
+    // TODO CHECK IF WORKS INSIDE
     try {
         const res = await Axios.put(`${baseURL}/api/ad/groups/users`, {
             groupId,
@@ -153,7 +153,8 @@ export async function addGroupMember(groupId: string, users: string) {
  * @param {string} groupId - id of the group
  * @param {string[]} users - members to delete (sAMAccountName)
  * */
-export async function deleteGroupMember(groupId: string, users: User[]) {
+export async function deleteGroupMember(groupId: string, users: string[]) {
+    // TODO CHECK IF WORKS INSIDE
     try {
         const res = await Axios.delete(`${baseURL}/api/ad/groups/users`, {
             params: {

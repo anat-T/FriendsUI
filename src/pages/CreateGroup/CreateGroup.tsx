@@ -327,7 +327,7 @@ export default function CreateGroup() {
     //         setApprovers(newApprovers);
     //     }
     //     getApprovers();
-    // }, [userPrefix]);
+    // }, [approverPrefix]);
 
     return (
         <>
