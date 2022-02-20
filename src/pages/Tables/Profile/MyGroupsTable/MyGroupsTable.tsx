@@ -9,38 +9,38 @@ import { TableTypeEnum } from '../../../../utils/table';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
-const groups: Group[] = [
-    {
-        id: '1',
-        friends: 10,
-        hierarchy: 'hierarchy',
-        classification: 'סמצ',
-        displayName: '/מפקדת אסם/ענף חטיפים',
-        sAMAccountName: 'lala',
-        name: 'Meluhim@services.idf',
-        type: 'תפוצת מייל',
-        owner: {
-            displayName: 'Shay',
-            sAMAccountName: '123',
-        },
-        members: [{ displayName: 'Anat', sAMAccountName: '123' }],
-    },
-    {
-        id: '2',
-        friends: 14,
-        hierarchy: 'hierarchy',
-        classification: 'סמצ',
-        displayName: '/מפקדת אסם/ענף חטיפים',
-        sAMAccountName: 'la',
-        name: 'Meluhim@services.idf',
-        type: 'תפוצת מייל',
-        owner: {
-            displayName: 'Shay',
-            sAMAccountName: '123',
-        },
-        members: [{ displayName: 'Anat', sAMAccountName: '123' }],
-    },
-];
+// const groups: Group[] = [
+//     {
+//         id: '1',
+//         friends: 10,
+//         hierarchy: 'hierarchy',
+//         classification: 'סמצ',
+//         displayName: '/מפקדת אסם/ענף חטיפים',
+//         sAMAccountName: 'lala',
+//         name: 'Meluhim@services.idf',
+//         type: 'תפוצת מייל',
+//         owner: {
+//             displayName: 'Shay',
+//             sAMAccountName: '123',
+//         },
+//         members: [{ displayName: 'Anat', sAMAccountName: '123' }],
+//     },
+//     {
+//         id: '2',
+//         friends: 14,
+//         hierarchy: 'hierarchy',
+//         classification: 'סמצ',
+//         displayName: '/מפקדת אסם/ענף חטיפים',
+//         sAMAccountName: 'la',
+//         name: 'Meluhim@services.idf',
+//         type: 'תפוצת מייל',
+//         owner: {
+//             displayName: 'Shay',
+//             sAMAccountName: '123',
+//         },
+//         members: [{ displayName: 'Anat', sAMAccountName: '123' }],
+//     },
+// ];
 
 const headers = ['מספר משתתפים', 'סיווג', 'סוג', 'מנהל', 'שם קבוצה', 'שם תצוגה'];
 
@@ -50,8 +50,8 @@ export default function MyGroupsTable() {
     const [rows, setRows] = useState([] as any);
 
     const getGroups = async () => {
-        // const newGroups = await formatGroups(await groupsApi.getUserGroups());
-        const newGroups = await formatGroups(groups);
+        const newGroups = (await formatGroups(await groupsApi.getUserGroups())) || [];
+        // const newGroups = await formatGroups(groups);
         setRows(newGroups);
     };
 

@@ -10,42 +10,42 @@ import { TableTypeEnum } from '../../../../utils/table';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
-const requests: GroupManageRequest[] = [
-    {
-        _id: '1',
-        reqType: 'owner',
-        creator: 'Shay',
-        approver: 'Anat',
-        groupId: '1',
-        classification: 'סמצ',
-        displayName: '/מפקדת אסם/ענף חטיפים',
-        sAMAccountName: '?',
-        name: 'ענף חטיפים',
-        type: 'תפוצת מייל',
-        owner: {
-            displayName: 'רמד חטיפים',
-            sAMAccountName: '?',
-        },
-        members: [{ displayName: 'yoav', sAMAccountName: '?' }],
-    },
-    {
-        _id: '2',
-        reqType: 'owner',
-        creator: 'Shay',
-        approver: 'Anat',
-        groupId: '1',
-        classification: 'סמצ',
-        displayName: '/מפקדת אסם/ענף חטיפים',
-        sAMAccountName: '?',
-        name: 'ענף חטיפים',
-        type: 'תפוצת מייל',
-        owner: {
-            displayName: 'רמד חטיפים',
-            sAMAccountName: '?',
-        },
-        members: [{ displayName: 'yoav', sAMAccountName: '?' }],
-    },
-];
+// const requests: GroupManageRequest[] = [
+//     {
+//         _id: '1',
+//         reqType: 'owner',
+//         creator: 'Shay',
+//         approver: 'Anat',
+//         groupId: '1',
+//         classification: 'סמצ',
+//         displayName: '/מפקדת אסם/ענף חטיפים',
+//         sAMAccountName: '?',
+//         name: 'ענף חטיפים',
+//         type: 'תפוצת מייל',
+//         owner: {
+//             displayName: 'רמד חטיפים',
+//             sAMAccountName: '?',
+//         },
+//         members: [{ displayName: 'yoav', sAMAccountName: '?' }],
+//     },
+//     {
+//         _id: '2',
+//         reqType: 'owner',
+//         creator: 'Shay',
+//         approver: 'Anat',
+//         groupId: '1',
+//         classification: 'סמצ',
+//         displayName: '/מפקדת אסם/ענף חטיפים',
+//         sAMAccountName: '?',
+//         name: 'ענף חטיפים',
+//         type: 'תפוצת מייל',
+//         owner: {
+//             displayName: 'רמד חטיפים',
+//             sAMAccountName: '?',
+//         },
+//         members: [{ displayName: 'yoav', sAMAccountName: '?' }],
+//     },
+// ];
 
 // const rows = [
 //     {
@@ -78,8 +78,8 @@ export default function GroupManageRequestsTable() {
     const [rows, setRows] = useState([] as any);
 
     const getGroups = async () => {
-        // const newGroups = formatOwnerRequests(await ownerApi.getOwnerRequestByCreator());
-        const newGroups = await formatOwnerRequests(requests);
+        const newGroups = formatOwnerRequests(await ownerApi.getOwnerRequestByCreator()) || [];
+        // const newGroups = await formatOwnerRequests(requests);
         setRows(newGroups);
     };
 
@@ -88,13 +88,13 @@ export default function GroupManageRequestsTable() {
     }, []);
 
     const approveOwnerRequest = (id: string) => {
-        // ownerApi.approveOwnerRequest(id);
-        console.log('approveOwnerRequest');
+        ownerApi.approveOwnerRequest(id);
+        // console.log('approveOwnerRequest');
     };
 
     const declineOwnerRequest = (id: string) => {
-        // ownerApi.denyOwnerRequest(id);
-        console.log('declineOwnerRequest');
+        ownerApi.denyOwnerRequest(id);
+        // console.log('declineOwnerRequest');
     };
 
     return (

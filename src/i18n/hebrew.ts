@@ -86,4 +86,7 @@ export default {
         textAreaContent: 'מדוע אתה רוצה להצטרף לקבוצה זו? אנא פרט עבור מנהל הקבוצה',
         sendRequest: 'שליחת בקשה להצטרפות',
     },
+    noDetails: {
+        error: 'אין נתונים להצגה',
+    },
 };

@@ -164,52 +164,52 @@ const fields = [
     { title: 'גורם מאשר', text: 'חפש/י גורם מאשר ליצירת קבוצה' },
 ];
 
-const users = [
-    { displayName: 'Anataaaa', sAMAccountName: '123' },
-    { displayName: 'Sean', sAMAccountName: '12' },
-    { displayName: 'Itay', sAMAccountName: '1' },
-];
+// const users = [
+//     { displayName: 'Anataaaa', sAMAccountName: '123' },
+//     { displayName: 'Sean', sAMAccountName: '12' },
+//     { displayName: 'Itay', sAMAccountName: '1' },
+// ];
 
-const approvers = [
-    {
-        _id: '5e5688324203fc40043591aa',
-        phone: ['026666998'],
-        mobilePhone: ['0521234565'],
-        clearance: '0',
-        firstName: 'נייקי',
-        lastName: 'אדידס',
-        identityCard: '312571458',
-        entityType: 'digimon',
-        createdAt: '2020-02-26T15:01:06.870Z',
-        updatedAt: '2022-02-01T13:16:20.037Z',
-        fullName: 'נייקי אדידס',
-        displayName: 'es_name/going to something grate- נייקי אדידס',
-        directGroup: '61d37c49e4de0300121dee76',
-        hierarchy: 'es_name',
-        jobTitle: 'going to something grate',
-        mail: 't23458789@jello.com',
-        id: '5e5688324203fc40043591aa',
-    },
-    {
-        _id: '5e5688324203fc40043591aa',
-        phone: ['026666998'],
-        mobilePhone: ['0521234565'],
-        clearance: '0',
-        firstName: 'נייקי',
-        lastName: 'אדידס',
-        identityCard: '312571458',
-        entityType: 'digimon',
-        createdAt: '2020-02-26T15:01:06.870Z',
-        updatedAt: '2022-02-01T13:16:20.037Z',
-        fullName: 'נייקי אדידס',
-        displayName: 'המלך/של/המזרח/התיכון',
-        directGroup: '61d37c49e4de0300121dee76',
-        hierarchy: 'es_name',
-        jobTitle: 'going to something grate',
-        mail: 't23458789@jello.com',
-        id: '5e5688324203fc40043591aa',
-    },
-];
+// const approvers = [
+//     {
+//         _id: '5e5688324203fc40043591aa',
+//         phone: ['026666998'],
+//         mobilePhone: ['0521234565'],
+//         clearance: '0',
+//         firstName: 'נייקי',
+//         lastName: 'אדידס',
+//         identityCard: '312571458',
+//         entityType: 'digimon',
+//         createdAt: '2020-02-26T15:01:06.870Z',
+//         updatedAt: '2022-02-01T13:16:20.037Z',
+//         fullName: 'נייקי אדידס',
+//         displayName: 'es_name/going to something grate- נייקי אדידס',
+//         directGroup: '61d37c49e4de0300121dee76',
+//         hierarchy: 'es_name',
+//         jobTitle: 'going to something grate',
+//         mail: 't23458789@jello.com',
+//         id: '5e5688324203fc40043591aa',
+//     },
+//     {
+//         _id: '5e5688324203fc40043591aa',
+//         phone: ['026666998'],
+//         mobilePhone: ['0521234565'],
+//         clearance: '0',
+//         firstName: 'נייקי',
+//         lastName: 'אדידס',
+//         identityCard: '312571458',
+//         entityType: 'digimon',
+//         createdAt: '2020-02-26T15:01:06.870Z',
+//         updatedAt: '2022-02-01T13:16:20.037Z',
+//         fullName: 'נייקי אדידס',
+//         displayName: 'המלך/של/המזרח/התיכון',
+//         directGroup: '61d37c49e4de0300121dee76',
+//         hierarchy: 'es_name',
+//         jobTitle: 'going to something grate',
+//         mail: 't23458789@jello.com',
+//         id: '5e5688324203fc40043591aa',
+//     },
+// ];
 
 export default function CreateGroup() {
     const classes = useStyles();
@@ -225,8 +225,8 @@ export default function CreateGroup() {
 
     const [required, setRequired] = useState([] as boolean[]);
 
-    // const [users, setUsers] = useState([] as any);
-    // const [approvers, setApprovers] = useState([] as any);
+    const [users, setUsers] = useState([] as any);
+    const [approvers, setApprovers] = useState([] as any);
 
     const isNotNullOrUndefinedOrEmpty = (value: string) => {
         return value !== null && value !== undefined && value !== '' && value !== ' ';
@@ -279,55 +279,56 @@ export default function CreateGroup() {
     const handleApprover = (event: any, newInputValue: any) => {
         // const newApprover = newInputValue.map((member: { id: any }) => member.id);
         // setApprover(newApprover[0]);
+
         setApprover(newInputValue);
     };
 
     const sendCreateRequest = () => {
         const groupName = `${store.getState().user.displayName}/${displayName}`;
 
-        const request = {
-            creator: store.getState().user.id,
-            approver,
-            group: {
-                groupName,
-                hierarchy: store.getState().user.displayName,
-                displayName,
-                classification: classify,
-                owner: store.getState().user.id,
-                members,
-                type,
-            },
-        };
-
-        console.log(request);
-
-        // createApi.createCreateRequest(
+        // const request = {
+        //     creator: store.getState().user.id,
         //     approver,
-        //     groupName,
-        //     store.getState().user.displayName,
-        //     type,
-        //     displayName,
-        //     classify,
-        //     members,
-        //     store.getState().user.id,
-        // );
+        //     group: {
+        //         groupName,
+        //         hierarchy: store.getState().user.displayName,
+        //         displayName,
+        //         classification: classify,
+        //         owner: store.getState().user.id,
+        //         members,
+        //         type,
+        //     },
+        // };
+
+        // console.log(request);
+
+        createApi.createCreateRequest(
+            approver,
+            groupName,
+            store.getState().user.displayName,
+            type,
+            displayName,
+            classify,
+            members,
+            store.getState().user.id,
+        );
     };
 
-    // useEffect(() => {
-    //     async function getUsers() {
-    //         const newUsers = await usersApi.searchUsersByName(userPrefix);
-    //         setUsers(newUsers);
-    //     }
-    //     getUsers();
-    // }, [userPrefix]);
+    useEffect(() => {
+        async function getUsers() {
+            const newUsers = (await usersApi.searchUsersByName(userPrefix)) || [];
+            setUsers(newUsers);
+        }
+        getUsers();
+    }, [userPrefix]);
 
-    // useEffect(() => {
-    //     async function getApprovers() {
-    //         const newApprovers = await usersApi.searchApproverByName(type, approverPrefix);
-    //         setApprovers(newApprovers);
-    //     }
-    //     getApprovers();
-    // }, [approverPrefix]);
+    useEffect(() => {
+        async function getApprovers() {
+            const newApprovers = (await usersApi.searchApproverByName(type, approverPrefix)) || [];
+            setApprovers(newApprovers);
+        }
+        getApprovers();
+    }, [approverPrefix]);
 
     return (
         <>

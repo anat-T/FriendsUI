@@ -9,34 +9,34 @@ import { TableTypeEnum } from '../../../../utils/table';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
-const requests: CreateGroupRequest[] = [
-    {
-        _id: '1',
-        reqType: 'create',
-        creator: 'Shay',
-        approver: 'Anat',
-        groupName: 'ענף חטיפים',
-        hierarchy: '/מפקדת אסם/ענף חטיפים',
-        displayName: '/מפקדת אסם/ענף חטיפים',
-        classification: 'סמצ',
-        owner: 'רמד חטיפים',
-        members: ['yoav'],
-        type: 'תפוצת מייל',
-    },
-    {
-        _id: '2',
-        reqType: 'create',
-        creator: 'Shay',
-        approver: 'Anat',
-        groupName: 'ענף חטיפים',
-        hierarchy: '/מפקדת אסם/ענף חטיפים',
-        displayName: '/מפקדת אסם/ענף חטיפים',
-        classification: 'סמצ',
-        owner: 'רמד חטיפים',
-        members: ['yoav'],
-        type: 'תפוצת מייל',
-    },
-];
+// const requests: CreateGroupRequest[] = [
+//     {
+//         _id: '1',
+//         reqType: 'create',
+//         creator: 'Shay',
+//         approver: 'Anat',
+//         groupName: 'ענף חטיפים',
+//         hierarchy: '/מפקדת אסם/ענף חטיפים',
+//         displayName: '/מפקדת אסם/ענף חטיפים',
+//         classification: 'סמצ',
+//         owner: 'רמד חטיפים',
+//         members: ['yoav'],
+//         type: 'תפוצת מייל',
+//     },
+//     {
+//         _id: '2',
+//         reqType: 'create',
+//         creator: 'Shay',
+//         approver: 'Anat',
+//         groupName: 'ענף חטיפים',
+//         hierarchy: '/מפקדת אסם/ענף חטיפים',
+//         displayName: '/מפקדת אסם/ענף חטיפים',
+//         classification: 'סמצ',
+//         owner: 'רמד חטיפים',
+//         members: ['yoav'],
+//         type: 'תפוצת מייל',
+//     },
+// ];
 
 // const rows = [
 //     {
@@ -67,8 +67,8 @@ export default function CreateGroupRequestsTable() {
     const [rows, setRows] = useState([] as any[]);
 
     const getGroups = async () => {
-        // const newGroups = formatCreateRequests(await createApi.getCreateRequestByApprover());
-        const newGroups = await formatCreateRequests(requests);
+        const newGroups = (await formatCreateRequests(await createApi.getCreateRequestByApprover())) || [];
+        // const newGroups = await formatCreateRequests(requests);
         setRows(newGroups);
     };
 
@@ -77,13 +77,13 @@ export default function CreateGroupRequestsTable() {
     }, []);
 
     const approveCreateRequest = (id: string) => {
-        // createApi.approveCreateRequest(id);
-        console.log('approveCreateRequest');
+        createApi.approveCreateRequest(id);
+        // console.log('approveCreateRequest');
     };
 
     const declineCreateRequest = (id: string) => {
-        // createApi.denyCreateRequest(id);
-        console.log('declineCreateRequest');
+        createApi.denyCreateRequest(id);
+        // console.log('declineCreateRequest');
     };
 
     return (

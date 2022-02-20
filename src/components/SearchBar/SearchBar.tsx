@@ -3,7 +3,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box, Grid, IconButton, makeStyles, TextField, Theme, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-// eslint-disable-next-line import/no-unresolved
 import SearchIcon from '@material-ui/icons/Search';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import MailIcon from '@material-ui/icons/Mail';
@@ -108,7 +107,7 @@ type groupType = {
 export default function SearchBar() {
     const [searchValue, setSearchValue] = useState('');
     const [selectedGroups, setSelectedGroups] = useState([] as groupType[]);
-    // const [groups, setGroups] = useState([] as any);
+    const [groups, setGroups] = useState([] as any);
     const [groupPrefix, setGroupPrefix] = useState('');
     const [showResults, setShowResults] = useState(false);
 
@@ -122,23 +121,23 @@ export default function SearchBar() {
 
     const classes = useStyles();
 
-    const [groups, setGroups] = useState([
-        { name: 'מפקדת אסם / ענף חטיפים מדור/  משולחים / שיתוף סמצ', numberOfParticipents: '14', manager: 'רמד מלוחים', type: 'mail' },
-        { name: 'מפקדת אסם / ענף חטיפים / מדור מתוקים / שיתוף מתוקים כחול', numberOfParticipents: '10', manager: 'רמד מתוקים', type: 'mail' },
-    ]);
+    // const [groups, setGroups] = useState([
+    //     { name: 'מפקדת אסם / ענף חטיפים מדור/  משולחים / שיתוף סמצ', numberOfParticipents: '14', manager: 'רמד מלוחים', type: 'mail' },
+    //     { name: 'מפקדת אסם / ענף חטיפים / מדור מתוקים / שיתוף מתוקים כחול', numberOfParticipents: '10', manager: 'רמד מתוקים', type: 'mail' },
+    // ]);
 
     const onClickSearch = () => {
         setSelectedGroups(groups);
         setShowResults(true);
     };
 
-    // useEffect(() => {
-    //     async function getGroups() {
-    //         const newGroups = await groupsApi.searchGroups(groupPrefix);
-    //         setGroups(newGroups);
-    //     }
-    //     getGroups();
-    // }, [groupPrefix]);
+    useEffect(() => {
+        async function getGroups() {
+            const newGroups = (await groupsApi.searchGroups(groupPrefix)) || [];
+            setGroups(newGroups);
+        }
+        getGroups();
+    }, [groupPrefix]);
 
     useEffect(() => {
         if (searchValue === '') setShowResults(false);

@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -19,6 +19,7 @@ import AddIcon from '@material-ui/icons/Add';
 import debounce from '../../utils/debounce';
 import * as groupApi from '../../utils/api-routes/group';
 import { Group } from '../../interfaces/FormatedRequests/Group';
+import * as usersApi from '../../utils/api-routes/user';
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -146,11 +147,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-const users = [
-    { displayName: 'Anataaaa', sAMAccountName: '123' },
-    { displayName: 'Sean', sAMAccountName: '12' },
-    { displayName: 'Itay', sAMAccountName: '1' },
-];
+// const users = [
+//     { displayName: 'Anataaaa', sAMAccountName: '123' },
+//     { displayName: 'Sean', sAMAccountName: '12' },
+//     { displayName: 'Itay', sAMAccountName: '1' },
+// ];
 
 export default function MoreDetails(props: { open: boolean; setOpen: any; selectedGroup: Group }) {
     const { open, setOpen, selectedGroup } = props;
@@ -162,7 +163,7 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; select
     const [displayName, setDisplayName] = useState(group.displayName);
     const [groupName, setGroupName] = useState(group.name);
 
-    // const [users, setUsers] = useState([] as any);
+    const [users, setUsers] = useState([] as any);
     const [userPrefix, setUserPrefix] = useState('');
 
     const [members, setMembers] = useState([] as string[]);
@@ -184,9 +185,11 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; select
     const handleDoneEdit = () => {
         setEdit(false);
         const editedGroup = { groupId: group.sAMAccountName, displayName, name: groupName };
-        console.log(editedGroup);
-        // groupApi.updateGroup(group.sAMAccountName, editedGroup);
-        // updateSelectedGroup();
+
+        // console.log(editedGroup);
+
+        groupApi.updateGroup(group.sAMAccountName, editedGroup);
+        updateSelectedGroup();
     };
 
     const handleGroupNameChange = (event: { target: { value: React.SetStateAction<string> } }) => {
@@ -207,10 +210,10 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; select
     };
 
     const removeMember = (member: { displayName?: string; sAMAccountName: any }) => {
-        // groupApi.deleteGroupMember(group.sAMAccountName, [member.sAMAccountName]);
-        // updateSelectedGroup();
+        groupApi.deleteGroupMember(group.sAMAccountName, [member.sAMAccountName]);
+        updateSelectedGroup();
 
-        console.log(member);
+        // console.log(member);
     };
 
     const getGroupLength = () => {
@@ -222,19 +225,19 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; select
     };
 
     const addMembers = () => {
-        // groupApi.addGroupMembers(group.sAMAccountName, members);
-        // updateSelectedGroup();
+        groupApi.addGroupMembers(group.sAMAccountName, members);
+        updateSelectedGroup();
 
-        console.log(members);
+        // console.log(members);
     };
 
-    // useEffect(() => {
-    //     async function getUsers() {
-    //         const newUsers = await usersApi.searchUsersByName(userPrefix);
-    //         setUsers(newUsers);
-    //     }
-    //     getUsers();
-    // }, [userPrefix]);
+    useEffect(() => {
+        async function getUsers() {
+            const newUsers = await usersApi.searchUsersByName(userPrefix);
+            setUsers(newUsers);
+        }
+        getUsers();
+    }, [userPrefix]);
 
     return (
         <Dialog

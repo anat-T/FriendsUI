@@ -11,44 +11,44 @@ import { TableTypeEnum } from '../../../../utils/table';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
-const requests: JoinGroupRequest[] = [
-    {
-        _id: '3',
-        reqType: 'join',
-        creator: 'Shay',
-        approver: 'Anat',
-        groupId: '1',
-        joinReason: 'Nothing',
-        classification: 'סמצ',
-        displayName: '/מפקדת אסם/ענף חטיפים',
-        sAMAccountName: '?',
-        name: 'ענף חטיפים',
-        type: 'תפוצת מייל',
-        owner: {
-            displayName: 'רמד חטיפים',
-            sAMAccountName: '?',
-        },
-        members: [{ displayName: 'yoav', sAMAccountName: '?' }],
-    },
-    {
-        _id: '2',
-        reqType: 'join',
-        creator: 'Shay',
-        approver: 'Anat',
-        groupId: '1',
-        joinReason: 'Nothing',
-        classification: 'סמצ',
-        displayName: '/מפקדת אסם/ענף חטיפים',
-        sAMAccountName: '?',
-        name: 'ענף חטיפים',
-        type: 'תפוצת מייל',
-        owner: {
-            displayName: 'רמד חטיפים',
-            sAMAccountName: '?',
-        },
-        members: [{ displayName: 'yoav', sAMAccountName: '?' }],
-    },
-];
+// const requests: JoinGroupRequest[] = [
+//     {
+//         _id: '3',
+//         reqType: 'join',
+//         creator: 'Shay',
+//         approver: 'Anat',
+//         groupId: '1',
+//         joinReason: 'Nothing',
+//         classification: 'סמצ',
+//         displayName: '/מפקדת אסם/ענף חטיפים',
+//         sAMAccountName: '?',
+//         name: 'ענף חטיפים',
+//         type: 'תפוצת מייל',
+//         owner: {
+//             displayName: 'רמד חטיפים',
+//             sAMAccountName: '?',
+//         },
+//         members: [{ displayName: 'yoav', sAMAccountName: '?' }],
+//     },
+//     {
+//         _id: '2',
+//         reqType: 'join',
+//         creator: 'Shay',
+//         approver: 'Anat',
+//         groupId: '1',
+//         joinReason: 'Nothing',
+//         classification: 'סמצ',
+//         displayName: '/מפקדת אסם/ענף חטיפים',
+//         sAMAccountName: '?',
+//         name: 'ענף חטיפים',
+//         type: 'תפוצת מייל',
+//         owner: {
+//             displayName: 'רמד חטיפים',
+//             sAMAccountName: '?',
+//         },
+//         members: [{ displayName: 'yoav', sAMAccountName: '?' }],
+//     },
+// ];
 
 // const rows = [
 //     {
@@ -81,8 +81,8 @@ export default function JoinGroupTable() {
     const [rows, setRows] = useState([] as any);
 
     const getRequests = async () => {
-        // const newRequests = formatJoinRequests(await joinApi.getJoinRequestByApprover());
-        const newRequests = await formatJoinRequests(requests);
+        const newRequests = (await formatJoinRequests(await joinApi.getJoinRequestByApprover())) || [];
+        // const newRequests = await formatJoinRequests(requests);
         setRows(newRequests);
     };
 
@@ -91,13 +91,13 @@ export default function JoinGroupTable() {
     }, []);
 
     const approveJoinRequest = (id: string) => {
-        // joinApi.approveJoinRequest(id);
-        console.log('approveJoinRequest');
+        joinApi.approveJoinRequest(id);
+        // console.log('approveJoinRequest');
     };
 
     const declineJoinRequest = (id: string) => {
-        // joinApi.denyJoinRequest(id);
-        console.log('declineJoinRequest');
+        joinApi.denyJoinRequest(id);
+        // console.log('declineJoinRequest');
     };
 
     return (
