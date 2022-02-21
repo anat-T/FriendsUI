@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable @typescript-eslint/no-shadow */
-import Axios from 'axios';
+import axios from '../../axios';
 import store from '../../stores/store';
 import { baseURL } from '../../config';
 import { formatJoinRequests } from '../format-requests/join';
@@ -28,7 +28,7 @@ export async function createJoinRequest(groupId: string, approverId: string, joi
     }
 
     try {
-        const res = await Axios.post(`${baseURL}/api/join/request`, {
+        const res = await axios.post(`${baseURL}/api/join/request`, {
             groupId,
             creator: store.getState().user.id,
             joinReason,
@@ -48,7 +48,7 @@ export async function createJoinRequest(groupId: string, approverId: string, joi
  * */
 export async function getJoinRequestByCreator() {
     try {
-        const res = await Axios.get(`${baseURL}/api/join/requests/creator`);
+        const res = await axios.get(`${baseURL}/api/join/requests/creator`);
         const requestsDetail = res.data.requests ? await formatJoinRequests(res.data.requests) : [];
         return requestsDetail;
     } catch (error) {
@@ -62,7 +62,7 @@ export async function getJoinRequestByCreator() {
  * */
 export async function getJoinRequestByApprover(): Promise<JoinGroupRequest[]> {
     try {
-        const res = await Axios.get(`${baseURL}/api/join/requests/approver`);
+        const res = await axios.get(`${baseURL}/api/join/requests/approver`);
         const requestsDetail = res.data.requests ? await formatJoinRequests(res.data.requests) : [];
         await Promise.allSettled(
             requestsDetail.map(async (request, index) => {
@@ -83,7 +83,7 @@ export async function getJoinRequestByApprover(): Promise<JoinGroupRequest[]> {
  * */
 export async function denyJoinRequest(joinReqId: string) {
     try {
-        const res = await Axios.put(`${baseURL}/api/join/request/deny/${joinReqId}`);
+        const res = await axios.put(`${baseURL}/api/join/request/deny/${joinReqId}`);
         return res.data;
     } catch (error) {
         // store.dispatch('onError', error);
@@ -97,7 +97,7 @@ export async function denyJoinRequest(joinReqId: string) {
  * */
 export async function approveJoinRequest(joinReqId: string) {
     try {
-        const res = await Axios.put(`${baseURL}/api/join/request/approve/${joinReqId}`);
+        const res = await axios.put(`${baseURL}/api/join/request/approve/${joinReqId}`);
         return res.data;
     } catch (error) {
         // store.dispatch('onError', error);

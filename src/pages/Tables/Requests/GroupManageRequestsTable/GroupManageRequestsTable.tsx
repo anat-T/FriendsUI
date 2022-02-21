@@ -78,7 +78,7 @@ export default function GroupManageRequestsTable() {
     const [rows, setRows] = useState([] as any);
 
     const getGroups = async () => {
-        const newGroups = formatOwnerRequests(await ownerApi.getOwnerRequestByCreator()) || [];
+        const newGroups = (await formatOwnerRequests(await ownerApi.getOwnerRequestByCreator())) || [];
         // const newGroups = await formatOwnerRequests(requests);
         setRows(newGroups);
     };
@@ -89,12 +89,10 @@ export default function GroupManageRequestsTable() {
 
     const approveOwnerRequest = (id: string) => {
         ownerApi.approveOwnerRequest(id);
-        // console.log('approveOwnerRequest');
     };
 
     const declineOwnerRequest = (id: string) => {
         ownerApi.denyOwnerRequest(id);
-        // console.log('declineOwnerRequest');
     };
 
     return (

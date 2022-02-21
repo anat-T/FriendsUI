@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable indent */
-import Axios from 'axios';
+import axios from '../../axios';
 import store from '../../stores/store';
 import { baseURL } from '../../config';
 import { formatKartoffelUser, formatADUser } from '../format-requests/user';
@@ -11,9 +11,7 @@ import { formatKartoffelUser, formatADUser } from '../format-requests/user';
  */
 export async function getUserByKartoffelId(kartoffelId: string) {
     try {
-        console.log('before res');
-        const res = await Axios.get(`${baseURL}/api/users/kartoffel/${kartoffelId}`);
-        console.log('after res');
+        const res = await axios.get(`${baseURL}/api/users/kartoffel/${kartoffelId}`);
         const user = formatKartoffelUser(res.data);
         // store.commit('addUserToictionary', user);
         // console.log(user);
@@ -30,7 +28,7 @@ export async function getUserByKartoffelId(kartoffelId: string) {
  * */
 export async function getUserByDomainUser(domainUser: string) {
     try {
-        const res = await Axios.get(`${baseURL}/api/users/domainuser/${domainUser}`);
+        const res = await axios.get(`${baseURL}/api/users/domainuser/${domainUser}`);
         const user = formatKartoffelUser(res.data);
         // store.commit('addUserToictionary', user);
         return user;
@@ -46,7 +44,7 @@ export async function getUserByDomainUser(domainUser: string) {
  */
 export async function searchUsersByName(name: string) {
     try {
-        const res = await Axios.get(`${baseURL}/api/users`, {
+        const res = await axios.get(`${baseURL}/api/users`, {
             params: { partialName: name },
         });
         const users = res.data
@@ -67,7 +65,7 @@ export async function searchUsersByName(name: string) {
  * */
 export async function isApprover() {
     try {
-        const res = await Axios.get(`${baseURL}/api/users/approver`);
+        const res = await axios.get(`${baseURL}/api/users/approver`);
         return res.data;
     } catch (error) {
         // store.dispatch('onError', error);
@@ -80,7 +78,7 @@ export async function isApprover() {
  * */
 export async function isSuperUser() {
     try {
-        const res = await Axios.get(`${baseURL}/api/users/super`);
+        const res = await axios.get(`${baseURL}/api/users/super`);
         return res.data;
     } catch (error) {
         // store.dispatch('onError', error);
@@ -96,7 +94,7 @@ export async function searchApproverByName(groupType: string, name: string) {
     try {
         // return await searchUsersByName(name);
         // TODO: use this for real approvers
-        const res = await Axios.get(`${baseURL}/api/users/approvers/${groupType}`, {
+        const res = await axios.get(`${baseURL}/api/users/approvers/${groupType}`, {
             params: { partialName: name },
         });
         const users = res.data

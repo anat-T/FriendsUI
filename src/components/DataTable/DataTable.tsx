@@ -123,6 +123,7 @@ export default function DataTable({
     return (
         <>
             {warning && <Warning open={open} setOpen={setOpen} warningType={warningType} approveFunction={approveFunction} id={id} />}
+
             <Typography className={classes.title}>{title}</Typography>
             <TableContainer component={Paper} className={classes.table}>
                 <Table>
@@ -135,66 +136,65 @@ export default function DataTable({
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.length === 0 ? (
-                            <div className={classes.container}>
-                                <Typography className={classes.noDetails}>{i18next.t('noDetails.error')}</Typography>
-                            </div>
-                        ) : (
-                            rows.map((row) => (
-                                <TableRow key={getId(row)}>
-                                    {Object.values(row).map((cell, cellIndex) =>
-                                        cellIndex === 0 ? null : type === TableTypeEnum.status && cellIndex === STATUS_CELL ? (
-                                            <TableCell component="th" scope="row" classes={{ root: classes.tableCellStatus }}>
-                                                <Button
-                                                    disabled
-                                                    style={{
-                                                        backgroundColor: getColor(cell),
-                                                        borderRadius: '18px',
-                                                        color: 'black',
-                                                    }}
-                                                >
-                                                    {cell === WAITING ? i18next.t('Status.waiting') : i18next.t('Status.approved')}
-                                                </Button>
-                                            </TableCell>
-                                        ) : (
-                                            <TableCell component="th" scope="row" classes={{ root: classes.tableCell }}>
-                                                {cell}
-                                            </TableCell>
-                                        ),
-                                    )}
-                                    {type === TableTypeEnum.approveDecline ? (
-                                        <TableCell component="th" scope="row" classes={{ root: classes.tableCell }}>
-                                            <IconButton
-                                                className={classes.approveButton}
-                                                onClick={() => {
-                                                    setId(getId(row));
-                                                    onClickApprove();
-                                                }}
-                                            >
-                                                <CheckIcon className={classes.icon} />
-                                            </IconButton>
-                                            <IconButton
-                                                className={classes.declineButton}
-                                                onClick={() => (declineFunction ? declineFunction(getId(row)) : null)}
-                                            >
-                                                <ClearIcon />
-                                            </IconButton>
-                                        </TableCell>
-                                    ) : type === TableTypeEnum.moreDetails ? (
+                        {rows.map((row) => (
+                            <TableRow key={getId(row)}>
+                                {Object.values(row).map((cell, cellIndex) =>
+                                    cellIndex === 0 ? null : type === TableTypeEnum.status && cellIndex === STATUS_CELL ? (
                                         <TableCell component="th" scope="row" classes={{ root: classes.tableCellStatus }}>
                                             <Button
-                                                style={{ backgroundColor: getColor(), borderRadius: '18px', color: 'white' }}
-                                                onClick={() => (moreDetailsFunction ? moreDetailsFunction(getId(row)) : null)}
+                                                disabled
+                                                style={{
+                                                    backgroundColor: getColor(cell),
+                                                    borderRadius: '18px',
+                                                    color: 'black',
+                                                }}
                                             >
-                                                {i18next.t('MoreDetails.title')}
+                                                {cell === WAITING ? i18next.t('Status.waiting') : i18next.t('Status.approved')}
                                             </Button>
                                         </TableCell>
-                                    ) : null}
-                                </TableRow>
-                            ))
-                        )}
+                                    ) : (
+                                        <TableCell component="th" scope="row" classes={{ root: classes.tableCell }}>
+                                            {cell}
+                                        </TableCell>
+                                    ),
+                                )}
+                                {type === TableTypeEnum.approveDecline ? (
+                                    <TableCell component="th" scope="row" classes={{ root: classes.tableCell }}>
+                                        <IconButton
+                                            className={classes.approveButton}
+                                            onClick={() => {
+                                                setId(getId(row));
+                                                onClickApprove();
+                                            }}
+                                        >
+                                            <CheckIcon className={classes.icon} />
+                                        </IconButton>
+                                        <IconButton
+                                            className={classes.declineButton}
+                                            onClick={() => (declineFunction ? declineFunction(getId(row)) : null)}
+                                        >
+                                            <ClearIcon />
+                                        </IconButton>
+                                    </TableCell>
+                                ) : type === TableTypeEnum.moreDetails ? (
+                                    <TableCell component="th" scope="row" classes={{ root: classes.tableCellStatus }}>
+                                        <Button
+                                            style={{ backgroundColor: getColor(), borderRadius: '18px', color: 'white' }}
+                                            onClick={() => (moreDetailsFunction ? moreDetailsFunction(getId(row)) : null)}
+                                        >
+                                            {i18next.t('MoreDetails.title')}
+                                        </Button>
+                                    </TableCell>
+                                ) : null}
+                            </TableRow>
+                        ))}
                     </TableBody>
                 </Table>
+                {!rows.length && (
+                    <div className={classes.container}>
+                        <Typography className={classes.noDetails}>{i18next.t('noDetails.error')}</Typography>
+                    </div>
+                )}
             </TableContainer>
         </>
     );

@@ -92,12 +92,10 @@ export default function JoinGroupTable() {
 
     const approveJoinRequest = (id: string) => {
         joinApi.approveJoinRequest(id);
-        // console.log('approveJoinRequest');
     };
 
     const declineJoinRequest = (id: string) => {
         joinApi.denyJoinRequest(id);
-        // console.log('declineJoinRequest');
     };
 
     return (

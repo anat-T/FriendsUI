@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import axios from '../../axios';
 // eslint-disable-next-line import/no-unresolved
 import { baseURL } from '../../config';
 import { GroupManageRequest } from '../../interfaces/FormatedRequests/GroupManageRequest';
@@ -11,7 +11,7 @@ import { formatOwnerRequests } from '../format-requests/owner';
  * */
 export async function createOwnerRequest(groupId: string, ownerId: string) {
     try {
-        const res = await Axios.post(`${baseURL}/api/owner/request`, {
+        const res = await axios.post(`${baseURL}/api/owner/request`, {
             groupId,
             approver: ownerId,
         });
@@ -27,7 +27,7 @@ export async function createOwnerRequest(groupId: string, ownerId: string) {
  * */
 export async function getOwnerRequestByCreator(): Promise<GroupManageRequest[]> {
     try {
-        const res = await Axios.get(`${baseURL}/api/owner/requests/creator`);
+        const res = await axios.get(`${baseURL}/api/owner/requests/creator`);
         const requestsFormatted = res.data.requests ? await formatOwnerRequests(res.data.requests) : [];
         return requestsFormatted;
     } catch (error) {
@@ -41,7 +41,7 @@ export async function getOwnerRequestByCreator(): Promise<GroupManageRequest[]> 
  * */
 export async function getOwnerRequestByApprover(): Promise<GroupManageRequest[]> {
     try {
-        const res = await Axios.get(`${baseURL}/api/owner/requests/approver`);
+        const res = await axios.get(`${baseURL}/api/owner/requests/approver`);
         const requestsFormatted = res.data.requests ? await formatOwnerRequests(res.data.requests) : [];
         // const user = await getUserByKartoffelId(request.approver);
         // requestsFormatted.
@@ -58,7 +58,7 @@ export async function getOwnerRequestByApprover(): Promise<GroupManageRequest[]>
  * */
 export async function denyOwnerRequest(ownerReqId: string) {
     try {
-        const res = await Axios.put(`${baseURL}/api/owner/request/deny/${ownerReqId}`);
+        const res = await axios.put(`${baseURL}/api/owner/request/deny/${ownerReqId}`);
         return res.data;
     } catch (error) {
         // todo
@@ -72,7 +72,7 @@ export async function denyOwnerRequest(ownerReqId: string) {
  * */
 export async function approveOwnerRequest(ownerReqId: string) {
     try {
-        const res = await Axios.put(`${baseURL}/api/owner/request/approve/${ownerReqId}`);
+        const res = await axios.put(`${baseURL}/api/owner/request/approve/${ownerReqId}`);
         return res.data;
     } catch (error) {
         // todo

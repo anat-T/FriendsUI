@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import Axios from 'axios';
+import axios from '../../axios';
 // eslint-disable-next-line import/no-unresolved
 import { baseURL } from '../../config';
 import { ADGroup } from '../../interfaces/ADGroup';
@@ -11,12 +11,12 @@ import { formatGroup } from '../format-requests/group';
  * */
 export async function searchGroups(partialName: string) {
     const searchDistributionGroups = async () => {
-        const res = await Axios.get(`${baseURL}/api/ad/groups/distribution?partialName=${partialName}`);
+        const res = await axios.get(`${baseURL}/api/ad/groups/distribution?partialName=${partialName}`);
         return res.data;
     };
 
     const searchSecurityGroups = async () => {
-        const res = await Axios.get(`${baseURL}/api/ad/groups/security?partialName=${partialName}`);
+        const res = await axios.get(`${baseURL}/api/ad/groups/security?partialName=${partialName}`);
         return res.data;
     };
 
@@ -38,7 +38,7 @@ export async function searchGroups(partialName: string) {
  * */
 export async function getGroupById(id: string) {
     try {
-        const res = await Axios.get(`${baseURL}/api/ad/groups/${id}`);
+        const res = await axios.get(`${baseURL}/api/ad/groups/${id}`);
         let group = res.data;
         group = formatGroup(group);
         return group;
@@ -53,12 +53,10 @@ export async function getGroupById(id: string) {
  * */
 export async function getUserGroups(): Promise<Group[]> {
     try {
-        const res = await Axios.get(`${baseURL}/api/ad/groups/user`);
-        console.log('res', res);
+        const res = await axios.get(`${baseURL}/api/ad/groups/user`);
         const groups = res.data;
         groups.map((group: ADGroup) => formatGroup(group));
 
-        console.log('groups', groups);
         return groups;
     } catch (error) {
         // TODO: Handle error
@@ -73,7 +71,7 @@ export async function getUserGroups(): Promise<Group[]> {
  * */
 export async function updateGroupOwner(groupId: string, owner: string) {
     try {
-        const res = await Axios.put(`${baseURL}/api/ad/group`, { groupId, owner });
+        const res = await axios.put(`${baseURL}/api/ad/group`, { groupId, owner });
         return res.data;
     } catch (error) {
         // TODO: Handle error
@@ -88,7 +86,7 @@ export async function updateGroupOwner(groupId: string, owner: string) {
  * */
 export async function updateGroupDisplayName(groupId: string, displayName: string) {
     try {
-        const res = await Axios.put(`${baseURL}/api/ad/group`, {
+        const res = await axios.put(`${baseURL}/api/ad/group`, {
             groupId,
             displayName,
         });
@@ -106,7 +104,7 @@ export async function updateGroupDisplayName(groupId: string, displayName: strin
  * */
 export async function updateGroupName(groupId: string, name: string) {
     try {
-        const res = await Axios.put(`${baseURL}/api/ad/group`, { groupId, name });
+        const res = await axios.put(`${baseURL}/api/ad/group`, { groupId, name });
         return res.data;
     } catch (error) {
         // TODO: Handle error
@@ -121,7 +119,7 @@ export async function updateGroupName(groupId: string, name: string) {
  * */
 export async function updateGroup(groupId: string, editedGroup: { groupId: string; displayName: string; name: string }) {
     try {
-        const res = await Axios.put(`${baseURL}/api/ad/group/${groupId}`, editedGroup); // TODO I WRITED THAT
+        const res = await axios.put(`${baseURL}/api/ad/group/${groupId}`, editedGroup); // TODO I WRITED THAT
         return res.data;
     } catch (error) {
         // TODO: Handle error
@@ -137,7 +135,7 @@ export async function updateGroup(groupId: string, editedGroup: { groupId: strin
 export async function addGroupMembers(groupId: string, users: string[]) {
     // TODO CHECK IF WORKS INSIDE
     try {
-        const res = await Axios.put(`${baseURL}/api/ad/groups/users`, {
+        const res = await axios.put(`${baseURL}/api/ad/groups/users`, {
             groupId,
             users,
         });
@@ -156,7 +154,7 @@ export async function addGroupMembers(groupId: string, users: string[]) {
 export async function deleteGroupMember(groupId: string, users: string[]) {
     // TODO CHECK IF WORKS INSIDE
     try {
-        const res = await Axios.delete(`${baseURL}/api/ad/groups/users`, {
+        const res = await axios.delete(`${baseURL}/api/ad/groups/users`, {
             params: {
                 groupId,
                 users,
@@ -175,7 +173,7 @@ export async function deleteGroupMember(groupId: string, users: string[]) {
  * */
 export async function deleteGroup(groupId: string) {
     try {
-        const res = await Axios.delete(`${baseURL}/api/ad/group/${groupId}`);
+        const res = await axios.delete(`${baseURL}/api/ad/group/${groupId}`);
         return res.data;
     } catch (error) {
         // TODO: Handle error

@@ -62,6 +62,14 @@ const useStyles = makeStyles((theme: Theme) => ({
         right: 0,
         minWidth: '300px',
     },
+    hierarchyTextField: {
+        minHeight: '50px',
+        borderRadius: '40px',
+        backgroundColor: 'white',
+        width: '100%',
+        paddingRight: '20px',
+        minWidth: '300px',
+    },
     grid: {
         justifyContent: 'center',
         alignItems: 'center',
@@ -89,7 +97,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     buttons: {
         display: 'inline-flex',
         justifyContent: 'space-between',
-        width: '35%',
+        width: '41%',
         color: '#707070',
         minWidth: '300px',
     },
@@ -120,7 +128,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         color: 'white',
         fontWeight: 600,
         fontSize: '18px',
-        marginTop: '3em',
+        marginTop: '2em',
+        marginBottom: '1em',
         padding: '6px 50px',
         boxShadow: '0px 3px 15px #00000029',
         '&:hover': {
@@ -337,11 +346,11 @@ export default function CreateGroup() {
                 <Typography className={classes.typography}>יצירת קבוצה</Typography>
             </div>
             <Grid container className={classes.grid} direction="column" alignItems="center">
-                <Grid className={classes.gridRow}>
+                <Grid item className={classes.gridRow}>
                     <Typography className={classes.subTypography}>ההיררכיה שלי</Typography>
                     <TextField
                         disabled
-                        className={classes.textField}
+                        className={classes.hierarchyTextField}
                         InputProps={{ disableUnderline: true }}
                         label={store.getState().user.displayName}
                         // store.getState().user.hierarchy
@@ -392,7 +401,7 @@ export default function CreateGroup() {
                     </Grid>
                 </Grid>
 
-                <Grid className={classes.gridRow}>
+                <Grid item className={classes.gridRow}>
                     <Typography className={classes.subTypography}>{fields[0].title}</Typography>
                     <TextField
                         required
@@ -403,7 +412,7 @@ export default function CreateGroup() {
                     />
                 </Grid>
 
-                <Grid className={classes.gridRow}>
+                <Grid item className={classes.gridRow}>
                     <Typography className={classes.subTypography}>{fields[1].title}</Typography>
                     <Autocomplete
                         freeSolo
@@ -438,7 +447,7 @@ export default function CreateGroup() {
                     />
                 </Grid>
 
-                <Grid className={classes.gridRow}>
+                <Grid item className={classes.gridRow}>
                     <Typography className={classes.subTypography}>{fields[2].title}</Typography>
                     <Autocomplete
                         freeSolo

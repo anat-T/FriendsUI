@@ -186,8 +186,6 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; select
         setEdit(false);
         const editedGroup = { groupId: group.sAMAccountName, displayName, name: groupName };
 
-        // console.log(editedGroup);
-
         groupApi.updateGroup(group.sAMAccountName, editedGroup);
         updateSelectedGroup();
     };
@@ -212,8 +210,6 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; select
     const removeMember = (member: { displayName?: string; sAMAccountName: any }) => {
         groupApi.deleteGroupMember(group.sAMAccountName, [member.sAMAccountName]);
         updateSelectedGroup();
-
-        // console.log(member);
     };
 
     const getGroupLength = () => {
@@ -227,8 +223,6 @@ export default function MoreDetails(props: { open: boolean; setOpen: any; select
     const addMembers = () => {
         groupApi.addGroupMembers(group.sAMAccountName, members);
         updateSelectedGroup();
-
-        // console.log(members);
     };
 
     useEffect(() => {

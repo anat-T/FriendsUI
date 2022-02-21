@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable @typescript-eslint/no-shadow */
-import Axios from 'axios';
+import axios from '../../axios';
 import store from '../../stores/store';
 import { baseURL } from '../../config';
 import { formatCreateRequests } from '../format-requests/create';
@@ -41,7 +41,7 @@ export async function createCreateRequest(
                 owner,
             },
         };
-        const res = await Axios.post(`${baseURL}/api/create/request`, createRequest);
+        const res = await axios.post(`${baseURL}/api/create/request`, createRequest);
         return res.data;
     } catch (error) {
         // store.dispatch('onError', error);
@@ -55,7 +55,7 @@ export async function createCreateRequest(
  * */
 export async function getCreateRequestByCreator() {
     try {
-        const res = await Axios.get(`${baseURL}/api/create/requests/creator`);
+        const res = await axios.get(`${baseURL}/api/create/requests/creator`);
         const requestsFormatted = res.data.requests ? formatCreateRequests(res.data.requests) : [];
         await Promise.allSettled(
             requestsFormatted.map(async (request, index) => {
@@ -75,7 +75,7 @@ export async function getCreateRequestByCreator() {
  * */
 export async function getCreateRequestByApprover(): Promise<CreateGroupRequest[]> {
     try {
-        const res = await Axios.get(`${baseURL}/api/create/requests/approver`);
+        const res = await axios.get(`${baseURL}/api/create/requests/approver`);
         const requestsFormatted = res.data.requests ? formatCreateRequests(res.data.requests) : [];
         await Promise.allSettled(
             requestsFormatted.map(async (request, index) => {
@@ -96,7 +96,7 @@ export async function getCreateRequestByApprover(): Promise<CreateGroupRequest[]
  * */
 export async function denyCreateRequest(createReqId: string) {
     try {
-        const res = await Axios.put(`${baseURL}/api/create/request/deny/${createReqId}`);
+        const res = await axios.put(`${baseURL}/api/create/request/deny/${createReqId}`);
         return res.data;
     } catch (error) {
         // store.dispatch('onError', error);
@@ -110,7 +110,7 @@ export async function denyCreateRequest(createReqId: string) {
  * */
 export async function approveCreateRequest(createReqId: string) {
     try {
-        const res = await Axios.put(`${baseURL}/api/create/request/approve/${createReqId}`);
+        const res = await axios.put(`${baseURL}/api/create/request/approve/${createReqId}`);
         return res.data;
     } catch (error) {
         // store.dispatch('onError', error);
