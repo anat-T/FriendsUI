@@ -13,7 +13,6 @@ import SectionButton from '../../components/SectionButton/SectionButton';
 const useStyles = makeStyles((theme: Theme) => ({
     grid: {
         paddingTop: '3%',
-        width: '100%',
     },
     header: {
         display: 'inline-flex',
@@ -46,7 +45,7 @@ export default function Requests() {
                 <PersonIcon className={classes.icon} />
                 <Typography className={classes.typography}>{i18next.t('requests.title')}</Typography>
             </div>
-            <Grid container className={classes.grid} justifyContent="space-evenly" alignItems="center">
+            <Grid container className={classes.grid} justifyContent="center" alignItems="center" spacing={6}>
                 {sections.map((section) => (
                     <Grid item>
                         <SectionButton title={section.title} src={section.src} route={section.route} />
