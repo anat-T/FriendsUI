@@ -13,6 +13,8 @@ import SectionButton from '../../components/SectionButton/SectionButton';
 const useStyles = makeStyles((theme: Theme) => ({
     grid: {
         paddingTop: '3%',
+        width: '100%',
+        margin: 0,
     },
     header: {
         display: 'inline-flex',
