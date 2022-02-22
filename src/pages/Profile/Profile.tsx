@@ -44,7 +44,7 @@ export default function Profile() {
                 <PersonIcon className={classes.icon} />
                 <Typography className={classes.typography}>{i18next.t('profile.title')}</Typography>
             </div>
-            <Grid container direction="row" className={classes.grid} justifyContent="center" alignItems="center" spacing={6}>
+            <Grid container direction="row" className={classes.grid} justifyContent="center" alignItems="center" spacing={8}>
                 {sections.map((section) => (
                     <Grid item>
                         <SectionButton title={section.title} src={section.src} route={section.route} />

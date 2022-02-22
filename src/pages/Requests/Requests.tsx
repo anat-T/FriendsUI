@@ -45,7 +45,7 @@ export default function Requests() {
                 <PersonIcon className={classes.icon} />
                 <Typography className={classes.typography}>{i18next.t('requests.title')}</Typography>
             </div>
-            <Grid container className={classes.grid} justifyContent="center" alignItems="center" spacing={6}>
+            <Grid container className={classes.grid} justifyContent="center" alignItems="center" spacing={8}>
                 {sections.map((section) => (
                     <Grid item>
                         <SectionButton title={section.title} src={section.src} route={section.route} />
