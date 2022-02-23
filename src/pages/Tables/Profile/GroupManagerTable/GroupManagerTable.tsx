@@ -11,42 +11,42 @@ import { TableTypeEnum } from '../../../../utils/table';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
-// const groups: Group[] = [
-//     {
-//         id: '0',
-//         friends: 10,
-//         hierarchy: 'hierarchy',
-//         classification: 'סמצ',
-//         displayName: '/מפקדת אסם/ענף אנשים',
-//         sAMAccountName: 'lala',
-//         name: 'Anashim@services.idf',
-//         type: 'תפוצת מייל',
-//         owner: {
-//             displayName: 'Shay',
-//             sAMAccountName: '123',
-//         },
-//         members: [
-//             { displayName: 'Anat', sAMAccountName: '123' },
-//             { displayName: 'Sean', sAMAccountName: '12' },
-//             { displayName: 'Itay', sAMAccountName: '1' },
-//         ],
-//     },
-//     {
-//         id: '1',
-//         friends: 14,
-//         hierarchy: 'hierarchy',
-//         classification: 'סמצ',
-//         displayName: '/מפקדת אסם/ענף חטיפים',
-//         sAMAccountName: 'la',
-//         name: 'Meluhim@services.idf',
-//         type: 'תפוצת מייל',
-//         owner: {
-//             displayName: 'Shay',
-//             sAMAccountName: '123',
-//         },
-//         members: [{ displayName: 'Anat', sAMAccountName: '123' }],
-//     },
-// ];
+const groups: Group[] = [
+    {
+        id: '0',
+        friends: 10,
+        hierarchy: 'hierarchy',
+        classification: 'סמצ',
+        displayName: '/מפקדת אסם/ענף אנשים',
+        sAMAccountName: 'lala',
+        name: 'Anashim@services.idf',
+        type: 'תפוצת מייל',
+        owner: {
+            displayName: 'Shay',
+            sAMAccountName: '123',
+        },
+        members: [
+            { displayName: 'Anat', sAMAccountName: '123' },
+            { displayName: 'Sean', sAMAccountName: '12' },
+            { displayName: 'Itay', sAMAccountName: '1' },
+        ],
+    },
+    {
+        id: '1',
+        friends: 14,
+        hierarchy: 'hierarchy',
+        classification: 'סמצ',
+        displayName: '/מפקדת אסם/ענף חטיפים',
+        sAMAccountName: 'la',
+        name: 'Meluhim@services.idf',
+        type: 'תפוצת מייל',
+        owner: {
+            displayName: 'Shay',
+            sAMAccountName: '123',
+        },
+        members: [{ displayName: 'Anat', sAMAccountName: '123' }],
+    },
+];
 
 const headers = ['מספר משתתפים', 'סיווג', 'סוג', 'מנהל', 'שם קבוצה', 'שם תצוגה', ''];
 
@@ -57,7 +57,7 @@ export default function GroupManagerTable() {
 
     const [open, setOpen] = useState(false);
 
-    const [selectedGroup, setSelectedGroup] = useState({} as Group);
+    const [selectedGroup, setSelectedGroup] = useState(null as unknown as Group);
 
     const getGroups = async () => {
         const newGroups = (await formatGroups(await groupsApi.getUserGroups())) || [];
@@ -70,11 +70,11 @@ export default function GroupManagerTable() {
     }, []);
 
     const groupMoreDetails = async (id: string) => {
-        setOpen(true);
-
         setSelectedGroup(await groupsApi.getGroupById(id));
 
         // setSelectedGroup(groups[Number(id)]);
+
+        if (selectedGroup) setOpen(true);
     };
 
     return (
