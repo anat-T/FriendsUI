@@ -75,7 +75,8 @@ const App = () => {
     const { enqueueSnackbar } = useSnackbar();
 
     const initUser = async () => {
-        const user = AuthService.getUser();
+        const user = await AuthService.getUser();
+
         if (user) {
             dispatch({ type: UserActions.SET_USER, payload: user });
             setIsLoading(false);

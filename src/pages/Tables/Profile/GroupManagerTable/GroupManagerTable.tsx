@@ -5,48 +5,49 @@ import DataTable from '../../../../components/DataTable/DataTable';
 import MoreDetails from '../../../../components/MoreDetails/MoreDetails';
 import { ADGroup } from '../../../../interfaces/ADGroup';
 import { Group } from '../../../../interfaces/FormatedRequests/Group';
+import store from '../../../../stores/store';
 import * as groupsApi from '../../../../utils/api-routes/group';
 import { formatGroups } from '../../../../utils/format-rows/group';
 import { TableTypeEnum } from '../../../../utils/table';
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
-const groups: Group[] = [
-    {
-        id: '0',
-        friends: 10,
-        hierarchy: 'hierarchy',
-        classification: 'סמצ',
-        displayName: '/מפקדת אסם/ענף אנשים',
-        sAMAccountName: 'lala',
-        name: 'Anashim@services.idf',
-        type: 'תפוצת מייל',
-        owner: {
-            displayName: 'Shay',
-            sAMAccountName: '123',
-        },
-        members: [
-            { displayName: 'Anat', sAMAccountName: '123' },
-            { displayName: 'Sean', sAMAccountName: '12' },
-            { displayName: 'Itay', sAMAccountName: '1' },
-        ],
-    },
-    {
-        id: '1',
-        friends: 14,
-        hierarchy: 'hierarchy',
-        classification: 'סמצ',
-        displayName: '/מפקדת אסם/ענף חטיפים',
-        sAMAccountName: 'la',
-        name: 'Meluhim@services.idf',
-        type: 'תפוצת מייל',
-        owner: {
-            displayName: 'Shay',
-            sAMAccountName: '123',
-        },
-        members: [{ displayName: 'Anat', sAMAccountName: '123' }],
-    },
-];
+// const groups: Group[] = [
+//     {
+//         id: '0',
+//         friends: 10,
+//         hierarchy: 'hierarchy',
+//         classification: 'סמצ',
+//         displayName: '/מפקדת אסם/ענף אנשים',
+//         sAMAccountName: 'lala',
+//         name: 'Anashim@services.idf',
+//         type: 'תפוצת מייל',
+//         owner: {
+//             displayName: 'Shay',
+//             sAMAccountName: '123',
+//         },
+//         members: [
+//             { displayName: 'Anat', sAMAccountName: '123' },
+//             { displayName: 'Sean', sAMAccountName: '12' },
+//             { displayName: 'Itay', sAMAccountName: '1' },
+//         ],
+//     },
+//     {
+//         id: '1',
+//         friends: 14,
+//         hierarchy: 'hierarchy',
+//         classification: 'סמצ',
+//         displayName: '/מפקדת אסם/ענף חטיפים',
+//         sAMAccountName: 'la',
+//         name: 'Meluhim@services.idf',
+//         type: 'תפוצת מייל',
+//         owner: {
+//             displayName: 'Shay',
+//             sAMAccountName: '123',
+//         },
+//         members: [{ displayName: 'Anat', sAMAccountName: '123' }],
+//     },
+// ];
 
 const headers = ['מספר משתתפים', 'סיווג', 'סוג', 'מנהל', 'שם קבוצה', 'שם תצוגה', ''];
 

@@ -128,7 +128,8 @@ export default function SearchBar() {
 
     const onClickSearch = () => {
         setSelectedGroups(groups);
-        setShowResults(true);
+
+        if (selectedGroups.length) setShowResults(true);
     };
 
     useEffect(() => {
