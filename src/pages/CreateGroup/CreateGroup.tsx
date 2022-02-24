@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         justifyContent: 'center',
         alignItems: 'center',
         '& .MuiInputBase-input': {
-            fontSize: '18px',
+            // fontSize: '18px',
             backgroundColor: 'transparent',
         },
         minWidth: '100%',
@@ -409,6 +409,7 @@ export default function CreateGroup() {
                         InputProps={{ disableUnderline: true }}
                         label={fields[0].text}
                         onChange={displayNameInputChange}
+                        style={{ paddingRight: '50px' }}
                     />
                 </Grid>
 
