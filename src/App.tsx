@@ -105,7 +105,7 @@ const App = () => {
 
     useEffect(() => {
         initUser();
-        initConfig();
+        // initConfig();
         ShouldShowFirstTimeDialogue();
     }, []);
 

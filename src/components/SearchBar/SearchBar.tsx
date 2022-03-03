@@ -132,6 +132,12 @@ export default function SearchBar() {
         if (selectedGroups.length) setShowResults(true);
     };
 
+    const pressEnter = (e: { key: string }) => {
+        if (e.key === 'Enter') {
+            onClickSearch();
+        }
+    };
+
     useEffect(() => {
         async function getGroups() {
             const newGroups = (await groupsApi.searchGroups(groupPrefix)) || [];
@@ -156,6 +162,7 @@ export default function SearchBar() {
                             filterOptions={(x) => x}
                             onChange={setPrefix}
                             onInputChange={debounce(inputChange, 450)}
+                            onKeyPress={pressEnter}
                             renderInput={(params) => (
                                 <TextField
                                     // inputRef={searchedValue}
